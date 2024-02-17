@@ -1,0 +1,37 @@
+.online-user {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: grab;
+    gap: 7px;
+}
+
+.online-user .profile-img {
+    width: 4rem;
+    height: 4rem;
+}
+
+.online-user span {
+    font-size: 11px;
+    line-height: 16px;
+    color: var(--text);
+}
+
+.dot {
+    z-index: 5;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background-color: rgb(11, 254, 2);
+    border-radius: 50%;
+    right: 7px;
+    bottom: 5px;
+    border: 2px solid white;
+}
+
+.center {
+    align-items: center;
+}
