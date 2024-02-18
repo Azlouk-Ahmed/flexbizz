@@ -4,6 +4,7 @@ import { RiArrowDropRightFill } from "react-icons/ri";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { CiFileOn } from "react-icons/ci";
 import Modal from 'react-modal';
+import { MdOutlineCancel } from "react-icons/md";
 
 function MessageComponent({ message }) {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
@@ -67,12 +68,12 @@ function MessageComponent({ message }) {
           <Modal className="modal" isOpen={modalIsOpen}
                   onRequestClose={closeModal}
                   contentLabel={message.file} >
-            <button onClick={closeModal}>Close</button>
             <img
                 className="display-image" onClick={openModal}
                 src={`http://localhost:5000/uploads/${message.file}`}
                 alt={message.file}
               />
+            <MdOutlineCancel onClick={closeModal} className="close-modal" />
           </Modal>
           <div className="date-sent">
             {formatDistanceToNow(new Date(message.createdAt), {

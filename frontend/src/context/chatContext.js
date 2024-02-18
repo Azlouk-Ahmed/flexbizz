@@ -27,7 +27,7 @@ export const chatsReducer = (state, action) => {
       return {
         chats: null,
         messages: null,
-        isTyping: false, 
+        isTyping: false,
       };
     case "DEL_CHAT":
       return {
@@ -38,6 +38,18 @@ export const chatsReducer = (state, action) => {
       return {
         ...state,
         isTyping: action.payload,
+      };
+    case "CHAT_TO_TOP": // New action type
+      const { id } = action.payload;
+      const updatedChats = state.chats.slice(); // Create a copy of chats array
+      const chatIndex = updatedChats.findIndex((chat) => chat._id === id); // Find index of chat with given ID
+      if (chatIndex !== -1) {
+        const chatToMove = updatedChats.splice(chatIndex, 1)[0]; // Remove chat from its current position
+        updatedChats.unshift(chatToMove); // Add chat to the beginning of the array
+      }
+      return {
+        ...state,
+        chats: updatedChats,
       };
     default:
       return state;

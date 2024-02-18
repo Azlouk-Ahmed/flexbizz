@@ -18,7 +18,6 @@ googleAuthRouter.get('/logout', (req, res) => {
     res.send('logging out');
 });
 
-// auth with google+
 googleAuthRouter.get('/google', passport.authenticate("google",{
     scope : ["profile"]
 }));

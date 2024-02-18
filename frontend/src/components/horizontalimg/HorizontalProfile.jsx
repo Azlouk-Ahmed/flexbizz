@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./horizontal.css";
 
-function HorizontalProfile({ user }) {
+function HorizontalProfile({ user, onlineusers }) {
+  console.log(onlineusers);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function HorizontalProfile({ user }) {
         <img src={userData ? userData.img : require("../../img/defaultuser.png")} alt="User Avatar" />
         <div className='user-info'>
           <p>{userData ? userData.name+" "+userData.familyName : "Loading..."}</p>
-          <p>active now</p>
+          {onlineusers?.some(item => item.userId === user)&&<p>active now</p>}
         </div>
       </div>
     </div>

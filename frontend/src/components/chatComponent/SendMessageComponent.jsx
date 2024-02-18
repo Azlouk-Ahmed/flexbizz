@@ -27,7 +27,9 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
             const formData = new FormData();
             formData.append('text', messageText);
             formData.append('chatId', chatId);
-            formData.append('file', selectedFile); // Ensure the file is correctly appende
+            if(selectedFile) {
+                formData.append('_file', selectedFile); // Ensure the file is correctly appende
+            }
             setSendMessage({
                 text: messageText,
                 file: selectedFile ? selectedFile.name : '', // If selectedFile exists, use its name, otherwise use an empty string
@@ -36,7 +38,9 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
                 senderId: auth?.user._id,
                 createdAt: formattedDate
             });
-            formData.append('file', selectedFile?.name); // Ensure the file is correctly appende
+            if(selectedFile){
+                formData.append('file', selectedFile?.name); // Ensure the file is correctly appende
+            }
             try {
                 const response = await axios.post(
                     `http://localhost:5000/message/`,
@@ -51,6 +55,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
                 dispatch({ type: "CREATE_MESSAGE", payload: response.data });
                 setMessageText("");
                 setSelectedFile(null);
+                dispatch({ type: "CHAT_TO_TOP", payload: { id: chatId } });
             } catch (error) {
                 console.error('Error sending message:', error);
             }

@@ -118,7 +118,7 @@ function Chat() {
                     chats.map(chat => {
                         return(
                             <div onClick={()=>setSelectedChat(chat)}>
-                                <ChatComponent  chat={chat} />
+                                <ChatComponent onlineusers={onlineusers}  chat={chat} />
                             </div>
                         )
                     }) :
@@ -127,7 +127,7 @@ function Chat() {
             </div>
             </div>
             <div className="message-box">
-                {selectedChat &&<MessagesComponent setSendMessage={setSendMessage}  chat={selectedChat} receivedMessage={receivedMessage} />}
+                {selectedChat &&<MessagesComponent setSendMessage={setSendMessage}  chat={selectedChat} onlineusers={onlineusers} receivedMessage={receivedMessage} />}
                 {!selectedChat && <div className='select-chat'>please select a chat</div>}
             </div>
         </div>

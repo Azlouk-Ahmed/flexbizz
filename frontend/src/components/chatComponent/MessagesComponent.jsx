@@ -6,8 +6,9 @@ import MessageComponent from "./MessageComponent";
 import Loading from "../loading/Loading";
 import axios from "axios";
 import SendMessageComponent from "./SendMessageComponent";
+import Typing from "../typing/Typing";
 
-function MessagesComponent({ chat, setSendMessage }) {
+function MessagesComponent({ chat, setSendMessage, onlineusers }) {
   const { auth } = useAuthContext();
   const { messages, dispatch, isTyping } = useChatsContext();
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,7 @@ function MessagesComponent({ chat, setSendMessage }) {
   return (
     <>
       <div className="upper-info">
-        <HorizontalProfile user={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]} />
+        <HorizontalProfile user={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]} onlineusers={onlineusers} />
         <hr />
       </div>
       <div className="messages-container">
@@ -58,7 +59,7 @@ function MessagesComponent({ chat, setSendMessage }) {
         {loading && <Loading />}
       </div>
       <div className="lower-info">
-        {isTyping && <div className="typing ...">typing...</div>}
+        {isTyping && <Typing />}
         <SendMessageComponent
           chatId={chat._id}
           receiver={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]}

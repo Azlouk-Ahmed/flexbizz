@@ -5,21 +5,19 @@ const multer = require('multer');
 
 const MessageRouter = express.Router();
 
-// Set up multer for file uploads
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads'); // Destination folder for file uploads
+        cb(null, './uploads'); 
     },
     filename: function(req, file, cb) {
-        cb(null,file.originalname); // Unique filename
+        cb(null,file.originalname); 
     }
 });
 const upload = multer({ storage: storage });
 
-// Route for handling file uploads along with other message data
-MessageRouter.post('/', requireAuth, upload.single('file'), addMessage);
 
-// Route for getting messages
+MessageRouter.post('/', requireAuth, upload.single('_file'), addMessage);
+
 MessageRouter.get('/:chatId', requireAuth, getMessages);
 
 module.exports = MessageRouter;

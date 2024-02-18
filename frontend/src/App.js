@@ -34,7 +34,7 @@ function App() {
           console.log(err);
         });
     };
-    if(localStorage.length>0){
+    if(localStorage.getItem("auth")){
       dispatch({type: "LOGIN",payload: JSON.parse(localStorage.getItem("auth"))})
     } else {
       getUser();
