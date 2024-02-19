@@ -12,7 +12,6 @@ function MessageComponent({ message }) {
   function closeModal() { setModalIsOpen(false); }
   const { auth } = useAuthContext();
 
-  // Function to check if a file extension indicates an image
   const isImageFile = (fileName) => {
     const imageExtensions = [
       ".jpg",

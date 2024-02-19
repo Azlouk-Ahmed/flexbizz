@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: var(--light-bg);
     height: 4rem;
     position: fixed;
     top: 0;
@@ -130,19 +130,20 @@ ul li {
 
 .show {
     opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 .profile-menu ul {
     position: absolute;
     top: 3rem;
-    background-color: white;
+    background-color: var(--light-bg);
     box-shadow: var(--shadow);
     padding: 1rem 2rem;
     width: 20rem;
     right: -2rem;
     transition: 0.5s;
     opacity: 0;
-
+    transform: translateY(-200%);
 }
 
 .profile-window {
@@ -178,4 +179,15 @@ ul li {
 .profile-window .user-info span:nth-child(2) {
     font-size: 10px;
     color: var(--text-color);
+}
+
+.logout {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    gap: 5px;
+    font-weight: bold;
+    color: var(--error);
 }

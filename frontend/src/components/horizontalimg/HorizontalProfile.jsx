@@ -3,7 +3,6 @@ import axios from 'axios';
 import "./horizontal.css";
 
 function HorizontalProfile({ user, onlineusers }) {
-  console.log(onlineusers);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {

@@ -13,7 +13,6 @@ function ChatComponent({chat, onlineusers}) {
   return (
     <div className='single-chat'>
         <HorizontalProfile onlineusers={onlineusers} user={userID} />
-        {isTyping && <Typing/>}
     </div>
   )
 }

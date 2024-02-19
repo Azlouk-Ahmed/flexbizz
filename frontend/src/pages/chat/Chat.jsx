@@ -10,6 +10,7 @@ import ChatComponent from '../../components/chatComponent/ChatComponent';
 
 import MessagesComponent from '../../components/chatComponent/MessagesComponent';
 import {io} from "socket.io-client";
+import Loading from '../../components/loading/Loading';
 
 
 function Chat() {
@@ -18,6 +19,7 @@ function Chat() {
     const { auth } = useAuthContext();
     const [selectedChat, setSelectedChat] = useState(null);
     const [onlineusers, setOnlineUsers] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [sendMessage, setSendMessage] = useState(null);
     const [typing, setIsTyping] = useState(false);
     const [receivedMessage, setReceivedMessage] = useState(null);
@@ -25,7 +27,8 @@ function Chat() {
         socket.current = io("ws://localhost:8800");
         socket.current.emit("new-user-add", auth?.user._id);
         socket.current.on("get-users", (users) => {
-          setOnlineUsers(users);
+            const filteredUsers = users.filter(user => user.userId !== auth?.user._id);
+            setOnlineUsers(filteredUsers);
         });
       }, [auth]);
     
@@ -88,6 +91,25 @@ function Chat() {
         }
     }, [auth, dispatch]);
 
+    const createChat =async (userId) => {
+        if(auth)
+        {try {
+            setLoading(true);
+            const response = await axios.post(`http://localhost:5000/chat/${userId}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${auth.token}`
+                }
+            });
+            if (response.status === 200) {
+                dispatch({ type: 'CREATE_CHAT', payload: response.data });
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error('Error fetching chats:', error);
+            setLoading(false);
+        }}
+    }
+
     return (
         <div className="chat">
 
@@ -103,16 +125,16 @@ function Chat() {
                         {
                             (onlineusers)?.map((user)=>{
                                 return (
-                                    <SwiperSlide className='center'>
+                                    <SwiperSlide onClick={()=>createChat(user.userId)} className='center'>
                                         <OnlineUsers userId={user.userId} key={user.userId} />
                                     </SwiperSlide>
                                 )
-                            })
+                            })  
                         }
                 </Swiper>
             </div>
             <hr />
-            <div className="chats">
+            {!loading &&<div className="chats">
                 {
                     chats !== null ?
                     chats.map(chat => {
@@ -124,7 +146,8 @@ function Chat() {
                     }) :
                     <div>loading</div>
                 }
-            </div>
+            </div>}
+            {loading &&<Loading />}
             </div>
             <div className="message-box">
                 {selectedChat &&<MessagesComponent setSendMessage={setSendMessage}  chat={selectedChat} onlineusers={onlineusers} receivedMessage={receivedMessage} />}

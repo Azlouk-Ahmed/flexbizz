@@ -1,3 +1,18 @@
 .App {
     padding: 5rem 10rem 5px
 }
+
+.error {
+    border-radius: 7px;
+    background: #ff8484;
+    padding: 1rem 1rem;
+    color: white;
+    margin-top: 21px;
+}
+
+.success {
+    margin-top: 21px;
+    border-radius: 7px;
+    background: var(--success);
+    padding: 1rem 1rem;
+}

@@ -10,6 +10,7 @@ const passportSetup  = require("./config/passport-setup");
 const chatRouter = require("./routes/chatRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const userRouter = require("./routes/userRoutes");
+const portfolioRouter = require("./routes/portfolioRoutes");
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -29,6 +30,7 @@ app.use('/auth', googleAuthRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
 app.use('/message', messageRouter);
+app.use('/portfolio', portfolioRouter);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {

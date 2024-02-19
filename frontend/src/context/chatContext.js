@@ -21,6 +21,7 @@ export const chatsReducer = (state, action) => {
       };
     case "CREATE_CHAT":
       return {
+        ...state,
         chats: [action.payload, ...state.chats],
       };
     case "LOGOUT":

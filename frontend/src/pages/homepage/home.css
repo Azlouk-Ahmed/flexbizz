@@ -1,0 +1,5 @@
+.home--page {
+    display: grid;
+    grid-template-columns: 16rem auto 15rem;
+    gap: 1rem;
+}

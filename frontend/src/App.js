@@ -27,8 +27,8 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-          localStorage.setItem("auth",JSON.stringify(resObject.auth));
           dispatch({type: "LOGIN",payload: resObject.auth})
+          localStorage.setItem("auth",JSON.stringify(resObject.auth));
         })
         .catch((err) => {
           console.log(err);

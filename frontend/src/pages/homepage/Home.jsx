@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import "./home.css"
+import PortfolioComponent from "../../components/portfolio/PortfolioComponent";
+import Allusers from "../../components/getallusers/Allusers";
 
-function Home({user}) {
+function Home({ user }) {
+
   return (
-    <div>
-      welcome to home page {user.name}
-    <img src={user.img} alt="" />
+    <div className="home--page">
+      <PortfolioComponent />
+      <div className="timeline">
+        timeline
+      </div>
+      <Allusers />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

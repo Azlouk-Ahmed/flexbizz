@@ -3,9 +3,22 @@ import "./navbar.css"
 import { Link } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 import { TbMessageCircle } from "react-icons/tb";
+import { IoLogOutOutline } from "react-icons/io5";
+import axios from 'axios';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function Navbar({user}) {
     const [opened, setOpened] = useState(false);
+    const {dispatch} = useAuthContext();
+    const logout = () => {
+        axios.get("http://localhost:5000/auth/logout")
+        .then((response)=>{
+            console.log("logged out")
+            localStorage.removeItem("auth");
+            dispatch({type:"LOGOUT"})
+        })
+        .catch((error)=>console.log("error", error));
+    }
   return (
     <div className="nav-bar-container">
     <div className='logocontainer'>
@@ -49,9 +62,7 @@ function Navbar({user}) {
                             <hr />
                         </div>
                     </li>
-                    <li><Link>link</Link></li>
-                    <li><Link>link</Link></li>
-                    <li><Link>link</Link></li>
+                    <li className='logout' onClick={logout}> <IoLogOutOutline /> Log out</li>
                 </ul>
             </div>
         )}

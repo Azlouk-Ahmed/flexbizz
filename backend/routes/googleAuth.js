@@ -7,19 +7,20 @@ const googleAuthRouter = express.Router();
 
 googleAuthRouter.get("/login/success", getUserFromReq);
   
-  googleAuthRouter.get("/login/failed", (req, res) => {
-    res.status(401).json({
-      success: false,
-      message: "failure",
-    });
+googleAuthRouter.get("/login/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    message: "failure",
   });
+});
 
 googleAuthRouter.get('/logout', (req, res) => {
-    res.send('logging out');
+  req.logout();
+  res.status(200).json({"mssg":"logged out"})
 });
 
 googleAuthRouter.get('/google', passport.authenticate("google",{
-    scope : ["profile"]
+    scope : ["profile", "email"]
 }));
 
 googleAuthRouter.get("/user",(req, res)=> {
