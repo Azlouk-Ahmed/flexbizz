@@ -11,6 +11,8 @@ const chatRouter = require("./routes/chatRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const userRouter = require("./routes/userRoutes");
 const portfolioRouter = require("./routes/portfolioRoutes");
+const announcementRouter = require("./routes/announcementRoutes");
+const commentRouter = require("./routes/commentsRoutes");
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -31,6 +33,8 @@ app.use('/user', userRouter);
 app.use('/chat', chatRouter);
 app.use('/message', messageRouter);
 app.use('/portfolio', portfolioRouter);
+app.use('/announcement', announcementRouter);
+app.use('/comment', commentRouter);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {

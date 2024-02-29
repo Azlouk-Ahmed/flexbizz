@@ -3,3 +3,18 @@
     grid-template-columns: 16rem auto 15rem;
     gap: 1rem;
 }
+
+.addjust-img {
+    padding: 0 !important;
+}
+
+.al-i-center {
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

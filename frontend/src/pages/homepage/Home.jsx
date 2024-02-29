@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./home.css"
 import PortfolioComponent from "../../components/portfolio/PortfolioComponent";
 import Allusers from "../../components/getallusers/Allusers";
+import Offers from "../../components/joboffers/Offers";
 
 function Home({ user }) {
 
   return (
     <div className="home--page">
       <PortfolioComponent />
-      <div className="timeline">
-        timeline
-      </div>
+      <Offers />
       <Allusers />
     </div>
   );

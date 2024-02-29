@@ -8,6 +8,7 @@ import Home from './pages/homepage/Home';
 import Chat from './pages/chat/Chat';
 import Navbar from './components/navbar/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
+import Mess from './components/infinite scroll/Mess';
 
 function App() {
   const {dispatch,auth} =  useAuthContext();
@@ -43,7 +44,8 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <Mess />
+      {/* <BrowserRouter>
       {auth && <Navbar user = {auth.user} />}
       <Routes>
         <Route 
@@ -59,7 +61,7 @@ function App() {
               element={auth? <Chat /> : <Navigate to="/" />} 
         />
       </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
       {/* <Dashboard /> */}
     </div>
   );

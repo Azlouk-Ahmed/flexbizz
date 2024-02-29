@@ -12,11 +12,10 @@ import { MdOutlineCancel } from "react-icons/md";
 const socket = io('http://localhost:8800');
 
 function SendMessageComponent({ chatId, setSendMessage, receiver }) {
-    const imageRef = useRef(); 
-    const fileRef = useRef(); // Ref for file input
+    const fileRef = useRef(); 
     const { auth } = useAuthContext();
     const [messageText, setMessageText] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null); // State for selected file
+    const [selectedFile, setSelectedFile] = useState(null); 
     const { dispatch } = useChatsContext();
     const [isTyping, setIsTyping] = useState(false);
 
@@ -28,18 +27,18 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
             formData.append('text', messageText);
             formData.append('chatId', chatId);
             if(selectedFile) {
-                formData.append('_file', selectedFile); // Ensure the file is correctly appende
+                formData.append('_file', selectedFile);
             }
             setSendMessage({
                 text: messageText,
-                file: selectedFile ? selectedFile.name : '', // If selectedFile exists, use its name, otherwise use an empty string
+                file: selectedFile ? selectedFile.name : '', 
                 receiverId: receiver,
                 chatId: chatId,
                 senderId: auth?.user._id,
                 createdAt: formattedDate
             });
             if(selectedFile){
-                formData.append('file', selectedFile?.name); // Ensure the file is correctly appende
+                formData.append('file', selectedFile?.name); 
             }
             try {
                 const response = await axios.post(
@@ -73,7 +72,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
     };
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]); // Update selected file state
+        setSelectedFile(event.target.files[0]); 
     };
 
     useEffect(() => {
@@ -113,7 +112,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
                     id="file"
                     style={{ display: "none" }}
                     ref={fileRef}
-                    onChange={handleFileChange} // Handle file change
+                    onChange={handleFileChange}
                 />
             </div>
             <div onClick={sendMessage}>

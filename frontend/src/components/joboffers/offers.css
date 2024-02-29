@@ -1,0 +1,49 @@
+.offer {
+    background-color: var(--light-bg);
+    padding: 1rem;
+
+}
+
+.offer-description {
+    color: var(--text);
+    font-size: 13px;
+}
+
+strong {
+    color: var(--success);
+}
+
+.skill {
+    font-weight: bold;
+    color: var(--swiper-theme-color);
+    text-decoration: underline;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.actions > div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.liked {
+    font-weight: bolder;
+    color: var(--swiper-theme-color);
+}
+
+.comment {
+
+}
+
+.chat {
+
+}
+
+.report {
+
+}
