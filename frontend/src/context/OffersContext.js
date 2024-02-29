@@ -52,7 +52,7 @@ export const OfferContextProvider = ({ children }) => {
     offers: [],
     comments: [],
     commentsOpened: false,
-    sendMessageModal: true,
+    sendMessageModal: false,
   });
 
   return (

@@ -27,7 +27,7 @@ const userSchema = new Schema({
   connections: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   role: {
       type: String,
-      enum: ['Admin', 'Service', 'User'],
+      enum: ['Admin', 'Support', 'User'],
       default: 'User'
   },
   badges: [String]
@@ -51,22 +51,23 @@ userSchema.statics.signUp = async function(email, password, img, name, familyNam
 }
 
 userSchema.statics.logIn = async function(email, password) {
-  const user = await this.findOne({email});
-  if(!user) {
-      throw Error("email not found ! ")
-  }
   if(!email || !password) {
-      throw Error("email or password cannot be empty !")
+    throw Error("email or password cannot be empty !")
   }
   if(!validator.isEmail(email)){
-      throw Error("cannot accept unvalid emails")
+    throw Error("cannot accept unvalid emails")
   }
-  if(user.role === "admin") {
-      return user;
+  const user = await this.findOne({email});
+  if(!user) {
+    throw Error("email not found ! ")
   }
-  const match = await bcrypt.compare(password, user.password);
-  if(!match){
-      throw Error("incorrect password")
+  if(user.password) {
+    const match = await bcrypt.compare(password, user.password);
+    if(!match){
+        throw Error("incorrect password")
+    }
+  }else {
+    throw Error("this is a google account , try to log in using your google account")
   }
 
   return user;

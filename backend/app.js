@@ -13,6 +13,7 @@ const userRouter = require("./routes/userRoutes");
 const portfolioRouter = require("./routes/portfolioRoutes");
 const announcementRouter = require("./routes/announcementRoutes");
 const commentRouter = require("./routes/commentsRoutes");
+const reportRouter = require("./routes/reportRoutes");
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -29,6 +30,7 @@ app.use(express.json());
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use('/auth', googleAuthRouter);
+app.use('/report', reportRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
 app.use('/message', messageRouter);
