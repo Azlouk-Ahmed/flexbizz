@@ -96,7 +96,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
             {selectedFile && <div className='selected-file'>
             <MdOutlineCancel onClick={()=>setSelectedFile(null)} />
                 {selectedFile.name}</div>}
-            <div onClick={() => fileRef.current.click()} style={{ cursor: "pointer", fontSize: "19px", color: "var(--orange)" }}><IoAttachOutline /></div>
+            <div onClick={() => fileRef.current.click()} style={{ cursor: "pointer", fontSize: "19px", color: "var(--primary)" }}><IoAttachOutline /></div>
             <InputEmoji
                 value={messageText}
                 style={{ minWidth: '200px', minHeight: '40px' }}

@@ -29,16 +29,9 @@ function Login() {
 
     return (
         <div>
-            <img className="setting-gif" alt='img' src={require("../../img/settings.gif")} />
-            <img className="phone-gif" alt='img' src={require("../../img/phone.gif")} />
-            <img className="wave" alt='img' src={require("../../img/wave.png")} />
             <div className="container">
-                <div className="img">
-                    <img src={require("../../img/bg.png")} alt='img' />
-                </div>
                 <div className="login-content">
                     <form onSubmit={handleLogin}>
-                        <img src={require("../../img/avatar.png")} alt='img' />
                         <h2 className="title">Welcome</h2>
                         <div className="input-div one">
                             <CiUser />

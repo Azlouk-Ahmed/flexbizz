@@ -1,11 +1,24 @@
 const Report = require('../models/ReportModel');
+const User = require("../models/userModel")
 
 const createReport = async (req, res) => {
     try {
         const { about, elementReported, description } = req.body;
         const reporter = req.user._id;
-        const reported = req.params.reportedId;
+        const reported = req.params.reportedUserId;
+        const reporterObj = await User.findById(reporter);
+        if (!reporterObj) {
+            return res.status(404).json({ error: 'Reporter not found' });
+        }
 
+        const reportedObj = await User.findById(reported);
+        if (!reportedObj) {
+            return res.status(404).json({ error: 'Reported user not found' });
+        }
+        
+        if(description == ""){
+            return res.status(403).json({ error: 'Reported user not found' });
+        }
         const report = new Report({
             about,
             elementReported,

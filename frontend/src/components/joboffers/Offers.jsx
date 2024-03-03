@@ -15,11 +15,12 @@ import { GoReport } from "react-icons/go";
 import { useOffersContext } from '../../hooks/useOffersContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Comments from '../comments/Comments';
-import MessageModal from '../messageModal.jsx/MessageModal';
+import MessageModal from '../messageModal/MessageModal';
+import ReportModal from '../reportModal/ReportModal';
 
 function Offers() {
   const { auth } = useAuthContext();
-  const { dispatch, offers, commentsOpened, sendMessageModal } = useOffersContext();
+  const { dispatch, offers, commentsOpened, sendMessageModal, reportModal } = useOffersContext();
 
   const likeOffer = async (id) => {
     try {
@@ -86,10 +87,15 @@ function Offers() {
                        dispatch({type:"OPEN_MESSAGE_MODAL", payload: true}) ;
                     }
                 }><LuSend /></div>
-                <div className='report'><GoReport /></div>
+                <div className='report' onClick={
+                    () => {
+                       dispatch({type:"OPEN_REPORT_MODAL", payload: true}) ;
+                    }
+                }><GoReport /></div>
               </div>
               {commentsOpened&&<Comments announcementId={offer._id}/>}
               {sendMessageModal && <MessageModal offer={offer} />}
+              {reportModal && <ReportModal reportedObject={offer} type="announcement" />}
             </div>
           ))}
         </div>

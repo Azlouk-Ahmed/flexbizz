@@ -1,0 +1,81 @@
+.profile {
+
+}
+
+.profile .user {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.profile .user .img--container{
+    overflow: hidden;
+    border-radius: 10px;
+    width: 8rem;
+    height: 8rem;
+}
+
+.profile .user .img--container img {
+    width: 100%;
+    object-fit: fill;
+}
+
+.user-details {
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stats {
+    justify-content: center;
+    display: flex;
+    gap: 1rem;
+}
+.stats .box{
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+    background: var(--light-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.profile .up {
+    display: flex;
+    justify-content: space-between;
+}
+.profile .down {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.info .status {
+    border-radius: 5px;
+    font-size: 13px;
+    background-color: var(--primary);
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    margin-bottom: auto;
+}
+
+.info .status img {
+    width: 18px;
+    border-radius: 50%;
+}
+.stats > div h1{
+
+}
+.stats > div span{
+
+}
+
+.user--container {
+    width: fit-content;
+    margin: 0 auto;
+}

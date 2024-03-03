@@ -42,7 +42,7 @@ strong{
 }
 
 input {
-    border: 1px var(--orange) solid;
+    border: 1px var(--primary) solid;
     outline: none;
     font-family: "Poppins";
 }
@@ -61,7 +61,7 @@ input {
 
 .add-comment input {
     width: 70%;
-    border: 2px solid var(--orange);
+    border: 2px solid var(--primary);
 }
 
 .op {

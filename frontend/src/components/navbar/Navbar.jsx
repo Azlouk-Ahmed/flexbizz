@@ -1,43 +1,50 @@
 import React, { useState } from 'react'
 import "./navbar.css"
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 import { TbMessageCircle } from "react-icons/tb";
 import { IoLogOutOutline } from "react-icons/io5";
-import axios from 'axios';
+import { CiViewTimeline } from "react-icons/ci";
+import { FiUser } from "react-icons/fi";
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 function Navbar({user}) {
     const [opened, setOpened] = useState(false);
     const {dispatch} = useAuthContext();
     const logout = () => {
-        axios.get("http://localhost:5000/auth/logout")
-        .then((response)=>{
-            console.log("logged out")
-            localStorage.removeItem("auth");
-            dispatch({type:"LOGOUT"})
-        })
-        .catch((error)=>console.log("error", error));
+        console.log("logged out")
+        localStorage.removeItem("auth");
+        dispatch({type:"LOGOUT"})
+        window.open("http://localhost:5000/auth/logout", "_self");
     }
+    
   return (
     <div className="nav-bar-container">
     <div className='logocontainer'>
-    <Link to="/">
       <img src={require("../../img/logo.png")} alt="" className='logo'/>
-    </Link>
+      <span>lexBizz</span>
     </div>
-    <div className="links">
+    {user && <div className="links">
 
+      <NavLink to="/">
+        <CiViewTimeline />
+        <span>Timeline</span>
+      </NavLink>
 
-      <Link to="/chat">
+      <NavLink to="/chat">
         <TbMessageCircle />
         <span>chats</span>
-      </Link>
-    </div>
+      </NavLink>
+
+      <NavLink to="/profile">
+        <FiUser />
+        <span>profile</span>
+      </NavLink>
+    </div>}
 
     
     
-    <div className="user">
+    {user &&<div className="user">
         {user && (
             <div className="profile-menu">
                 <div className="profile-img" onClick={()=>setOpened(!opened)} >
@@ -66,7 +73,7 @@ function Navbar({user}) {
                 </ul>
             </div>
         )}
-    </div>
+    </div>}
   </div>
   )
 }

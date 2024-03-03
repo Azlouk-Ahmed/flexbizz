@@ -62,7 +62,7 @@
 }
 
 .search > div {
-    background-color: var(--orange);
+    background-color: var(--primary);
     color: var(--light-bg);
     cursor: pointer;
     font-weight: bold;
@@ -74,7 +74,7 @@
 }
 
 .search input {
-    border: 1px var(--orange) solid;
+    border: 1px var(--primary) solid;
     outline: none;
     font-family: "Poppins";
 }

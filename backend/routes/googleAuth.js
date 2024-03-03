@@ -2,6 +2,8 @@ const express = require("express");
 const passport = require("passport");
 
 const { getUserFromReq } = require("../controllers/authcontroller");
+const path = require("path");
+const { log } = require("console");
 
 const googleAuthRouter = express.Router();
 
@@ -16,8 +18,11 @@ googleAuthRouter.get("/login/failed", (req, res) => {
 
 googleAuthRouter.get('/logout', (req, res) => {
   req.logout();
-  res.status(200).json({"mssg":"logged out"})
+  console.log(req);
+  res.redirect("http://localhost:3000/");
+
 });
+
 
 googleAuthRouter.get('/google', passport.authenticate("google",{
     scope : ["profile", "email"]

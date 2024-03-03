@@ -59,7 +59,7 @@
 }
 
 .send {
-    color: var(--blue);
+    color: var(--third);
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -68,7 +68,7 @@
     width: 18rem;
     height: 2rem;
     border-radius: 5px;
-    border: 2px var(--blue) solid;
+    border: 2px var(--third) solid;
     outline: none;
     padding-left: 10px;
     font-family: "poppins";
@@ -87,7 +87,7 @@
 .sent {
     cursor: pointer;
     max-width: 70%; 
-    background: var(--orange);
+    background: var(--primary);
     margin-left: auto;
     border-radius: 8px;
     text-align: left;
@@ -133,7 +133,7 @@
 }
 
 .sent .arrow {
-    color: var(--orange);
+    color: var(--primary);
     right: -18px;
 }
 
@@ -224,7 +224,7 @@
     right: 17px;
     top: 17px;
     z-index: 10000000;
-    color: var(--orange);
+    color: var(--primary);
     transition: 0.5s;
 }
 

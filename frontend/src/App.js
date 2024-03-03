@@ -8,6 +8,8 @@ import Home from './pages/homepage/Home';
 import Chat from './pages/chat/Chat';
 import Navbar from './components/navbar/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
+import Landing from './pages/landing/Landing';
+import UserPage from './pages/userPage/UserPage';
 
 function App() {
   const {dispatch,auth} =  useAuthContext();
@@ -44,19 +46,27 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      {auth && <Navbar user = {auth.user} />}
+      <Navbar user = {auth?.user} />
       <Routes>
         <Route 
               path="/" 
               element={auth? <Home user={auth.user} /> : <Navigate to="/login" />} 
         />
         <Route 
+              path="/landing" 
+              element={!auth? <Landing /> : <Navigate to="/" />} 
+        />
+        <Route 
+              path="/chat" 
+              element={auth? <Chat /> : <Navigate to="/login" />} 
+        />
+        <Route 
               path="/login" 
               element={!auth? <Login /> : <Navigate to="/" />} 
         />
         <Route 
-              path="/chat" 
-              element={auth? <Chat /> : <Navigate to="/" />} 
+              path="/profile" 
+              element={auth? <UserPage /> : <Navigate to="/login" />} 
         />
       </Routes>
       </BrowserRouter>

@@ -12,6 +12,12 @@ const userSchema = new Schema({
   familyName: {
     type: String,
   },
+  gender: {
+    type: String,
+  },
+  education: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,

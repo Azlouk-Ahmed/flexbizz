@@ -1,6 +1,6 @@
 
 .clock-loader {
-  --clock-color: var(--orange);
+  --clock-color: var(--primary);
     --clock-width: 2rem;
     --clock-radius: calc(var(--clock-width) / 2);
     --clock-minute-length: calc(var(--clock-width) * 0.4);

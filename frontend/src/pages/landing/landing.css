@@ -1,0 +1,130 @@
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+.figures{
+    display: flex;
+    gap: 2rem;
+}
+
+.figures div{
+    display: flex;
+    flex-direction: column;
+}
+
+.figures div span:first-child{
+    color: white;
+    font-size: 2rem;
+    
+}
+
+.figures div span:nth-child(2){
+    color: var(--text);
+    text-decoration: none;
+}
+
+.main-title {
+    color: var(--primary);
+    font-size: 5rem;
+    line-height: 38px;
+}
+
+.about .landing-img-container {
+    width: 40%;
+    position: relative;
+}
+
+.landing-img-container img:first-child {
+    width: 100%;
+}
+.landing-img-container img:nth-child(2) {
+    position: absolute;
+    left: -25%;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+}
+
+.about .box {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: var(--bg);
+    width: -moz-fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    position: absolute;
+}
+
+.landing-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+.f1 {
+    left: 23rem;
+    top: 16rem;
+}
+.f2 {
+    left: 13rem;
+    top: 4rem;
+}
+.f3 {
+    left: -6rem;
+    top: 16rem;
+}
+
+.about .box .icon {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    background-color: var(--secondary);
+}
+
+.about .box .icon svg {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.y {
+    background-color: var(--third) !important;
+
+}
+.about .box img{
+    width: 3rem;
+}
+.about .box .wrapper{
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.about .box .wrapper span:first-child{
+
+}
+.about .box .wrapper span:nth-child(2){
+
+}
+
+.blur{
+    top: 0;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    filter: blur(212px);
+    filter: blur(150px);
+    position: absolute;
+    z-index: 7;
+    background: var(--primary);
+}

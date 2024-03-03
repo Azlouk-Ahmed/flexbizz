@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--light-bg);
+    background-color: var(--bg);
     height: 4rem;
     position: fixed;
     top: 0;
@@ -14,13 +14,19 @@
 
 }
 .logocontainer{
-    width: 15%;
+    display: flex;
+    display: flex;
+    align-items: center;
+}
+.logocontainer span {
+    font-weight: bolder;
+    font-size: larger;
+    letter-spacing: 1px;
 }
 .logo{
-    width: 100%;
+    width: 1.5rem;
 }
 .nav-bar-links{
-  /* width: 45%; */
   display: flex;
   justify-content: space-around;
 }
@@ -32,7 +38,6 @@
 }
 
 .nav-bar-links {
-    font-family: 'Hanken Grotesk', sans-serif;
     line-height: 1.5;
     display: flex;
     align-items: center;
@@ -46,14 +51,23 @@ a {
     transition: .25s ease;
 }
 
-a:hover {
-    color:  var(--blue);
+a.active {
+    color: var(--primary);
 }
 
-.links {
+a.active > span {
+    opacity: 1;
+}
+
+.links{
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     text-transform: uppercase;
+}
+
+.links span {
+    opacity: 0;
+    transition: 0.5s;
 }
 
 .links a {
@@ -102,15 +116,6 @@ ul li {
     display: flex;
     gap: 1rem;
     align-items: center;
-}
-
-
-
-
-
-
-.header-link:hover{
- color: var(--primary-color);
 }
 
 .header-div-links{

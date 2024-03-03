@@ -8,21 +8,20 @@
        url('./fonts/Poppins-Light.ttf') format('truetype'),
        url('./fonts/Poppins-SemiBold.ttf') format('truetype'),
        url('./fonts/Poppins-Thin.ttf') format('truetype');
-  /* Add other font formats if necessary */
 }
 
 :root {
-  --orange: #f24f2c;
-  --bg: #f3f3f3;
-  --light-bg: #ffffff;
-  --yellow: #fbd803;
+  --primary: #2eb451;
+  --bg: #082032;
+  --light-bg: #2C394B;
+  --secondary: #fbd803;
   --black: #242d49;
-  --blue: #5db9d8;
-  --text:#727e7a;
+  --third: #5db9d8;
+  --text:#afb2b1;
   --inputColor: rgba(40, 52, 62, 0.07);
   --error: #B00020;
   --success: #07ce6b;
-  --shadow: 0px 1px 3px #9999992e;
+  --shadow: 0px 1px 3px #5757572e;
   --cardColor: rgba(255, 255, 255, 0.64);
   --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
 }
@@ -31,7 +30,7 @@
   cursor: pointer;
   padding: 8px;
   width: 100%;
-  background-color: var(--orange);
+  background-color: var(--primary);
   border-radius: 3px;
   color: white;
   outline: none;
@@ -40,18 +39,20 @@
   font-family: 'Poppins';
   text-transform: uppercase;
   font-size: 12px;
+  text-align: center;
 }
 
 
 hr {
   margin: 12px 0;
-  border: 1px #35383730 solid;
+  border: 1px #84baa830 solid;
 }
 
 body {
   margin: 0;
   font-family: "Poppins";
   background: var(--bg);
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -59,12 +60,12 @@ body {
 }
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background: rgb(221 221 221);
+  background: #334756;
 
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--yellow);
+  background: var(--light-bg);
     border-radius: 19px;
 }
 

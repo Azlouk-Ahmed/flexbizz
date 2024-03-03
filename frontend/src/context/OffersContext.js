@@ -41,6 +41,11 @@ export const OffersReducer = (state, action) => {
         ...state,
         sendMessageModal: action.payload,
     };
+    case "OPEN_REPORT_MODAL":
+      return {
+        ...state,
+        reportModal: action.payload,
+    };
     default:
       return state;
   }
@@ -53,6 +58,7 @@ export const OfferContextProvider = ({ children }) => {
     comments: [],
     commentsOpened: false,
     sendMessageModal: false,
+    reportModal: false,
   });
 
   return (
