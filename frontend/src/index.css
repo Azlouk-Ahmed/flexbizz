@@ -13,13 +13,13 @@
 :root {
   --primary: #2eb451;
   --bg: #082032;
-  --light-bg: #2C394B;
+  --light-bg: #34455d7a;
   --secondary: #fbd803;
   --black: #242d49;
   --third: #5db9d8;
   --text:#afb2b1;
   --inputColor: rgba(40, 52, 62, 0.07);
-  --error: #B00020;
+  --error: #ff113c;
   --success: #07ce6b;
   --shadow: 0px 1px 3px #5757572e;
   --cardColor: rgba(255, 255, 255, 0.64);

@@ -3,11 +3,15 @@
 }
 
 .error {
+    display: flex;
     border-radius: 7px;
     background: #ff8484;
     padding: 1rem 1rem;
     color: white;
+    align-items: center;
     margin-top: 21px;
+    font-weight: bold;
+    letter-spacing: 3px;
 }
 
 .success {

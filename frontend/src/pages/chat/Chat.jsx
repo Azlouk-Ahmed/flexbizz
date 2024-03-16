@@ -1,114 +1,86 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./chat.css";
-import axios from 'axios';
 import { useChatsContext } from '../../hooks/useChatsContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import OnlineUsers from '../../components/onlineusers/OnlineUsers';
 import ChatComponent from '../../components/chatComponent/ChatComponent';
-
 import MessagesComponent from '../../components/chatComponent/MessagesComponent';
-import {io} from "socket.io-client";
 import Loading from '../../components/loading/Loading';
-
+import { useSocketContext } from '../../hooks/useSocketContext';
+import { useFetchData } from '../../hooks/useFetchData';
+import Error from '../../components/error/Error';
+import axios from 'axios';
 
 function Chat() {
-    const socket = useRef();
+    const { socket } = useSocketContext();
     const { chats, dispatch, isTyping } = useChatsContext();
     const { auth } = useAuthContext();
     const [selectedChat, setSelectedChat] = useState(null);
     const [onlineusers, setOnlineUsers] = useState(null);
     const [loading, setLoading] = useState(false);
     const [sendMessage, setSendMessage] = useState(null);
-    const [typing, setIsTyping] = useState(false);
     const [receivedMessage, setReceivedMessage] = useState(null);
+
+    const { data: fetchedChats, loading: fetchingChats, error: fetchChatsError } = useFetchData('http://localhost:5000/chat/');
+
     useEffect(() => {
-        socket.current = io("ws://localhost:8800");
-        socket.current.emit("new-user-add", auth?.user._id);
-        socket.current.on("get-users", (users) => {
-            const filteredUsers = users.filter(user => user.userId !== auth?.user._id);
-            setOnlineUsers(filteredUsers);
-        });
-      }, [auth]);
-    
-      // Send Message to socket server
-      useEffect(() => {
-        if (sendMessage!==null) {
-          socket.current.emit("send-message", sendMessage);}
-      }, [sendMessage]);
-    
-    
-      useEffect(() => {
-        socket.current.on("recieve-message", (data) => {
-            dispatch({ type: "CREATE_MESSAGE", payload: data });
+        if (fetchedChats) {
+            dispatch({ type: 'SET_CHATS', payload: fetchedChats });
         }
-    
-        );
-      }, []);
+    }, [fetchedChats, dispatch]);
 
-      useEffect(() => {
-        socket.current.on("typing", (data) => {
-            setIsTyping(true);
+    useEffect(() => {
+        if (fetchChatsError) {
+            console.error('Error fetching chats:', fetchChatsError);
         }
-    
-        );
-      }, []);
-      useEffect(() => {
-        socket.current.on("stop_typing", (data) => {
-            setIsTyping(false);
+    }, [fetchChatsError]);
+
+    useEffect(() => {
+        if (socket) {
+            socket.emit("new-user-add", auth?.user._id);
+            socket.on("get-users", (users) => {
+                const filteredUsers = users.filter(user => user.userId !== auth?.user._id);
+                setOnlineUsers(filteredUsers);
+            });
         }
-    
-        );
-      }, []);
-
-      useEffect(() => {
- 
-        dispatch({ type: 'SET_TYPING', payload: typing });
-      }, [typing])
-      
-
-    
+    }, [auth, socket]);
     
     useEffect(() => {
-        const fetchChats = async () => {
+        if (sendMessage!==null && socket) {
+            socket.emit("send-message", sendMessage);
+        }
+    }, [sendMessage, socket]);
+    
+    useEffect(() => {
+        if (socket) {
+            socket.on("recieve-message", (data) => {
+                console.log("recice");
+                dispatch({ type: "CREATE_MESSAGE", payload: data });
+            });
+        }
+    }, [dispatch, socket]);
+
+    const createChat = async (userId) => {
+        if(auth) {
             try {
-                const response = await axios.get('http://localhost:5000/chat/', {
+                setLoading(true);
+                const response = await axios.post(`http://localhost:5000/chat/${userId}`, {}, {
                     headers: {
                         'authorization': `Bearer ${auth.token}`
                     }
                 });
                 if (response.status === 200) {
-                    dispatch({ type: 'SET_CHATS', payload: response.data });
+                    dispatch({ type: 'CREATE_CHAT', payload: response.data });
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching chats:', error);
-            }
-        };
-
-        if (auth) {
-            fetchChats();
-        }
-    }, [auth, dispatch]);
-
-    const createChat =async (userId) => {
-        if(auth)
-        {try {
-            setLoading(true);
-            const response = await axios.post(`http://localhost:5000/chat/${userId}`, {}, {
-                headers: {
-                    'authorization': `Bearer ${auth.token}`
-                }
-            });
-            if (response.status === 200) {
-                dispatch({ type: 'CREATE_CHAT', payload: response.data });
                 setLoading(false);
             }
-        } catch (error) {
-            console.error('Error fetching chats:', error);
-            setLoading(false);
-        }}
-    }
+        }
+    };
 
     return (
         <div className="chat">
@@ -134,7 +106,7 @@ function Chat() {
                 </Swiper>
             </div>
             <hr />
-            {!loading &&<div className="chats">
+            {!fetchingChats &&<div className="chats">
                 {
                     chats !== null ?
                     chats.map(chat => {
@@ -147,7 +119,10 @@ function Chat() {
                     <div>loading</div>
                 }
             </div>}
-            {loading &&<Loading />}
+            {fetchingChats &&<Loading />}
+            {fetchChatsError &&
+            <Error error={fetchChatsError} />
+            }
             </div>
             <div className="message-box">
                 {selectedChat &&<MessagesComponent setSendMessage={setSendMessage}  chat={selectedChat} onlineusers={onlineusers} receivedMessage={receivedMessage} />}

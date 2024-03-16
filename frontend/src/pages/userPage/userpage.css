@@ -8,6 +8,17 @@
     align-items: center;
 }
 
+.profile .user .name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.profile .user .name span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .profile .user .img--container{
     overflow: hidden;
     border-radius: 10px;
@@ -28,7 +39,6 @@
 }
 
 .stats {
-    justify-content: center;
     display: flex;
     gap: 1rem;
 }
@@ -56,12 +66,13 @@
 
 .info .status {
     border-radius: 5px;
-    font-size: 13px;
-    background-color: var(--primary);
+    font-size: 10px;
     display: flex;
     align-items: center;
     padding: 3px;
     margin-bottom: auto;
+    gap: 5px;
+    color: var(--primary);
 }
 
 .info .status img {
@@ -77,5 +88,16 @@
 
 .user--container {
     width: fit-content;
-    margin: 0 auto;
+}
+
+.pdf--view {
+    position: relative;
+}
+
+.pdf--view >svg {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 10;
 }

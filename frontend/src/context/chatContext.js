@@ -40,13 +40,13 @@ export const chatsReducer = (state, action) => {
         ...state,
         isTyping: action.payload,
       };
-    case "CHAT_TO_TOP": // New action type
+    case "CHAT_TO_TOP": 
       const { id } = action.payload;
-      const updatedChats = state.chats.slice(); // Create a copy of chats array
-      const chatIndex = updatedChats.findIndex((chat) => chat._id === id); // Find index of chat with given ID
+      const updatedChats = state.chats.slice(); 
+      const chatIndex = updatedChats.findIndex((chat) => chat._id === id); 
       if (chatIndex !== -1) {
-        const chatToMove = updatedChats.splice(chatIndex, 1)[0]; // Remove chat from its current position
-        updatedChats.unshift(chatToMove); // Add chat to the beginning of the array
+        const chatToMove = updatedChats.splice(chatIndex, 1)[0];
+        updatedChats.unshift(chatToMove); 
       }
       return {
         ...state,

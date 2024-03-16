@@ -59,7 +59,7 @@ function MessagesComponent({ chat, setSendMessage, onlineusers }) {
         {loading && <Loading />}
       </div>
       <div className="lower-info">
-        {isTyping && <Typing />}
+      {isTyping && <Typing />}
         <SendMessageComponent
           chatId={chat._id}
           receiver={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]}

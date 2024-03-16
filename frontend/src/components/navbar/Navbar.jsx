@@ -7,8 +7,11 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { CiViewTimeline } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { useNotificationContext } from '../../hooks/useNotificationContext';
 
 function Navbar({user}) {
+    const {likes, comments} = useNotificationContext();
     const [opened, setOpened] = useState(false);
     const {dispatch} = useAuthContext();
     const logout = () => {
@@ -42,8 +45,11 @@ function Navbar({user}) {
       </NavLink>
     </div>}
 
-    
-    
+    <div className="nav--actions">
+    <div>
+        <IoIosNotificationsOutline />
+        {likes.length>0 &&<pre>{likes.length}</pre>}
+      </div>
     {user &&<div className="user">
         {user && (
             <div className="profile-menu">
@@ -59,7 +65,7 @@ function Navbar({user}) {
                                     <img src={user.img} alt="" className='profilpic' />
                                 </div>
                                 <div className="user-info">
-                                    <span>ahmed azlouk</span>
+                                    <span>{user.name} {user.familyName}</span>
                                     <span>institus superier des etudes tech mahdia</span>
                                 </div>
                             </div>
@@ -74,6 +80,9 @@ function Navbar({user}) {
             </div>
         )}
     </div>}
+
+    </div>
+    
   </div>
   )
 }

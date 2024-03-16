@@ -1,0 +1,146 @@
+.portfolio--img {
+    border-radius: 50%;
+    z-index: 2;
+    border: 5px solid var(--primary);
+}
+
+.user--portfolio {
+
+}
+
+.user--portfolio h3 {
+   font-weight: normal;
+}
+
+.user--portfolio .user{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.user--portfolio .user svg{
+    
+}
+
+.contact ul {
+    padding: 0;
+}
+
+.project.portfolio--view {
+    text-align: center;
+    border: 1px solid var(--primary);
+    width: 17rem;
+    padding: 0rem !important;
+}
+
+.project.portfolio--view img,
+.project.portfolio--view > span{
+    border-bottom: 1px solid var(--primary);
+    display: flex;
+    align-items: center;
+}
+
+.project.portfolio--view > span {
+    padding: 5px 1rem;
+}
+
+.projects--container.portfolio--view {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project.portfolio--view > div {
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 5px;
+}
+
+.education.portfolio--view {
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+
+.education.portfolio--view .hint {
+    background: var(--third);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 2px 10px;
+    position: absolute;
+    left: -44px;
+    font-size: 10px;
+}
+
+.education--container.portfolio--view{
+    display: flex;
+}
+
+.education .line {
+    border: 1px solid var(--third);
+    margin-left: 4rem;
+}
+
+.experience--container {
+    position: relative;
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+
+}
+
+.experience {
+    padding: 4rem 0 2rem 4rem !important;
+}
+
+.experience--container .experience-element {
+    background-color: var(--bg);
+    width: fit-content;
+    padding: 1rem;
+    border-radius: 7px;
+    z-index: 2;
+    position: relative;
+}
+
+
+.horizontal-line {
+    position: absolute;
+    height: 2px;
+    width: 104%;
+    background: var(--primary);
+    top: 50%;
+    transform: translateY(100%);
+    left: -4rem;
+    z-index: 0;
+}
+
+.start {
+    background: var(--success);
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 11px;
+    position: absolute;
+    left: -4rem;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.end {
+    background: var(--error);
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 11px;
+    position: absolute;
+    bottom: 12px;
+    right: -4rem;
+
+}

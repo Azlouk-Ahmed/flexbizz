@@ -18,11 +18,12 @@ import Comments from '../comments/Comments';
 import MessageModal from '../messageModal/MessageModal';
 import ReportModal from '../reportModal/ReportModal';
 
-function Offers() {
+function Offers({setSendNotification}) {
   const { auth } = useAuthContext();
   const { dispatch, offers, commentsOpened, sendMessageModal, reportModal } = useOffersContext();
 
-  const likeOffer = async (id) => {
+  const likeOffer = async (id,likesLength) => {
+
     try {
       const config = {
         headers: {
@@ -31,6 +32,15 @@ function Offers() {
       };
       const response = await axios.put(`http://localhost:5000/announcement/like/${id}`, {}, config);
       dispatch({ type: "LIKE_OFFER", payload: response.data });
+      if(likesLength < response.data.likes.length){
+        setSendNotification({
+          receiverId: response.data.createdBy._id,
+          fromId: auth?.user._id,
+          elementId: response.data._id,
+          notificationType: 'like',
+          username: auth.user.name,
+        })
+      }
     } catch (error) {
       console.error('Error liking offer:', error);
     }
@@ -80,7 +90,7 @@ function Offers() {
               )}
               <hr />
               <div className="actions">
-                <div className={`like ${offer.likes.includes(auth?.user._id) ? "liked" : null}`} onClick={() => likeOffer(offer._id)}><SlLike /> {offer.likes.length}</div>
+                <div className={`like ${offer.likes.includes(auth?.user._id) ? "liked" : null}`} onClick={() => likeOffer(offer._id,offer.likes.length)}><SlLike /> {offer.likes.length}</div>
                 <div onClick={()=>dispatch({type:"OPEN_COMMENTS_MODAL",payload:true})}><FaRegComment /> {offer?.comments?.length}</div>
                 <div className='chat' onClick={
                     () => {

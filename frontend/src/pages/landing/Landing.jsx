@@ -4,11 +4,20 @@ import { AiOutlineRise } from "react-icons/ai";
 import { IoMedalOutline } from "react-icons/io5";
 import { PiUsersThreeLight } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import {motion} from "framer-motion"
 function Landing() {
   return (
     <div className="about">
         <div className="blur"></div>
         <div className="landing-wrapper">
+        <div className="ad">
+                    <motion.div
+                    initial = {{left : "238px"}}
+                    whileInView = {{left : "8px"}}
+                    transition = {{type : "spring" , duration : 3, type : "tween"}}
+                    ></motion.div>
+                    <span>the best freelancing platform in tunisia</span>
+            </div>
             <div className="title">
                 <h1>WE MAKE YOUR</h1>
                 <h1 className="main-title">BUSINESS <AiOutlineRise /></h1>

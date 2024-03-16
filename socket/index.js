@@ -49,4 +49,20 @@ const io = require("socket.io")(8800, {
         io.to(user.socketId).emit("recieve-message", data);
       }
     });
+
+    socket.on("send-notification", (notificationData) => {
+      const { receiverId, notificationType, username, fromId, elementId } = notificationData;
+      const user = activeUsers.find((user) => user.userId === receiverId);
+      if (user) {
+          io.to(user.socketId).emit("receive-notification", {
+              notificationType,
+              username,
+              fromId, 
+              elementId
+          });
+          console.log("Notification sent to:", receiverId);
+      } else {
+          console.warn("Receiver not found for notification:", receiverId);
+      }
+  });
   });

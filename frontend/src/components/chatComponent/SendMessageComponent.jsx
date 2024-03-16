@@ -4,20 +4,18 @@ import InputEmoji from 'react-input-emoji';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useChatsContext } from '../../hooks/useChatsContext';
-import io from 'socket.io-client';
 import { IoAttachOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
-
-
-const socket = io('http://localhost:8800');
+import { useSocketContext } from '../../hooks/useSocketContext';
 
 function SendMessageComponent({ chatId, setSendMessage, receiver }) {
     const fileRef = useRef(); 
     const { auth } = useAuthContext();
+    const { dispatch, isTyping } = useChatsContext();
+    const { socket } = useSocketContext(); 
     const [messageText, setMessageText] = useState('');
     const [selectedFile, setSelectedFile] = useState(null); 
-    const { dispatch } = useChatsContext();
-    const [isTyping, setIsTyping] = useState(false);
+    const [istyping, setIsTyping] = useState(false);
 
     const sendMessage = async () => {
         if (messageText !== "" || selectedFile) {
@@ -61,14 +59,16 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
         }
     };
     
-
-
     const sendTyping = () => {
-        socket.emit("typing", { receiverId: receiver });
+        if (socket) {
+            socket.emit("typing", { receiverId: receiver });
+        }
     };
 
     const stopTyping = () => {
-        socket.emit("stop_typing", { receiverId: receiver });
+        if (socket) {
+            socket.emit("stop_typing", { receiverId: receiver });
+        }
     };
 
     const handleFileChange = (event) => {
@@ -76,25 +76,33 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
     };
 
     useEffect(() => {
-        socket.on("typing", () => {
-            setIsTyping(true);
-        });
+        if (socket) {
+            socket.on("typing", () => {
+                setIsTyping(true);
+            });
 
-        socket.on("stop_typing", () => {
-            setIsTyping(false);
-        });
+            socket.on("stop_typing", () => {
+                setIsTyping(false);
+            });
 
-        return () => {
-            socket.off("typing");
-            socket.off("stop_typing");
-        };
-    }, []);
+            return () => {
+                socket.off("typing");
+                socket.off("stop_typing");
+            };
+        }
+    }, [socket]);
+
+    useEffect(() => {
+      dispatch({ type: "SET_TYPING", payload: istyping })
+    
+    }, [istyping])
+    
 
     return (
         <div className="input-message-box">
-            {isTyping && <div>Typing...</div>}
+ 
             {selectedFile && <div className='selected-file'>
-            <MdOutlineCancel onClick={()=>setSelectedFile(null)} />
+                <MdOutlineCancel onClick={() => setSelectedFile(null)} />
                 {selectedFile.name}</div>}
             <div onClick={() => fileRef.current.click()} style={{ cursor: "pointer", fontSize: "19px", color: "var(--primary)" }}><IoAttachOutline /></div>
             <InputEmoji

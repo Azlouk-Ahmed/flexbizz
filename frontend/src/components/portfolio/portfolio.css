@@ -15,9 +15,6 @@
 .portfolio--data .user img{
     border-radius: 50%;
 }
-.portfolio--data .user h3{
-
-}
 
 .portfolio--data .user h5{
     margin: 0;
@@ -105,7 +102,7 @@
 
 .portfolio--data > div {
     position: relative;
-    padding: 1rem 0;
+    padding: 1rem;
 }
 
 .technologies {

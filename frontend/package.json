@@ -6,6 +6,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/x-data-grid": "^6.19.4",
     "@nivo/bar": "^0.84.0",
+    "@progress/kendo-react-pdf": "^7.2.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,7 +14,6 @@
     "date-fn": "^0.0.2",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.0.5",
-    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
@@ -24,7 +24,6 @@
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.7.4",
     "swiper": "^11.0.6",
-    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

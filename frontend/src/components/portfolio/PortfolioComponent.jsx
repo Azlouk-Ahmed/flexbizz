@@ -6,6 +6,9 @@ import { FcApproval } from "react-icons/fc";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { VscGithubAlt } from "react-icons/vsc";
 import { useAuthContext } from '../../hooks/useAuthContext';
+import {Link} from "react-router-dom"
+
+
 
 function PortfolioComponent() {
   const [portfolioData, setPortfolioData] = useState(null);
@@ -27,7 +30,7 @@ function PortfolioComponent() {
     if (auth) {
       fetchData();
     }
-  }, [auth]); // Include auth in the dependency array
+  }, [auth]);
 
   return (
     <div className='portfolio'>
@@ -74,9 +77,9 @@ function PortfolioComponent() {
             </div>
           ))}
         </div>
-        <div className="primary-btn">
+        <Link to="/profile" className="primary-btn">
           Edit info
-        </div>
+        </Link>
       </div>}
     </div>
   );

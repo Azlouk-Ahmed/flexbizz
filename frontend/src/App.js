@@ -36,9 +36,7 @@ function App() {
           console.log(err);
         });
     };
-    if(localStorage.getItem("auth")){
-      dispatch({type: "LOGIN",payload: JSON.parse(localStorage.getItem("auth"))})
-    } else {
+    if(!localStorage.getItem("auth")){
       getUser();
     }
   }, [dispatch]);
@@ -66,7 +64,7 @@ function App() {
         />
         <Route 
               path="/profile" 
-              element={auth? <UserPage /> : <Navigate to="/login" />} 
+              element={<UserPage />} 
         />
       </Routes>
       </BrowserRouter>
