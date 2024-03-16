@@ -17,9 +17,11 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import Comments from '../comments/Comments';
 import MessageModal from '../messageModal/MessageModal';
 import ReportModal from '../reportModal/ReportModal';
+import { useSocketContext } from '../../hooks/useSocketContext';
 
-function Offers({setSendNotification}) {
+function Offers() {
   const { auth } = useAuthContext();
+  const {socket} = useSocketContext();
   const { dispatch, offers, commentsOpened, sendMessageModal, reportModal } = useOffersContext();
 
   const likeOffer = async (id,likesLength) => {
@@ -32,14 +34,17 @@ function Offers({setSendNotification}) {
       };
       const response = await axios.put(`http://localhost:5000/announcement/like/${id}`, {}, config);
       dispatch({ type: "LIKE_OFFER", payload: response.data });
-      if(likesLength < response.data.likes.length){
-        setSendNotification({
-          receiverId: response.data.createdBy._id,
-          fromId: auth?.user._id,
-          elementId: response.data._id,
-          notificationType: 'like',
-          username: auth.user.name,
-        })
+      if(likesLength < response.data.likes.length && socket){
+        socket.emit(
+          "send-notification",
+          {
+            receiverId: response.data.createdBy._id,
+            fromId: auth?.user._id,
+            elementId: response.data._id,
+            notificationType: 'like',
+            username: auth.user.name,
+          }
+        )
       }
     } catch (error) {
       console.error('Error liking offer:', error);

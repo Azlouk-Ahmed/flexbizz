@@ -10,6 +10,7 @@ import Navbar from './components/navbar/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
 import Landing from './pages/landing/Landing';
 import UserPage from './pages/userPage/UserPage';
+import { useFetchNotification } from './hooks/useFetchNotification';
 
 function App() {
   const {dispatch,auth} =  useAuthContext();
@@ -40,6 +41,8 @@ function App() {
       getUser();
     }
   }, [dispatch]);
+
+  useFetchNotification();
 
   return (
     <div className="App">
