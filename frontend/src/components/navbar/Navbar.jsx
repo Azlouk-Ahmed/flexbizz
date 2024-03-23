@@ -4,14 +4,15 @@ import { NavLink } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 import { TbMessageCircle } from "react-icons/tb";
 import { IoLogOutOutline } from "react-icons/io5";
-import { CiViewTimeline } from "react-icons/ci";
-import { FiUser } from "react-icons/fi";
+import { AiOutlineGlobal } from "react-icons/ai";import { FiUser } from "react-icons/fi";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNotificationContext } from '../../hooks/useNotificationContext';
+import { MdConnectWithoutContact } from "react-icons/md";
+
 
 function Navbar({user}) {
-    const {likes, comments} = useNotificationContext();
+    const {likes, messages} = useNotificationContext();
     const [opened, setOpened] = useState(false);
     const {dispatch} = useAuthContext();
     const logout = () => {
@@ -30,25 +31,31 @@ function Navbar({user}) {
     {user && <div className="links">
 
       <NavLink to="/">
-        <CiViewTimeline />
+        <AiOutlineGlobal />
         <span>Timeline</span>
       </NavLink>
 
       <NavLink to="/chat">
         <TbMessageCircle />
         <span>chats</span>
+        {messages.length>0 &&<pre className="notification--indicator">{messages.length}</pre>}
       </NavLink>
 
       <NavLink to="/profile">
         <FiUser />
         <span>profile</span>
       </NavLink>
+
+      <NavLink to="/connections">
+        <MdConnectWithoutContact />
+        <span>connections</span>
+      </NavLink>
     </div>}
 
     <div className="nav--actions">
     <div>
         <IoIosNotificationsOutline />
-        {likes.length>0 &&<pre>{likes.length}</pre>}
+        {likes.length>0 &&<pre className="notification--indicator">{likes.length}</pre>}
       </div>
     {user &&<div className="user">
         {user && (

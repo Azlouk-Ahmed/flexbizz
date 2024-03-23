@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./home.css";
 import PortfolioComponent from "../../components/portfolio/PortfolioComponent";
 import Allusers from "../../components/getallusers/Allusers";

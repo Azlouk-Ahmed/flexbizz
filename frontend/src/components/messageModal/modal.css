@@ -1,28 +1,26 @@
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 10000000;
-    background: #bdd1d1a3;
+    background: var(--primary);
     display: grid;
     place-items: center;
+    position: fixed;
+    bottom: -6px;
+    width: 70vh;
+    height: 70vh;
+    right: 3rem;
+    z-index: 99;
+    border-radius: 6px;
 }
 
 .message-container {
-    width: 60%;
+    width: 98%;
     background: var(--light-bg);
     padding: 1rem 1rem 0;
-    height: 78%;
+    height: 99%;
     transition: 0.5s;
-    border-radius: 6px;
-    position: relative;
+    bottom: 0;
+    position: absolute;
 }
 
-.subject {
-
-}
 
 .subject span {
     color: var(--error);
@@ -35,9 +33,10 @@
 .cancel {
     color: var(--primary);
     position: absolute;
-    top: 4px;
+    top: 7px;
     right: 12px;
     cursor: pointer;
+    font-size: 1.5rem;
 }
 
 .report-container {

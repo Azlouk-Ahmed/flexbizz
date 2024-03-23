@@ -32,7 +32,7 @@ export const useFetchData = (API) => {
       if (auth) {
         fetchData();
       }
-    }, [auth]);
+    }, [auth, API]);
 
     return {data,loading,error}
 }

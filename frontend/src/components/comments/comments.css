@@ -9,7 +9,7 @@
     width: 100%;
     height: 100vh;
     z-index: 10000000;
-    background: #bdd1d1a3;
+    background: #171717a3;
     display: grid;
     place-items: center;
 }

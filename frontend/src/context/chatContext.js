@@ -24,11 +24,17 @@ export const chatsReducer = (state, action) => {
         ...state,
         chats: [action.payload, ...state.chats],
       };
+    case "SET_ONLINE_USERS":
+      return {
+        ...state,
+        onlineUsers: action.payload,
+      };
     case "LOGOUT":
       return {
         chats: null,
         messages: null,
         isTyping: false,
+        onlineUsers: [],
       };
     case "DEL_CHAT":
       return {
@@ -39,6 +45,11 @@ export const chatsReducer = (state, action) => {
       return {
         ...state,
         isTyping: action.payload,
+      };
+    case "SET_CHAT":
+      return {
+        ...state,
+        selectedChat: action.payload,
       };
     case "CHAT_TO_TOP": 
       const { id } = action.payload;
@@ -60,10 +71,12 @@ export const chatsReducer = (state, action) => {
 export const ChatsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(chatsReducer, {
     chats: [],
+    selectedChat:null,
     messages: [],
     isTyping: false,
+    onlineUsers: [],
   });
-
+  console.log(state.selectedChat);
   return (
     <ChatsContext.Provider value={{ ...state, dispatch }}>
       {children}

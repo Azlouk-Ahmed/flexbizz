@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import axios from 'axios';
 import './offers.css';
 import Loading from '../loading/Loading';
@@ -22,7 +22,7 @@ import { useSocketContext } from '../../hooks/useSocketContext';
 function Offers() {
   const { auth } = useAuthContext();
   const {socket} = useSocketContext();
-  const { dispatch, offers, commentsOpened, sendMessageModal, reportModal } = useOffersContext();
+  const { dispatch, offers, commentsOpened, sendMessageModal, reportModal} = useOffersContext();
 
   const likeOffer = async (id,likesLength) => {
 
@@ -62,44 +62,44 @@ function Offers() {
     };
 
     fetchOffers();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="offers-container">
       {offers ? (
         <div className="offers">
           {offers.map(offer => (
-            <div className="offer" key={offer._id}>
-              <InlineUserInfo user={offer.createdBy} />
+            <div className="offer" key={offer?._id}>
+              <InlineUserInfo user={offer?.createdBy} />
               <hr />
-              <h2>{offer.title}</h2>
-              <p className='offer-description'>{offer.description}</p>
-              <p><strong><MdOutlineWorkOutline /> Job Type:</strong> {offer.jobType}</p>
+              <h2>{offer?.title}</h2>
+     
+              <p><strong><MdOutlineWorkOutline /> Job Type:</strong> {offer?.jobType}</p>
               <p><strong><FcWorkflow /> Skills Required:</strong> </p>
               <div className="technologies">
-                {offer.skillsRequired.map((item, index) => (
+                {offer?.skillsRequired?.map((item, index) => (
                   <div className="skill" key={index}>
                     {item}
                   </div>
                 ))}
               </div>
-              <p><strong><FcCurrencyExchange /> Budget Range:</strong> {offer.budgetRange}</p>
-              <p><strong><FcAlarmClock /> Deadline:</strong> {new Date(offer.deadline).toLocaleDateString()}</p>
-              {offer.additionalDetails && (
+              <p><strong><FcCurrencyExchange /> Budget Range:</strong> {offer?.budgetRange}</p>
+              <p><strong><FcAlarmClock /> Deadline:</strong> {new Date(offer?.deadline).toLocaleDateString()}</p>
+              {offer?.additionalDetails && (
                 <>
                   <strong><FcViewDetails /> Additional Details:</strong>
                   <p className="offer-description">
-                    {offer.additionalDetails}
+                    {offer?.additionalDetails}
                   </p>
                 </>
               )}
               <hr />
               <div className="actions">
-                <div className={`like ${offer.likes.includes(auth?.user._id) ? "liked" : null}`} onClick={() => likeOffer(offer._id,offer.likes.length)}><SlLike /> {offer.likes.length}</div>
-                <div onClick={()=>dispatch({type:"OPEN_COMMENTS_MODAL",payload:true})}><FaRegComment /> {offer?.comments?.length}</div>
+                <div className={`like ${offer?.likes.includes(auth?.user._id) ? "liked" : null}`} onClick={() => likeOffer(offer?._id,offer?.likes.length)}><SlLike /> {offer?.likes.length}</div>
+                <div onClick={()=>dispatch({type:"OPEN_COMMENTS_MODAL",payload:offer?._id})}><FaRegComment /> {offer?.comments.length}</div>
                 <div className='chat' onClick={
                     () => {
-                       dispatch({type:"OPEN_MESSAGE_MODAL", payload: true}) ;
+                       dispatch({type:"OPEN_MESSAGE_MODAL", payload: offer?.createdBy._id}) ;
                     }
                 }><LuSend /></div>
                 <div className='report' onClick={
@@ -108,11 +108,11 @@ function Offers() {
                     }
                 }><GoReport /></div>
               </div>
-              {commentsOpened&&<Comments announcementId={offer._id}/>}
-              {sendMessageModal && <MessageModal offer={offer} />}
               {reportModal && <ReportModal reportedObject={offer} type="announcement" />}
             </div>
           ))}
+          {commentsOpened && <Comments />}
+          {sendMessageModal && <MessageModal />}
         </div>
       ) : (<Loading />)}
     </div>

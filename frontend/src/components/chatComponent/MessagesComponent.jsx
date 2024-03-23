@@ -7,30 +7,42 @@ import Loading from "../loading/Loading";
 import axios from "axios";
 import SendMessageComponent from "./SendMessageComponent";
 import Typing from "../typing/Typing";
+import { useSocketContext } from "../../hooks/useSocketContext";
+import { useFetchData } from "../../hooks/useFetchData";
+import Error from "../error/Error";
 
-function MessagesComponent({ chat, setSendMessage, onlineusers }) {
+function MessagesComponent({ onlineusers }) {
   const { auth } = useAuthContext();
-  const { messages, dispatch, isTyping } = useChatsContext();
-  const [loading, setLoading] = useState(false);
+  const { messages, dispatch, isTyping,selectedChat : chat } = useChatsContext();
+  const [istyping, setIsTyping] = useState(false);
+  const {socket} = useSocketContext();
+  const {error,data,loading} = useFetchData(`http://localhost:5000/message/${chat._id}`);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchMessages = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/message/${chat._id}`, {
-          headers: {
-            Authorization: `Bearer ${auth?.token}`,
-          },
-        });
-        dispatch({ type: "SET_MESSAGES", payload: response.data });
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-        setLoading(false);
-      }
-    };
-    fetchMessages();
-  }, [chat, auth?.token, dispatch]);
+        if (socket) {
+            socket.on("typing", (data) => {
+                setIsTyping({...data, typing: true});
+            });
+            
+            socket.on("stop_typing", (data) => {
+                setIsTyping({...data, typing: false});
+            });
+
+            return () => {
+                socket.off("typing");
+                socket.off("stop_typing");
+            };
+        }
+    }, [socket]);
+
+    useEffect(() => {
+      dispatch({ type: "SET_TYPING", payload: istyping })
+    
+    }, [istyping, dispatch])
+
+  useEffect(() => {
+    dispatch({ type: "SET_MESSAGES", payload: data });
+  }, [data]);
 
 
   const messagesEndRef = useRef(null);
@@ -41,8 +53,10 @@ function MessagesComponent({ chat, setSendMessage, onlineusers }) {
 
   return (
     <>
+    {chat &&<div className="chat--wrapper">
+
       <div className="upper-info">
-        <HorizontalProfile user={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]} onlineusers={onlineusers} />
+        <HorizontalProfile user={auth?.user._id === chat?.members[0] ? chat?.members[1] : chat?.members[0]} onlineusers={onlineusers} />
         <hr />
       </div>
       <div className="messages-container">
@@ -59,13 +73,14 @@ function MessagesComponent({ chat, setSendMessage, onlineusers }) {
         {loading && <Loading />}
       </div>
       <div className="lower-info">
-      {isTyping && <Typing />}
+      {isTyping.chatId === chat._id && isTyping.typing && <Typing />}
         <SendMessageComponent
           chatId={chat._id}
           receiver={auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0]}
-          setSendMessage={setSendMessage}
         />
       </div>
+    </div>}
+    {error && <Error error={error}/>}
     </>
   );
 }

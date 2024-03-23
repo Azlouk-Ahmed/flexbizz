@@ -27,7 +27,7 @@ function UserPage() {
                     <img src={auth?.user.img} alt=""/>
                 </div>
                 <div className="info">
-                    <div className="status">available for work <img src={require("../../img/availablework.gif")} /></div>
+                    <div className="status">available for work <img src={require("../../img/availablework.gif")} alt="looking for work" /></div>
                     <div className="name">
                         <span>{auth?.user.name} {auth?.user.familyName} 
                         {

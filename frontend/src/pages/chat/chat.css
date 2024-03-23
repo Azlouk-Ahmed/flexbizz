@@ -45,17 +45,19 @@
 
 .message-box {
     background-color: var(--light-bg);
-    min-width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 86.5vh;
+    width: 70%;
+    position: relative;
 }
 
 .input-message-box {
     display: flex;
     justify-content: space-evenly;
-    padding: 0 1rem 1rem ;
+    padding: 0 1rem 1rem;
+    position: absolute;
     align-items: center;
+    bottom: 1rem;
+    width: 95%;
 }
 
 .send {
@@ -77,6 +79,26 @@
 
 .single-chat {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.single-chat .indicator {
+    width: 20px;
+    height: 20px;
+    background: var(--error);
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    padding: 8px;
+
+}
+
+.single-chat pre {
+    font-size: 12px;
+    font-family: inherit;
+    margin: 0;
 }
 
 .messages-container {
@@ -85,31 +107,15 @@
 }
 
 .sent {
-    cursor: pointer;
-    max-width: 70%; 
     background: var(--primary);
     margin-left: auto;
-    border-radius: 8px;
-    text-align: left;
-    color: white;
-    font-size: 15px;
-    transition: 0.3s ease;
-    position: relative;
-    padding: 5px 30px;
+
 }
 
 
 .received {
-    padding: 5px 30px;
-    transition: 0.3s ease;
-    position: relative;
-    max-width: 70%; 
     background: var(--swiper-theme-color);
     margin-right: auto;
-    border-radius: 8px;
-    text-align: left;
-    color: white;
-    font-size: 15px;
 }
 
 .messages-wrapper {
@@ -123,6 +129,26 @@
     height: 25rem;
 }
 
+.messages-wrapper > div {
+    border-radius: 1rem;
+    text-align: left;
+    position: relative;
+    padding: 8px 30px;
+    color: white;
+    max-width: 70%; 
+    cursor: pointer;
+    transition: 0.3s ease;
+
+}
+
+.messages-wrapper > div p {
+    font-size: 12px;
+    width: 100% !important;
+    overflow-wrap: break-word;
+    padding: 0;
+    margin: 0;
+}
+
 .messages-wrapper::-webkit-scrollbar{
     display: none;
 }
@@ -130,6 +156,8 @@
 .sent .arrow, .received .arrow {
     position: absolute;
     font-size: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .sent .arrow {
@@ -138,8 +166,9 @@
 }
 
 .received .arrow {
+    top: 50%;
     color: var(--swiper-theme-color);
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateY(50%);
     left: -18px;
 }
 

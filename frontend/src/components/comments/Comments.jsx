@@ -10,18 +10,19 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { AiOutlineDelete } from "react-icons/ai";
 import { GoReport } from "react-icons/go";
 
-function Comments({ announcementId }) {
+function Comments() {
   const [loading, setLoading] = useState(false);
   const [commentContent, setCommentContent] = useState("");
-  const { dispatch, comments } = useOffersContext();
+  const { dispatch, comments, commentsOpened } = useOffersContext();
   const { auth } = useAuthContext();
+  console.log(commentsOpened);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/comment/announcement/${announcementId}`
+          `http://localhost:5000/comment/announcement/${commentsOpened}`
         );
         dispatch({ type: "SET_COMMENTS", payload: response.data });
         setLoading(false);
@@ -30,9 +31,10 @@ function Comments({ announcementId }) {
         setLoading(false);
       }
     };
-    
-    fetchComments();
-  }, [announcementId, dispatch]);
+    if(commentsOpened){
+      fetchComments();
+    }
+  }, [commentsOpened, dispatch]);
 
   const addComment = async () => {
     try {
@@ -42,7 +44,7 @@ function Comments({ announcementId }) {
         }
       };
       const response = await axios.post(
-        `http://localhost:5000/comment/announcement/${announcementId}`,
+        `http://localhost:5000/comment/announcement/${commentsOpened}`,
         { content: commentContent },
         config
       );
@@ -62,7 +64,7 @@ function Comments({ announcementId }) {
         }
       };
       const response = await axios.delete(
-        `http://localhost:5000/comment/announcement/${announcementId}/${commentId}`,
+        `http://localhost:5000/comment/announcement/${commentsOpened}/${commentId}`,
         config
         );
         console.log(response.data);

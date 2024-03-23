@@ -23,20 +23,20 @@ const io = require("socket.io")(8800, {
     });
 
     socket.on("typing", (data) => {
-        const { receiverId } = data;
+        const { receiverId,chatId } = data;
         const user = activeUsers.find((user) => user.userId === receiverId);
         if (user) {
-            io.to(user.socketId).emit("typing");
-            console.log("Typing notification sent to receiver:", receiverId);
+            io.to(user.socketId).emit("typing",{chatId});
+            console.log("Typing notification sent to receiver:", receiverId , chatId);
         }
     });
     
     socket.on("stop_typing", (data) => {
-        const { receiverId } = data;
+        const { receiverId, chatId } = data;
         const user = activeUsers.find((user) => user.userId === receiverId);
         if (user) {
-            io.to(user.socketId).emit("stop_typing");
-            console.log("Stop typing notification sent to receiver:", receiverId);
+            io.to(user.socketId).emit("stop_typing",{chatId});
+            console.log("Stop typing notification sent to receiver:", receiverId, chatId);
         }
     });
   

@@ -8,33 +8,34 @@ import { IoAttachOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { useSocketContext } from '../../hooks/useSocketContext';
 
-function SendMessageComponent({ chatId, setSendMessage, receiver }) {
-    const fileRef = useRef(); 
+function SendMessageComponent({receiver }) {
+    const fileRef = useRef();
     const { auth } = useAuthContext();
-    const { dispatch, isTyping } = useChatsContext();
+    const { dispatch, selectedChat} = useChatsContext();
     const { socket } = useSocketContext(); 
     const [messageText, setMessageText] = useState('');
     const [selectedFile, setSelectedFile] = useState(null); 
     const [istyping, setIsTyping] = useState(false);
-
     const sendMessage = async () => {
         if (messageText !== "" || selectedFile) {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString();
             const formData = new FormData();
             formData.append('text', messageText);
-            formData.append('chatId', chatId);
+            formData.append('chatId', selectedChat._id);
             if(selectedFile) {
                 formData.append('_file', selectedFile);
             }
-            setSendMessage({
-                text: messageText,
-                file: selectedFile ? selectedFile.name : '', 
-                receiverId: receiver,
-                chatId: chatId,
-                senderId: auth?.user._id,
-                createdAt: formattedDate
-            });
+            if (socket) {
+                socket.emit("send-message", {
+                    text: messageText,
+                    file: selectedFile ? selectedFile.name : '', 
+                    receiverId: receiver,
+                    chatId: selectedChat._id,
+                    senderId: auth?.user._id,
+                    createdAt: formattedDate
+                });
+            }
             if(selectedFile){
                 formData.append('file', selectedFile?.name); 
             }
@@ -52,7 +53,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
                 dispatch({ type: "CREATE_MESSAGE", payload: response.data });
                 setMessageText("");
                 setSelectedFile(null);
-                dispatch({ type: "CHAT_TO_TOP", payload: { id: chatId } });
+                dispatch({ type: "CHAT_TO_TOP", payload: { id: selectedChat._id } });
             } catch (error) {
                 console.error('Error sending message:', error);
             }
@@ -61,13 +62,13 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
     
     const sendTyping = () => {
         if (socket) {
-            socket.emit("typing", { receiverId: receiver });
+            socket.emit("typing", { receiverId: receiver, chatId :selectedChat._id });
         }
     };
 
     const stopTyping = () => {
         if (socket) {
-            socket.emit("stop_typing", { receiverId: receiver });
+            socket.emit("stop_typing", { receiverId: receiver,chatId :selectedChat._id });
         }
     };
 
@@ -77,12 +78,12 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
 
     useEffect(() => {
         if (socket) {
-            socket.on("typing", () => {
-                setIsTyping(true);
+            socket.on("typing", (data) => {
+                setIsTyping({...data, typing: true});
             });
-
-            socket.on("stop_typing", () => {
-                setIsTyping(false);
+            
+            socket.on("stop_typing", (data) => {
+                setIsTyping({...data, typing: false});
             });
 
             return () => {
@@ -95,7 +96,7 @@ function SendMessageComponent({ chatId, setSendMessage, receiver }) {
     useEffect(() => {
       dispatch({ type: "SET_TYPING", payload: istyping })
     
-    }, [istyping])
+    }, [istyping, dispatch])
     
 
     return (

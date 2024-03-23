@@ -2,7 +2,6 @@ import React from 'react'
 import "./landing.css"
 import { AiOutlineRise } from "react-icons/ai";
 import { IoMedalOutline } from "react-icons/io5";
-import { PiUsersThreeLight } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import {motion} from "framer-motion"
 function Landing() {
@@ -14,7 +13,7 @@ function Landing() {
                     <motion.div
                     initial = {{left : "238px"}}
                     whileInView = {{left : "8px"}}
-                    transition = {{type : "spring" , duration : 3, type : "tween"}}
+                    transition = {{duration : 3, type : "tween"}}
                     ></motion.div>
                     <span>the best freelancing platform in tunisia</span>
             </div>
@@ -38,11 +37,11 @@ function Landing() {
 
         </div>
         <div className="landing-img-container">
-            <img src={require("../../img/about.png")}/>
-            <img src={require("../../img/blob.png")}/>
+            <img src={require("../../img/about.png")} alt='about'/>
+            <img src={require("../../img/blob.png")} alt='blob'/>
             <div className="box f1">
                 <div>
-                    <img src={require("../../img/flouci.png")}/>
+                    <img src={require("../../img/flouci.png")} alt="flouci logo"/>
                 </div>
                 <div className="wrapper">
                     <span>instant</span>
@@ -51,7 +50,7 @@ function Landing() {
             </div>
             <div className="box f2">
                 <div className="icon">
-                    <PiUsersThreeLight />
+                    
                 </div>
                 <div className="wrapper">
                     <span>talented</span>

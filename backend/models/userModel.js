@@ -30,7 +30,10 @@ const userSchema = new Schema({
       type: String,
       default: "/img/defaultuser.png"
   },
-  connections: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  connections: [{
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    status: { type: String, enum: ['pending', 'accepted', 'rejected'] },
+}],
   role: {
       type: String,
       enum: ['Admin', 'Support', 'User'],

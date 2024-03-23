@@ -3,11 +3,6 @@
     z-index: 2;
     border: 5px solid var(--primary);
 }
-
-.user--portfolio {
-
-}
-
 .user--portfolio h3 {
    font-weight: normal;
 }
@@ -16,9 +11,6 @@
     position: relative;
     display: flex;
     flex-direction: row;
-}
-.user--portfolio .user svg{
-    
 }
 
 .contact ul {

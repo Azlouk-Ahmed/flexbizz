@@ -11,6 +11,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Landing from './pages/landing/Landing';
 import UserPage from './pages/userPage/UserPage';
 import { useFetchNotification } from './hooks/useFetchNotification';
+import Connections from './pages/connections/Connections';
 
 function App() {
   const {dispatch,auth} =  useAuthContext();
@@ -52,6 +53,10 @@ function App() {
         <Route 
               path="/" 
               element={auth? <Home user={auth.user} /> : <Navigate to="/login" />} 
+        />
+        <Route 
+              path="/connections" 
+              element={<Connections />} 
         />
         <Route 
               path="/landing" 

@@ -10,8 +10,6 @@ import { GoHome } from "react-icons/go";
 import { IoMailOutline } from "react-icons/io5";
 import { MdWhatsapp } from "react-icons/md";
 import { GoArrowRight } from "react-icons/go";
-import Loading from '../loading/Loading';
-import Error from '../error/Error';
 
 const platformIcons = {
   linkedin: <MdConnectWithoutContact style={{fill: "white"}} />,
@@ -29,7 +27,7 @@ function UserPortfolio({data}) {
       <div className='user--portfolio' style={{backgroundColor:"#082032"}}>
         {data && <div className="portfolio--data">
           <div className="user">
-            <img src={data.portfolio.user?.img} className="portfolio--img" />
+            <img src={data.portfolio.user?.img} className="portfolio--img" alt='user' />
             <div className="name">
             <h3>{data.portfolio.user?.name} {data.portfolio.user?.familyName}</h3>
             <h5><GoHome style={{fill: "white"}} /> lives at : {data.portfolio.country ? data.portfolio.country+", "+data.portfolio.governorate+", "+data.portfolio.city+", "+data.portfolio.postalCode : "set country"}</h5>
