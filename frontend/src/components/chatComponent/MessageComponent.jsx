@@ -37,36 +37,36 @@ function MessageComponent({ message }) {
       {auth && (
         <div
           className={
-            auth && auth.user._id === message.senderId ? "sent" : "received"
+            auth && auth?.user?._id === message?.senderId ? "sent" : "received"
           }
         >
           <RiArrowDropRightFill className="arrow" />
           <p>
-          {message.text}
+          {message?.text}
 
           </p>
-          {message.file ? (
-            isImageFile(message.file) ? (
+          {message?.file ? (
+            isImageFile(message?.file) ? (
               <img
                 className="display-image"
-                src={`http://localhost:5000/uploads/${message.file}`}
-                alt={message.file}
+                src={`http://localhost:5000/uploads/${message?.file}`}
+                alt={message?.file}
               />
             ) : (
               <a
                 className="display-file"
-                href={`http://localhost:5000/uploads/${message.file}`}
+                href={`http://localhost:5000/uploads/${message?.file}`}
                 download
               >
-                <CiFileOn /> {message.file}
+                <CiFileOn /> {message?.file}
               </a>
             )
           ) : null}
-          <div className="date-sent">
-            {formatDistanceToNow(new Date(message.createdAt), {
+          {<div className="date-sent">
+            {message?.createdAt && formatDistanceToNow(new Date(message.createdAt), {
               addSuffix: true,
             })}
-          </div>
+          </div>}
         </div>
       )}
     </>

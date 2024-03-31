@@ -8,7 +8,7 @@ function ChatComponent({ chat, onlineusers }) {
 
   const { auth } = useAuthContext();
   const userID =
-    auth?.user._id === chat.members[0] ? chat.members[1] : chat.members[0];
+    auth?.user?._id === chat.members[0] ? chat.members[1] : chat.members[0];
   const messagesArrayFromNotifications = messages.filter(
     (message) => message.senderId === userID
   );

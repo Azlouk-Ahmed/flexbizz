@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 import "./allusers.css";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
 import { CiSearch } from "react-icons/ci";
+import { IoMdPersonAdd } from "react-icons/io";
+import { useFetchData } from "../../hooks/useFetchData";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function Allusers() {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { error, data, loading } = useFetchData("http://localhost:5000/user/");
   const [searchQuery, setSearchQuery] = useState('');
+  const { auth } = useAuthContext();
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/user/");
-        setUsers(response.data);
-        setLoading(false);
-        setError(null);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
+    if (data) {
+      const filteredData = data.filter(user =>
+        user._id !== auth?.user?._id && 
+        !auth?.user?.connections?.some(connection => connection.userId === user._id)
+      );
+      setUsers(filteredData);
+    }
+  }, [data, auth]);
 
-    fetchUsers();
-  }, []);
-
-  const filteredUsers = users.filter(user => {
-    const fullName = `${user.name} ${user.familyName}`.toLowerCase();
+  const filteredUsers = users?.filter(user => {
+    const fullName = `${user?.name} ${user?.familyName}`.toLowerCase();
     return fullName.includes(searchQuery.toLowerCase());
   });
 
@@ -45,23 +41,24 @@ function Allusers() {
       </div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {filteredUsers.length > 0 && (
+      {filteredUsers.length > 0 ? (
         <div className="connections">
           {filteredUsers.map((user) => (
             <div className="profile-container" key={user._id}>
               <div className="profile-img">
-                <img src={user.img} alt="" className="profilpic" />
+                <img src={user.img} alt="" className="profile-pic" />
               </div>
               <div className="user-info">
                 <span>{user.name} {user.familyName}</span>
-                <span><MdConnectWithoutContact /> {user.connections.length} • <FcApproval /> {user.badges.length}</span>
+                <span><MdConnectWithoutContact /> {user.connections?.length} • <FcApproval /> {user.badges?.length}</span>
               </div>
-              <hr />
+              <IoMdPersonAdd />
             </div>
           ))}
         </div>
+      ) : (
+        <p>No users found.</p>
       )}
-      {filteredUsers.length === 0 && <p>No users found.</p>}
     </div>
   );
 }

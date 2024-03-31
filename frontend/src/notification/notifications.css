@@ -1,0 +1,81 @@
+.notifications {
+    padding: 1rem;
+    background: rgb(0 0 0 / 68%);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    height: 80vh;
+    position: fixed;
+    width: 60vh;
+    z-index: 1000;
+    right: 1rem;
+    overflow: scroll;
+    top: 4rem;
+}
+
+.notifications::-webkit-scrollbar {
+    display: none;
+}
+
+.notification-header strong {
+    color: white;
+    font-weight: 700;
+}
+.notifications--wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+}
+.notification {
+}
+.notification-header {
+    display: flex;
+    justify-content: end;
+    font-size: 1.5rem;
+}
+.notification-title {
+}
+.notification-close {
+}
+.notification-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.notification-media {
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+.notification-user-avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+}
+.notification-reaction {
+    position: absolute;
+    left: 2.5rem;
+    top: 3rem;
+}
+.notification-content {
+}
+.notification-text {
+    font-size: 12px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+.notification-timer {
+    font-size: 10px;
+    color: var(--text);
+}
+.notification-status {
+}
+
+.notifications input,.notifications textarea {
+    background-color: #101010 !important;
+    padding: 1rem;
+    color: white;
+}
+
+

@@ -61,19 +61,22 @@
 
 }
 
-.info .status {
+.status {
     border-radius: 5px;
     font-size: 10px;
     display: flex;
     align-items: center;
     padding: 3px;
     margin-bottom: auto;
-    gap: 5px;
+    gap: 7px;
     color: var(--primary);
+    font-weight: bold;
 }
 
-.info .status img {
-    width: 18px;
+
+
+.status img {
+    width: 12px;
     border-radius: 50%;
 }
 

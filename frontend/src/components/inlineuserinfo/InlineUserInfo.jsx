@@ -7,7 +7,7 @@ function InlineUserInfo({user, showDate}) {
   return (
     <div className="profile-container al-i-center" key={user._id}>
       <div className="profile-img addjust-img">
-        <img src={user.img} alt="" className="profilpic" />
+        <img src={user.img} alt="" className="notification-user-avatar" />
       </div>
       <div className="user-info">
         <span>

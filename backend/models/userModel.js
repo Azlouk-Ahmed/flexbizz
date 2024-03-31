@@ -39,6 +39,11 @@ const userSchema = new Schema({
       enum: ['Admin', 'Support', 'User'],
       default: 'User'
   },
+  status: {
+      type: String,
+      enum: ['available for work', 'hiring'],
+      default: 'available for work'
+  },
   badges: [String]
 }, { timestamps: true });
 

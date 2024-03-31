@@ -12,34 +12,43 @@
     background: #171717a3;
     display: grid;
     place-items: center;
+    overflow: unset !important;
 }
 
 .comment {
     display: flex;
     padding: 1rem;
-    background: var(--light-bg);
+    height: 85%;
     box-shadow: var(--shadow);
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    overflow: scroll;
+}
+
+.comment::-webkit-scrollbar {
+    display: none;
 }
 
 .comments-container {
+
     width: 50%;
     background: var(--light-bg);
     padding: 1rem 1rem 0;
     height: 50%;
     transition: 0.5s;
     overflow-y: scroll;
-    position: relative;
+    top: unset !important;
+    left: unset !important;
+    right: unset !important;
+    bottom: unset !important;
+    position:unset !important;
 }
 
 p {
     font-size: 10px;
 }
 
-strong{
-    font-size: 18px;
-}
 
 input {
     border: 1px var(--primary) solid;
@@ -51,8 +60,9 @@ input {
     left: 0;
     width: 100%;
     bottom: 0;
-    position: sticky;
+    position: absolute;
     display: flex;
+    height: 3rem;
 }
 
 .fc {

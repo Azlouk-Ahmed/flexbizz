@@ -56,7 +56,7 @@ function MessagesComponent({ onlineusers }) {
     {chat &&<div className="chat--wrapper">
 
       <div className="upper-info">
-        <HorizontalProfile user={auth?.user._id === chat?.members[0] ? chat?.members[1] : chat?.members[0]} onlineusers={onlineusers} />
+        <HorizontalProfile user={auth?.user?._id === chat?.members[0] ? chat?.members[1] : chat?.members[0]} onlineusers={onlineusers} />
         <hr />
       </div>
       <div className="messages-container">

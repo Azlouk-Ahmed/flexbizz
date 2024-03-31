@@ -118,7 +118,8 @@ function Chat() {
                 {fetchChatsError && <Error error={fetchChatsError} />}
             </div>
             <div className="message-box">
-                <MessagesComponent onlineusers={onlineUsers} />
+
+                {selectedChat &&<MessagesComponent onlineusers={onlineUsers} />}
                 {!selectedChat && <div className='select-chat'>please select a chat</div>}
             </div>
         </div>

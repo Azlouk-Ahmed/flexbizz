@@ -14,6 +14,7 @@ const portfolioRouter = require("./routes/portfolioRoutes");
 const announcementRouter = require("./routes/announcementRoutes");
 const commentRouter = require("./routes/commentsRoutes");
 const reportRouter = require("./routes/reportRoutes");
+const notificationsRouter = require("./routes/notificationRoutes");
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -37,6 +38,7 @@ app.use('/message', messageRouter);
 app.use('/portfolio', portfolioRouter);
 app.use('/announcement', announcementRouter);
 app.use('/comment', commentRouter);
+app.use('/notification', notificationsRouter);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {

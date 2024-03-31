@@ -4,7 +4,6 @@ const requireAuth = require('../middlewares/requireUserAuth');
 const requireUserSupportAuth = require('../middlewares/requireUserSupport');
 const reportRouter = express.Router();
 
-// Routes
 reportRouter.post('/:reportedUserId',requireAuth, createReport);
 reportRouter.get('/',requireUserSupportAuth,getAllReports);
 reportRouter.put('/:id',updateReportStatus);

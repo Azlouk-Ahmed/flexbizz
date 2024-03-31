@@ -80,7 +80,7 @@ function Comments() {
         initial={{ opacity: 0, translateY: -100 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 0.5 }}
-        className="comments-container"
+        className="comments-container notifications"
       >
         <IoIosCloseCircleOutline onClick={() => dispatch({ type: "OPEN_COMMENTS_MODAL", payload: false })} className="close-modal" />
         {!loading && (
@@ -98,8 +98,12 @@ function Comments() {
                     <GoReport />
                   </div>
                 </p>
+                <hr />
               </div>
             ))}
+          </div>
+        )}
+
             <div className="add-comment">
               <input
                 type="text"
@@ -109,8 +113,6 @@ function Comments() {
               />
               <button className="primary-btn fc" onClick={addComment}>add comment</button>
             </div>
-          </div>
-        )}
         {loading && <Loading />}
       </motion.div>
     </div>

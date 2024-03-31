@@ -1,5 +1,4 @@
 .overlay {
-    background: var(--primary);
     display: grid;
     place-items: center;
     position: fixed;
@@ -11,14 +10,22 @@
     border-radius: 6px;
 }
 
+.overlay .messages-wrapper {
+    width: 111%;
+}
+
+.overlay .popup > div img {
+    margin: 0;
+}
+
 .message-container {
     width: 98%;
-    background: var(--light-bg);
     padding: 1rem 1rem 0;
     height: 99%;
     transition: 0.5s;
-    bottom: 0;
-    position: absolute;
+    top: unset !important;
+    bottom: 0 !important;
+    position: absolute !important;
 }
 
 
@@ -27,7 +34,7 @@
 }
 
 .popup {
-    height: 19rem !important;
+    height: 22.5rem !important;
 }
 
 .cancel {
@@ -40,11 +47,11 @@
 }
 
 .report-container {
-    width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem
+    position: unset !important;
+    padding: 3rem 2rem !important;
+    height: fit-content !important;
 }
 
 textarea {

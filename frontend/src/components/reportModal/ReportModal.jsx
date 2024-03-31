@@ -45,7 +45,7 @@ function ReportModal({ reportedObject, type }) {
                 initial={{ opacity: 0, translateY: -100 }}
                 animate={{ opacity: 1, translateY: 0 }}
                 transition={{ duration: 0.5 }}
-                className="message-container report-container"
+                className="message-container report-container notifications"
             >
                 <div>
                     You are about to send a report against {reportedObject.createdBy.name}, can you please tell us what's the reason?

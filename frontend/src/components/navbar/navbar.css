@@ -13,8 +13,12 @@
     box-shadow: var(--shadow);
 
 }
+
+.nav-bar-container svg {
+    cursor: pointer;
+}
+
 .logocontainer{
-    display: flex;
     display: flex;
     align-items: center;
 }
@@ -203,11 +207,39 @@ ul li {
     align-items: center;
 }
 
-.nav--actions div {
+.nav--actions > div {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     position: relative;
+    justify-content: space-between;
+}
+
+.req {
+    position: relative;
+}
+
+.req > div {
+    border: 1px solid var(--secondary);
+    position: absolute;
+    background: var(--bg);
+    right: 5rem;
+    top: 3rem;
+    padding: 1rem;
+    border-radius: 5px;
+    max-height: 10rem;
+    width: 30rem;
+    overflow: scroll;
+    display: flex;
+    align-items: normal;
+    opacity: 0;
+    transition: .5s;
+}
+
+
+
+.req > div::-webkit-scrollbar {
+    display: none;
 }
 
 .notification--indicator {
@@ -225,4 +257,20 @@ ul li {
     border-radius: 50%;
     padding: 8px;
     color: white;
+}
+
+.operations {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+
+.connections .wrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+.connections .wrapper .user-info {
+    justify-content: normal;
 }

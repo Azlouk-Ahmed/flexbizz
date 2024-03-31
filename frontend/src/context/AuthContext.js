@@ -1,28 +1,44 @@
 import React, { createContext, useReducer, useEffect } from "react";
+import axios from "axios"; // Ensure axios is imported
 
 export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {
-    if (action.type === "LOGIN") {
-        return { auth: action.payload };
-    } else if (action.type === "LOGOUT") {
-        return { auth: null };
-    } else {
-        return state; 
+    switch (action.type) {
+        case "LOGIN":
+            return { auth: action.payload };
+        case "LOGOUT":
+            return { auth: null };
+        default:
+            return state;
     }
-}
+};
 
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, { auth: null });
+    console.log(state.auth);
     useEffect(() => {
-        const auth = JSON.parse(localStorage.getItem('auth'))
-        if (auth) {
-          dispatch({ type: 'LOGIN', payload: auth }) 
-        }
-    }, [])
+        const checkAuthStatus = async () => {
+            const auth = JSON.parse(localStorage.getItem('auth'));
+            if (auth) {
+                try {
+                    const response = await axios.get(`http://localhost:5000/user/${auth.user._id}`);
+                    console.log("response", response.data );
+                    if (response.data) {
+                        dispatch({ type: 'LOGIN', payload: { ...auth, user: response.data} });
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+        };
+
+        checkAuthStatus();
+    }, []); 
+
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
             {children}
         </AuthContext.Provider>
     );
-}
+};

@@ -1,7 +1,22 @@
 .offer {
-    background-color: var(--light-bg);
     padding: 1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.offer p{
+    margin: 0;
+}
 
+.offer h4 {
+    margin-bottom: 0;
+}
+
+.offers {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .offer-description {
@@ -13,10 +28,17 @@ strong {
     color: var(--success);
 }
 
+.hiring {
+    color: var(--error) !important;
+}
+
 .skill {
+    padding: 8px 17px;
+    border-radius: 17px;
+    font-size: 10px;
+    background: #445075;
     font-weight: bold;
-    color: var(--swiper-theme-color);
-    text-decoration: underline;
+    color: var(--secondary);
 }
 
 .actions {
@@ -36,7 +58,18 @@ strong {
     color: var(--swiper-theme-color);
 }
 
-.comment {
+.deadline {
+    color: var(--success);
+}
+
+.expired {
+    font-size: 10px;
+    color: var(--error);
+    font-weight: bold;
+}
+
+.expired svg {
+    font-size: 1rem;
 
 }
 
@@ -47,3 +80,22 @@ strong {
 .report {
 
 }
+
+.info--container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info--container span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+.info--container span svg {
+    font-size: 20px !important;
+    color: var(--text);
+}
+

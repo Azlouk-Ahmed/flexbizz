@@ -21,7 +21,7 @@
   --inputColor: rgba(40, 52, 62, 0.07);
   --error: #ff113c;
   --success: #07ce6b;
-  --shadow: 0px 1px 3px #5757572e;
+  --shadow: 0px 1px 5px #a3a3a32e;
   --cardColor: rgba(255, 255, 255, 0.64);
   --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
 }
@@ -67,6 +67,10 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--light-bg);
     border-radius: 19px;
+}
+
+.error img{
+  width: 10rem;
 }
 
 

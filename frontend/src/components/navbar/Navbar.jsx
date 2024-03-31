@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import "./navbar.css"
 import { NavLink } from 'react-router-dom';
-import { IoIosArrowDown } from "react-icons/io";
+import { MdConnectWithoutContact } from "react-icons/md";
 import { TbMessageCircle } from "react-icons/tb";
 import { IoLogOutOutline } from "react-icons/io5";
 import { AiOutlineGlobal } from "react-icons/ai";import { FiUser } from "react-icons/fi";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNotificationContext } from '../../hooks/useNotificationContext';
-import { MdConnectWithoutContact } from "react-icons/md";
-
+import { GoPersonAdd } from "react-icons/go";
+import Notifications from '../../notification/Notifications';
+import ConnectionRequests from '../../notification/ConnectionRequests';
+import { useFetchData } from '../../hooks/useFetchData';
 
 function Navbar({user}) {
+    const {data} = useFetchData("http://localhost:5000/user/connections/pending");
     const {likes, messages} = useNotificationContext();
     const [opened, setOpened] = useState(false);
+    const [reqopened, setreqOpened] = useState(false);
+    const [notifopened, setnotifOpened] = useState(false);
     const {dispatch} = useAuthContext();
     const logout = () => {
         console.log("logged out")
@@ -21,6 +26,8 @@ function Navbar({user}) {
         dispatch({type:"LOGOUT"})
         window.open("http://localhost:5000/auth/logout", "_self");
     }
+
+    
     
   return (
     <div className="nav-bar-container">
@@ -51,12 +58,18 @@ function Navbar({user}) {
         <span>connections</span>
       </NavLink>
     </div>}
+    {notifopened && <Notifications setnotifOpened={setnotifOpened}/>}
+    {reqopened && data &&<ConnectionRequests setreqOpened={setreqOpened} data={data} />}
 
     <div className="nav--actions">
     <div>
-        <IoIosNotificationsOutline />
-        {likes.length>0 &&<pre className="notification--indicator">{likes.length}</pre>}
-      </div>
+        <GoPersonAdd onClick={()=>setreqOpened(!reqopened)} />
+        {data?.length>0 &&<pre className="notification--indicator">{data?.length}</pre>}
+    </div>
+    <div>
+        <IoIosNotificationsOutline onClick={()=>setnotifOpened(!notifopened)} />
+        {likes?.length>0 &&<pre className="notification--indicator">{likes?.length}</pre>}
+    </div>
     {user &&<div className="user">
         {user && (
             <div className="profile-menu">
@@ -66,7 +79,6 @@ function Navbar({user}) {
                 <ul className={(opened)? "show" : ""} >
                     <li>
                         <div className="profile-window">
-                        <IoIosArrowDown className='arrow' />
                             <div className="profile-container">
                                 <div className="profile-img" >
                                     <img src={user.img} alt="" className='profilpic' />

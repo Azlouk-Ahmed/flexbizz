@@ -11,6 +11,7 @@ import { useOffersContext } from "../../hooks/useOffersContext";
 import HorizontalProfile from "../horizontalimg/HorizontalProfile";
 import SendMessageComponent from "../chatComponent/SendMessageComponent";
 import { useSocketContext } from "../../hooks/useSocketContext";
+import Typing from "../typing/Typing";
 
 function MessageModal() {
   const { dispatch: dispatchModal, sendMessageModal } = useOffersContext();
@@ -118,7 +119,7 @@ function MessageModal() {
       transition={{ duration: 0.5 }}
       className="overlay"
     >
-      <div className="message-container">
+      <div className="message-container notifications">
         <HorizontalProfile user={sendMessageModal} />
         <hr />
         <div className="messages-container">
@@ -134,10 +135,11 @@ function MessageModal() {
               <div ref={messagesEndRef} />
             </div>
           )}
+          
           {loading && <Loading />}
         </div>
-        {isTyping.chatId === chat._id && isTyping.typing && (
-          <div>typing...</div>
+        {isTyping.chatId === chat?._id && isTyping.typing && (
+          <Typing />
         )}
         <SendMessageComponent receiver={sendMessageModal} />
         <MdOutlineCancel
