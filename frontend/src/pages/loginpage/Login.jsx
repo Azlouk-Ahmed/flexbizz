@@ -4,6 +4,7 @@ import GoogleAuthBtn from "../../components/googleAuthbtn/GoogleAuthBtn";
 import { CiLock, CiUser } from "react-icons/ci";
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import Error from '../../components/error/Error';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -41,7 +42,6 @@ function Login() {
                             <CiLock />
                             <input type="password" autoComplete="false" className="input" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
-						{error && <div className="error">{error}</div>}
                         <a href="/dsf/">Forgot Password?</a>
                         <button type="submit" className="btn">Login</button>
                         <div className="social-auth-container">
@@ -49,6 +49,7 @@ function Login() {
                             <GoogleAuthBtn />
                         </div>
                     </form>
+						{error && <Error error = {error} className="error"/>}
                 </div>
             </div>
         </div>

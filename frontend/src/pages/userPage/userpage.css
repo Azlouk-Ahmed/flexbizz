@@ -1,29 +1,32 @@
 
-.profile .user {
+.user--header {
     display: flex;
     gap: 2rem;
     align-items: center;
+    background: var(--light-bg);
+    padding: 1rem;
+    border-radius: 7px;
 }
 
-.profile .user .name {
+.user--header .name {
     font-weight: bold;
     font-size: 20px;
 }
 
-.profile .user .name span {
+.profile .user--header .name span {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.profile .user .img--container{
+.profile .user--header .img--container{
     overflow: hidden;
     border-radius: 10px;
     width: 8rem;
     height: 8rem;
 }
 
-.profile .user .img--container img {
+.user--header .img--container img {
     width: 100%;
     object-fit: fill;
 }
@@ -40,7 +43,7 @@
     gap: 1rem;
 }
 .stats .box{
-    width: 10rem;
+    width: 25%;
     height: 10rem;
     overflow: hidden;
     background: var(--light-bg);
@@ -49,6 +52,48 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 1rem;
+}
+
+.box h1 {
+    
+}
+
+.box.money {
+    text-align: left;
+    display: block;
+}
+
+.box.money span:nth-child(2) {
+    width: 100%;
+    display: inline-block;
+    text-align: end;
+    font-weight: 700;
+}
+
+.danger {
+    color: var(--error)
+}
+
+.sucess {
+    color: var(--primary);
+}
+
+.box.money:first-child div:nth-child(2){
+    background: #a1ffc2;
+    padding: 1rem;
+    
+}
+.box.money:nth-child(2) div:nth-child(2){
+    background: #ffc6a1;
+    padding: 1rem;
+}
+.box.money .df {
+    padding: 1rem;
+    width: 100%;
+    height: 39%;
+    font-weight: 800;
+    font-size: 1rem;
 }
 
 .profile .up {
@@ -66,11 +111,13 @@
     font-size: 10px;
     display: flex;
     align-items: center;
-    padding: 3px;
+    padding: 2px 8px;
     margin-bottom: auto;
     gap: 7px;
     color: var(--primary);
     font-weight: bold;
+    background: var(--primary-bg);
+    width: fit-content;
 }
 
 
@@ -88,10 +135,11 @@
     position: relative;
 }
 
-.pdf--view >svg {
+.pdf--view  .danger-btn {
     position: absolute;
     right: 1rem;
     top: 1rem;
-    cursor: pointer;
     z-index: 10;
+    background: var(--light-bg);
+    width: fit-content;
 }

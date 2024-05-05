@@ -13,7 +13,7 @@ export const useFetchNotification = () => {
     const [receivedMessage, setReceivedMessage] = useState(null);
     const { auth } = useAuthContext();
     const { socket } = useSocketContext();
-    const { dispatch: dispatchNotifications, likes } = useNotificationContext();
+    const { dispatch: dispatchNotifications, notifications} = useNotificationContext();
     const { dispatch: dispatchChats } = useChatsContext();
     const { dispatch: dispatchModal, sendMessageModal} = useOffersContext();
 
@@ -21,7 +21,9 @@ export const useFetchNotification = () => {
         if (socket) {
           socket.emit("new-user-add", auth?.user._id);
           socket.on("get-users", (users) => {
+            console.log(users);
             const filteredUsers = users.filter(user => user.userId !== auth?.user._id);
+            console.log(filteredUsers);
             dispatchChats({ type: "SET_ONLINE_USERS", payload: filteredUsers });
           });
           const handleReceiveNotification = (notificationData) => {
@@ -34,32 +36,36 @@ export const useFetchNotification = () => {
             socket.off("receive-notification", handleReceiveNotification);
           };
         }
-    }, [auth, socket, likes, dispatchChats]);
+    }, [auth, socket , dispatchChats]);
     
     useEffect(() => {
         if (
           receivedNotification &&
-          receivedNotification.notificationType === "like" &&
-          !likes.some(
-            (like) =>
-              like.elementId === receivedNotification.elementId &&
-              like.fromId === receivedNotification.fromId
+          !notifications.some(
+            (notification) =>
+              notification.elementId === receivedNotification.elementId &&
+              notification.fromId === receivedNotification.fromId
           )
-        ) {
-            dispatchNotifications({
-            type: "ADD_LIKE_NOTIFICATION",
+        ) {dispatchNotifications({
+            type: "ADD_NOTIFICATION",
             payload: receivedNotification,
           });
         }
-    }, [receivedNotification, likes, dispatchNotifications]);
+    }, [receivedNotification, dispatchNotifications]);
 
     useEffect(() => {
-        if (socket) {
-            socket.on("recieve-message", (data) => {
-                setReceivedMessage(data);
-            });
-        }
-    }, [socket]);
+      if (socket) {
+          const handleMessage = (data) => {
+              setReceivedMessage(data);
+          };
+  
+          socket.on("recieve-message", handleMessage);
+  
+          return () => {
+              socket.off("recieve-message", handleMessage);
+          };
+      }
+  }, [socket]);
 
     useEffect(() => {
       const fetchData = async () => {

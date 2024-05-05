@@ -8,7 +8,7 @@ const io = require("socket.io")(8800, {
   
   io.on("connection", (socket) => {
     socket.on("new-user-add", (newUserId) => {
-      if (!activeUsers.some((user) => user.userId === newUserId)) {
+      if (!activeUsers.some((user) => user.userId === newUserId) && newUserId) {
         activeUsers.push({ userId: newUserId, socketId: socket.id });
         console.log("New User Connected", activeUsers);
       }

@@ -1,6 +1,6 @@
 .notifications {
     padding: 1rem;
-    background: rgb(0 0 0 / 68%);
+    background: rgb(255 255 255 / 68%);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     -webkit-backdrop-filter: blur(5px);
@@ -14,12 +14,13 @@
     top: 4rem;
 }
 
+.notifications svg {}
+
 .notifications::-webkit-scrollbar {
     display: none;
 }
 
 .notification-header strong {
-    color: white;
     font-weight: 700;
 }
 .notifications--wrapper {
@@ -73,9 +74,7 @@
 }
 
 .notifications input,.notifications textarea {
-    background-color: #101010 !important;
     padding: 1rem;
-    color: white;
 }
 
 

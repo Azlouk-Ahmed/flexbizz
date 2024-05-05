@@ -1,141 +1,187 @@
-import React from 'react';
-import "../portfolio/portfolio.css";
+import React, { useEffect, useState } from "react";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
 import { RiTwitterXLine } from "react-icons/ri";
 import { VscGithubAlt } from "react-icons/vsc";
 import { FaInstagram } from "react-icons/fa6";
-import "./userporfolio.css"
-import { GoHome } from "react-icons/go";
+import "./userporfolio.css";
 import { IoMailOutline } from "react-icons/io5";
 import { MdWhatsapp } from "react-icons/md";
-import { GoArrowRight } from "react-icons/go";
+import { format } from 'date-fns';
+import { useFetchData } from "../../hooks/useFetchData";
+import { GoHome } from "react-icons/go";
 
 const platformIcons = {
-  linkedin: <MdConnectWithoutContact style={{fill: "white"}} />,
-  facebook: <FcApproval style={{fill: "white"}} />,
-  instagram: <FaInstagram style={{fill: "white"}} />,
-  twitter: <RiTwitterXLine style={{fill: "white"}} />,
-  gitHub: <VscGithubAlt style={{fill: "white"}} />,
-  whatsapp: <MdWhatsapp style={{fill: "white"}} />,
-  mail: <IoMailOutline style={{fill: "white"}} />
+  linkedin: <MdConnectWithoutContact style={{ fill: "black" }} />,
+  facebook: <FcApproval style={{ fill: "black" }} />,
+  instagram: <FaInstagram style={{ fill: "black" }} />,
+  twitter: <RiTwitterXLine style={{ fill: "black" }} />,
+  gitHub: <VscGithubAlt style={{ fill: "black" }} />,
+  whatsapp: <MdWhatsapp style={{ fill: "black" }} />,
+  mail: <IoMailOutline style={{ fill: "black" }} />,
 };
-function UserPortfolio({data}) {
-    
-  
-    return (
-      <div className='user--portfolio' style={{backgroundColor:"#082032"}}>
-        {data && <div className="portfolio--data">
-          <div className="user">
-            <img src={data.portfolio.user?.img} className="portfolio--img" alt='user' />
-            <div className="name">
-            <h3>{data.portfolio.user?.name} {data.portfolio.user?.familyName}</h3>
-            <h5><GoHome style={{fill: "white"}} /> lives at : {data.portfolio.country ? data.portfolio.country+", "+data.portfolio.governorate+", "+data.portfolio.city+", "+data.portfolio.postalCode : "set country"}</h5>
-            {
-            data.portfolio.website
-            && 
-            <h5>
-              <GoHome style={{fill: "white"}}/> website : {data.portfolio.website }
-            </h5>
-            }
+function UserPortfolio({ data }) {
+  const { data: userData } = useFetchData(
+    `http://localhost:5000/user/65c402ef5e30f7ba5c57f5bc`
+  );
+  return (
+    <>
+      {data && (
+        <div className="user-portfolio">
 
+          <div className="portoflioData">
+            <div className="portfolio-name">
+                <h1>{data.name}</h1>
             </div>
-          </div>
-          <hr />
-          <div className="connections">
-              <div className="box--title">social media</div>
-            <ul>
-                <li>
-                {Object.keys(data.portfolio.socialMedia).length > 0 ? (
-                  Object.keys(data.portfolio.socialMedia).map((platform, index) => (
-                    <div key={Math.random()}>
-                      {platformIcons[platform]} :<a className='socials' href={data.portfolio.socialMedia[platform]}>{data.portfolio.socialMedia[platform]}</a> 
-                    </div>
-                  ))
-                ) : (
-                  "No social media yet"
-                )}
-              </li>
-            </ul>
-          </div>
-          <hr />
-          <div className="contact">
-            <div className="box--title">contact</div>
-            <ul>
-                {data.portfolio.contact.map((contactItem, index) => {
-                const platform = Object.keys(contactItem)[0];
-                const data = contactItem[platform];
-                
-                return (
-                    <li key={Math.random()}>
-                    {platformIcons[platform.toLowerCase()]} : {data}
+            <div className="content">
+
+            
+            <div className="about-user">
+              <h4>About Me</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Velit fuga odit veniam expedita optio sequi, 
+                in magni magnam natus sapiente!
+                </p>
+            </div>
+            <div className="education-section">
+              <h4>education</h4>
+              <div className="education">
+                <ul className="">
+                  {data.education?.map((element, index) => (
+                    <li className="" key={Math.random()}>
+                      <div className="data-date">
+                        from <span>{element.startDate.slice(0, 4)}</span> to <span>{element.endDate.slice(0, 4)}</span>  :
+                      </div>
+                      <div className="desc">
+                      Obtained a Bachelor’s degree in {element.degree} from {element.institution} at {format(new Date(element.startDate), 'MMMM yyyy')} - {format(new Date(element.endDate), 'MMMM yyyy')}
+                      </div>
                     </li>
-                );
-                })}
-            </ul>
+                  ))}
+                </ul>
+              </div>
             </div>
+            
+            <div className="experience-section">
+              <h4>
+                experience
+              </h4>
+              <div className="experience">
+                <ul>
 
-          <hr />
-          <div className="projects">
-              <div className="box--title">projects</div>
-              <div className="projects--container portfolio--view">
+                
+                  {data.experience?.map((element, index) => (
+                    <li className="" key={Math.random()}>
+                      <h5>
+                        {element.role} in {element.company}
+                      </h5>
+                      <div className="desc">
+                        from <span>{element.startDate.slice(0, 4)}</span> to <span>{element.endDate.slice(0, 4)}</span>, {element.description}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              </div>
 
-              {data.portfolio.projects?.map((project, index) => (
-                <div className="project portfolio--view" key={Math.random()}>
-                  <img src={`http://localhost:5000/uploads/image/${project.img}`} alt="" />
-                  <span>{project.name}</span>
-                  <span>{project.description}</span>
-                  <span><VscGithubAlt style={{fill: "white"}}/> <a className="socials" href={project.link}>project link</a> </span>
-                  <div className="technologies">
-                    {project.technologies.map((tech, index) => (
-                        <div className="tech" key={Math.random()}>
-                        {tech}
-                        </div>
-                    ))}
+
+
+
+
+            <div className="">
+              <h4>projects</h4>
+              <ul className="">
+                {data.projects?.map((project, index) => (
+                  <li className="project-container" key={Math.random()}>
+                    <span>{project.name}</span>
+                    <img
+                      src={`http://localhost:5000/uploads/image/${project.img}`}
+                      alt=""
+                    />
+                    <div className="desc">{project.description} using {project.technologies.join(" , ")}</div>
+                    <a href={project.link}>
+                      <VscGithubAlt style={{ fill: "black" }} />{" "}
+                        project link
+                    </a>
+                    <hr />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            
+            </div>
+          </div>
+          {userData && (
+            <div className="portfolio-user-info">
+                <div className="portfolio-img">
+                  <div className="img-cont">
+                    <img
+                      src={userData?.img}
+                      className="portfolio--img"
+                      alt="user"
+                    />
+                  </div>
+
+                  </div>
+                  <h5>
+                    {userData?.name}{" "}
+                    {userData?.familyName}
+                  </h5>
+                  <div className="living">
+                    <GoHome style={{ fill: "black" }} /> {" "}
+                    {data?.country
+                      ? data?.country +
+                        ", " +
+                        data?.governorate +
+                        ", " +
+                        data?.city +
+                        ", " +
+                        data?.postalCode
+                      : "set country"}
+                  </div>
+                  {data?.website && (
+                    <div>
+                      <GoHome style={{ fill: "black" }} /> website :{" "}
+                      {data?.website}
+                    </div>
+                  )}
+              <div className="">
+                <div>
+                  <div>
+                    {Object.keys(data.socialMedia).length > 0
+                      ? Object.keys(data.socialMedia).map((platform, index) => (
+                          <div className="living" key={Math.random()}>
+                            {platformIcons[platform]} :<a className="" href={data.socialMedia[platform]}>
+                              {data.socialMedia[platform]}
+                            </a>
+                            
+                          </div>
+                        ))
+                      : "No social media yet"}
                   </div>
                 </div>
-              ))}
               </div>
-          </div>
-          <hr />
-          <div className="education">
-              <div className="box--title">education</div>
-              <div className="education--container portfolio--view">
-              <div className="line"></div>
-              <div className="education--container">
-                {data.portfolio.education?.map((element, index) => (
-                  <div className="education portfolio--view" key={Math.random()}>
-                    <div className="hint">{(element.startDate).slice(0,4)} <GoArrowRight style={{fill: "white"}}/> {(element.endDate).slice(0,4)}</div>
-                    <span>{element.institution}</span>
-                    <span>{element.degree}</span>
-                    <span>{element.startDate}</span>
-                    <span>{element.endDate}</span>
-                  </div>
-                ))}
-              </div>
-              </div>
-          </div>
-        <hr />
-        <div className="experience">
-        <div className="box--title" key={Math.random()}>experience</div>
-        <div className="experience--container">
-        <div className="horizontal-line"></div>
-          
-                {data.portfolio.experience?.map((element, index) => (
-                  <div className="experience-element" key={Math.random()}>
-                    <div className="start"><GoArrowRight style={{fill: "white"}}/> {(element.startDate).slice(0,4)}</div>
-                    <h3>{element.role} in {element.company}</h3>
-                    <p>{element.description}</p>
-                    <div className="end"><GoArrowRight style={{fill: "white"}}/> {(element.endDate).slice(0,4)}</div>
-                  </div>
-                ))}
-        </div>
-        </div>
-        </div>}
-        
+              <div className="living">
+                <div>
+                  {data.contact.map((contactItem, index) => {
+                    const platform = Object.keys(contactItem)[0];
+                    const data = contactItem[platform];
 
-      </div>
-    );
+                    return (
+                      <div key={Math.random()}>
+                        {platformIcons[platform.toLowerCase()]} : {data}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
 }
 
-export default UserPortfolio
+export default UserPortfolio;

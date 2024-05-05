@@ -13,6 +13,7 @@ const addMessage = async (req, res) => {
     file,
   });
   try {
+    console.log("file : ",file);
     const chat = await ChatModel.findById(chatId);
     const sender = await userModel.findById(senderId);
     if(!chat) {

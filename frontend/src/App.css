@@ -9,9 +9,9 @@
     padding: 1rem 1rem;
     color: white;
     align-items: center;
-    margin-top: 21px;
     font-weight: bold;
     letter-spacing: 3px;
+    width: fit-content;
 }
 
 .success {
@@ -20,3 +20,60 @@
     background: var(--success);
     padding: 1rem 1rem;
 }
+
+.df {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.center {
+    display: grid;
+    place-content: center;
+}
+
+.df-c {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.page-gap {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+}
+
+.spacer {
+    padding: 3rem 0;
+}
+
+.box--payment img{
+    width: 2rem;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.checked{
+    border: 2px solid var(--primary) !important;
+    box-shadow: 0px 1px 21px var(--primary);
+}
+
+.box--payment {
+    border: 2px solid var(--bg);
+    border-radius: 7px;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+}
+
+.box--payment input {
+    display: none;
+}
+
+.box--payment h4 {
+    margin: 0;
+}
+

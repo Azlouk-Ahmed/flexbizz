@@ -1,0 +1,311 @@
+.search--container {
+    background: var(--light-bg);
+    padding: 1rem;
+    height: fit-content;
+    max-width: 15rem;
+}
+
+.search--container form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem
+}
+
+
+.search--container .filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.search--container .search span {}
+
+.search--container .location {}
+
+.search--container .input {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.search--container form > div {
+  position: relative;
+}
+
+
+
+.search--container .box--title {
+  top: 2px !important;
+  left: 8px;
+}
+
+.search--container .type .up,.search--container .type .down {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+.search--container .type .up .input,.search--container .type .down .input {
+    width: 7rem;
+}
+
+h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+  font-size: 28px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+h1 span {
+  display: block;
+  font-size: 0.5em;
+  line-height: 1.3;
+}
+h1 em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* === HEADING STYLE #1 === */
+.one {
+  margin-bottom: 1rem;
+}
+.one h1 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+.one h1:before {
+  width: 28px;
+  height: 5px;
+  display: block;
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  margin-left: -14px;
+  background-color: #b80000;
+}
+.one h1:after {
+  width: 100px;
+  height: 1px;
+  display: block;
+  content: "";
+  position: relative;
+  margin-top: 25px;
+  left: 50%;
+  margin-left: -50px;
+  background-color: #b80000;
+}
+
+
+.search--container .type .input input[type="checkbox"] {}
+
+label {
+  cursor: pointer;
+}
+
+svg {
+  cursor: pointer;
+}
+
+.search--container .salary {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.search--container .salary .input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search--container .salary .input input[type="number"] {}
+
+.search--container .salary .input label {}
+
+.search--container .offer-status {}
+
+.search--container .offer-status .input {}
+
+.search--container .offer-status .input input[type="checkbox"] {}
+
+.search--container .offer-status .input label {}
+
+.search--container .posted-by {}
+
+.search--container input[type="text"],.search--container input[type="number"] {
+    width: 8rem;
+    border: 2px solid var(--primary);
+    border-radius: 3px;
+    height: 2rem;
+    outline: none;
+}
+
+
+.offer--form .posted-by {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.offer--form  .salary .input{
+  justify-content: space-between;
+  gap: 1rem;
+
+}
+
+.offer--form  input[type="text"],.offer--form  input[type="number"],.offer--form select{
+  width: 10.7rem;
+}
+
+.offer--form .description textarea {
+  max-height: 4rem;
+  width: 10.7rem;
+}
+
+.offer--form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+  background-color: rgba(37, 37, 38, 0.306);
+  display: grid;
+  place-content: center;
+}
+
+.offer--form .search--container {
+  padding: 0;
+  width: fit-content;
+  font-size: 13px;
+}
+
+.search--container .primary-btn {}
+
+
+input[type="checkbox"], .search--container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .search--container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .checkmark {
+    --clr: var(--primary);
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1em;
+    width: 1em;
+    background-color: #ccc;
+    border-radius: 6px;
+    transition: 300ms;
+  }
+  
+ input[type="checkbox"]:checked ~ .checkmark {
+    background-color: var(--primary) ;
+    border-radius: 6px;
+    animation: pulse 500ms ease-in-out;
+  }
+input[type="radio"]:checked ~ .checkmark {
+    background-color: var(--clr);
+    border-radius: 6px;
+    animation: pulse 500ms ease-in-out;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  input[type="checkbox"]:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .posted-by {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .checkmark:after {
+    left: 50%;
+    top: 63%;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid #E0E0E2;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg) translateX(-162%) translateY(-50%);
+  }
+
+  .custom-select {
+    border: 2px solid var(--primary);
+    height: 2rem;
+    border-radius: 5px;
+    outline: none;
+    margin-left: auto;
+  }
+
+  .attachments {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .err {
+    border: 2px var(--error) solid !important;
+  }
+
+  .primary-btn.err{
+    border: none !important;
+    background: var(--text);
+    cursor: no-drop;
+  }
+
+  .custom-select option {
+    color: var(--text);
+    font-size: 12px;
+    display: block;
+    padding: 1rem;
+    height: 2rem;
+    background-color: var(--primary-bg);
+    margin-top: 3px;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 #0B6E4F90;
+      rotate: 20deg;
+    }
+  
+    50% {
+      rotate: -20deg;
+    }
+  
+    75% {
+      box-shadow: 0 0 0 10px #0B6E4F60;
+    }
+  
+    100% {
+      box-shadow: 0 0 0 13px #0B6E4F30;
+      rotate: 0;
+    }
+  }

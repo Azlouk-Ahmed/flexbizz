@@ -9,6 +9,26 @@ export const OffersReducer = (state, action) => {
         ...state,
         offers: action.payload,
       };
+    case "SET_PROPOSITIONS":
+      return {
+        ...state,
+        propositions: action.payload,
+      };
+    case "ADD_PROPOSITION":
+      return {
+        ...state,
+        propositions: [...state.propositions, action.payload],
+      };
+    case "DELETE_PROPOSITION":
+      return {
+        ...state,
+        propositions: state.propositions.filter(prop => prop._id !== action.payload._id),
+      };
+    case "ADD_OFFER":
+      return {
+        ...state,
+        offers: [...state.offers, action.payload],
+      };
     case "SET_COMMENTS":
       return {
         ...state,
@@ -25,6 +45,13 @@ export const OffersReducer = (state, action) => {
         comments: state.comments.filter(comment => comment._id !== action.payload._id),
       };
     case "LIKE_OFFER":
+      return {
+        ...state,
+        offers: state.offers.map((offer) =>
+          offer._id === action.payload._id ? action.payload : offer
+        ),
+      };
+    case "APPLY_OFFER":
       return {
         ...state,
         offers: state.offers.map((offer) =>
@@ -55,12 +82,13 @@ export const OffersReducer = (state, action) => {
 export const OfferContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(OffersReducer, {
     offers: [],
+    propositions: [],
     comments: [],
     commentsOpened: false,
     sendMessageModal: false,
     reportModal: false,
   });
-
+  console.log("ofefers",state.offers);
   return (
     <OffersContext.Provider value={{ ...state, dispatch }}>
       {children}

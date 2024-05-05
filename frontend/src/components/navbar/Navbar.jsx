@@ -12,14 +12,17 @@ import { GoPersonAdd } from "react-icons/go";
 import Notifications from '../../notification/Notifications';
 import ConnectionRequests from '../../notification/ConnectionRequests';
 import { useFetchData } from '../../hooks/useFetchData';
+import { MdWorkOutline } from "react-icons/md";
+import { useOffersContext } from '../../hooks/useOffersContext';
 
 function Navbar({user}) {
     const {data} = useFetchData("http://localhost:5000/user/connections/pending");
-    const {likes, messages} = useNotificationContext();
+    const {notifications, messages} = useNotificationContext();
     const [opened, setOpened] = useState(false);
     const [reqopened, setreqOpened] = useState(false);
     const [notifopened, setnotifOpened] = useState(false);
     const {dispatch} = useAuthContext();
+    const {propositions} = useOffersContext();
     const logout = () => {
         console.log("logged out")
         localStorage.removeItem("auth");
@@ -57,20 +60,25 @@ function Navbar({user}) {
         <MdConnectWithoutContact />
         <span>connections</span>
       </NavLink>
+      <NavLink to="/propositions">
+        <MdWorkOutline />
+        <span>propositions</span>
+        {propositions?.length>0 &&<pre className="notification--indicator">{propositions?.length}</pre>}
+      </NavLink>
     </div>}
     {notifopened && <Notifications setnotifOpened={setnotifOpened}/>}
     {reqopened && data &&<ConnectionRequests setreqOpened={setreqOpened} data={data} />}
 
-    <div className="nav--actions">
+    {user &&<div className="nav--actions">
     <div>
         <GoPersonAdd onClick={()=>setreqOpened(!reqopened)} />
         {data?.length>0 &&<pre className="notification--indicator">{data?.length}</pre>}
     </div>
     <div>
         <IoIosNotificationsOutline onClick={()=>setnotifOpened(!notifopened)} />
-        {likes?.length>0 &&<pre className="notification--indicator">{likes?.length}</pre>}
+        {notifications?.length>0 &&<pre className="notification--indicator">{notifications?.length}</pre>}
     </div>
-    {user &&<div className="user">
+    <div className="user">
         {user && (
             <div className="profile-menu">
                 <div className="profile-img" onClick={()=>setOpened(!opened)} >
@@ -98,9 +106,9 @@ function Navbar({user}) {
                 </ul>
             </div>
         )}
-    </div>}
-
     </div>
+
+    </div>}
     
   </div>
   )

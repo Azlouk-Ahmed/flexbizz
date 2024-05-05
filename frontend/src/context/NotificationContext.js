@@ -1,43 +1,23 @@
 import React, { createContext, useReducer } from "react";
-
 export const NotificationContext = createContext();
 
 const notificationReducer = (state, action) => {
   switch (action.type) {
-    case "ADD_LIKE_NOTIFICATION":
+    case "ADD_NOTIFICATION":
       return {
         ...state,
-        likes: [...state.likes, action.payload],
-      };
-    case "ADD_COMMENT_NOTIFICATION":
-      return {
-        ...state,
-        comments: [...state.comments, action.payload],
-      };
-    case "ADD_APPLY_NOTIFICATION":
-      return {
-        ...state,
-        apply: [...state.apply, action.payload],
+        notifications: [...state.notifications, action.payload],
       };
     case "ADD_MESSAGE_NOTIFICATION":
       return {
         ...state,
         messages: [...state.messages, action.payload],
       };
-    case "REMOVE_LIKE_NOTIFICATION":
+
+    case "REMOVE_NOTIFICATIONS":
       return {
         ...state,
-        likes: [],
-      };
-    case "REMOVE_COMMENT_NOTIFICATION":
-      return {
-        ...state,
-        comments: [],
-      };
-    case "REMOVE_APPLY_NOTIFICATION":
-      return {
-        ...state,
-        apply: [],
+        notifications: [],
       };
     case "REMOVE_MESSAGE_NOTIFICATION":
       return {
@@ -51,14 +31,13 @@ const notificationReducer = (state, action) => {
   }
 };
 
+
 export const NotificationContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notificationReducer, {
-    likes: [],
-    comments: [],
-    apply: [],
+    notifications: [],
     messages: [],
   });
-  console.log(state.messages);
+  console.log(state.notifications);
   return (
     <NotificationContext.Provider value={{ ...state, dispatch }}>
       {children}

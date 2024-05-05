@@ -7,38 +7,34 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { VscGithubAlt } from "react-icons/vsc";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import {Link} from "react-router-dom"
+import { useFetchData } from '../../hooks/useFetchData';
+import Loading from '../loading/Loading';
+import Error from '../error/Error';
+import Empty from '../error/Empty';
 
 
 
 function PortfolioComponent() {
   const [portfolioData, setPortfolioData] = useState(null);
   const { auth } = useAuthContext();
+  const {data, loading, error} = useFetchData("http://localhost:5000/portfolio/user")
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/portfolio/user', {
-          headers: {
-            'Authorization': `Bearer ${auth.token}`
-          }
-        });
-        setPortfolioData(response.data);
-      } catch (error) {
-        console.error('Error fetching portfolio data:', error);
-      }
-    };
-    if (auth) {
-      fetchData();
-    }
-  }, [auth]);
+    setPortfolioData(data);
+  }, [data]);
 
   return (
     <div className='portfolio'>
+      <div className="one">
+        <h1>your portfolio</h1>
+      </div>
       {portfolioData && <div className="portfolio--data">
         <div className="user">
           <img src={portfolioData.portfolio.user?.img} alt="" srcSet="" />
           <h3>{portfolioData.portfolio.user?.name} {portfolioData.portfolio.user?.familyName}</h3>
           <h5>{portfolioData.portfolio.education.length > 0 ? portfolioData.portfolio.education[0].institution : "No education yet"}</h5>
+          {portfolioData.portfolio.user?.status === "hiring" &&<div className="status hiring"><div>is hiring </div><span className="hiring__circle"></span></div>}
+          {portfolioData.portfolio.user?.status !== "hiring" &&<div className="status "><div>{portfolioData.portfolio.user?.status}</div><span className="status__available-circle"></span></div>}
         </div>
         <hr />
         <div className="connections">
@@ -81,6 +77,8 @@ function PortfolioComponent() {
           Edit info
         </Link>
       </div>}
+      {loading && <Loading />}
+      {error && <Empty />}
     </div>
   );
 }

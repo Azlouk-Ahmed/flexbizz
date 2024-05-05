@@ -43,7 +43,7 @@ const createComment = async (req, res) => {
 const getCommentsByAnnouncementId = async (req, res) => {
   try {
     const announcementId = req.params.announcementId;
-    const comments = await Comment.find({ announcement: announcementId }).populate('createdBy');
+    const comments = await Comment.find({ announcement: announcementId });
     res.json(comments);
   } catch (error) {
     res.status(500).json({ error: error.message });

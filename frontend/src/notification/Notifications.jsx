@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./notifications.css";
 import { useFetchData } from "../hooks/useFetchData";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -7,11 +7,20 @@ import { IoCloseOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
+import { useNotificationContext } from "../hooks/useNotificationContext";
 
 function Notifications({ setnotifOpened }) {
+  const {dispatch} = useNotificationContext();
   const { data, error, loading } = useFetchData(
     "http://localhost:5000/notification"
   );
+  useEffect(() => {
+    dispatch({
+      type: "REMOVE_NOTIFICATIONS",
+      payload: [],
+    })
+  }, [])
+  
 
   return (
     <motion.div
@@ -48,10 +57,18 @@ function Notifications({ setnotifOpened }) {
                   )}
                 </div>
                 <div className="notification-content">
-                  <p className="notification-text">
-                    <strong>{notification?.username} </strong>
-                    liked your post
-                  </p>
+                {notification?.notificationType === "like" && (
+                    <p className="notification-text">
+                      <strong>{notification?.username} </strong>
+                      liked your announcement
+                    </p>
+                  )}
+                {notification?.notificationType === "apply" && (
+                    <p className="notification-text">
+                      <strong>{notification?.username} </strong>
+                      applied to your announcement
+                    </p>
+                  )}
                   <span className="notification-timer">
                     {formatDistanceToNow(new Date(notification.createdAt), {
                       addSuffix: true,

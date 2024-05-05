@@ -2,3 +2,10 @@
     height: 70vh;
     width: 100%;
 }
+
+.pie-container{
+    width: 25rem;
+    height: 20rem;
+    background: var(--light-bg);
+    border-radius: 1rem;
+}

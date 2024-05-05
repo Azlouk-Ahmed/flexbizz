@@ -13,7 +13,7 @@ function ReportModal({ reportedObject, type }) {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false);
     const [error, setError] = useState(null);
-
+    console.log("opened");
     const handleSubmit = async () => {
         setLoading(true);
         setError(null);
@@ -48,7 +48,7 @@ function ReportModal({ reportedObject, type }) {
                 className="message-container report-container notifications"
             >
                 <div>
-                    You are about to send a report against {reportedObject.createdBy.name}, can you please tell us what's the reason?
+                    You are about to send a report against {reportedObject._id}, can you please tell us what's the reason?
                     <hr />
                 </div>
                 <textarea

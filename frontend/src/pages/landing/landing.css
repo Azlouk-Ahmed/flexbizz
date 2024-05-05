@@ -1,7 +1,9 @@
 .about {
+    background: var(--primary-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 1rem;
 }
 
 .title h1 {
@@ -19,7 +21,6 @@
 }
 
 .figures div span:first-child{
-    color: white;
     font-size: 2rem;
     
 }
@@ -133,7 +134,6 @@
     align-items: center;
     background-color: var(--light-bg);
     border-radius: 4rem;
-    color: #fff;
     display: flex;
     justify-content: flex-start;
     margin-top: 4rem;

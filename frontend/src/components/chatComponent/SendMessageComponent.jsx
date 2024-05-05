@@ -23,6 +23,7 @@ function SendMessageComponent({receiver }) {
             const formData = new FormData();
             formData.append('text', messageText);
             formData.append('chatId', selectedChat._id);
+            formData.append('file', selectedFile ? selectedFile.name : '');
             if(selectedFile) {
                 formData.append('_file', selectedFile);
             }
@@ -35,9 +36,6 @@ function SendMessageComponent({receiver }) {
                     senderId: auth?.user._id,
                     createdAt: formattedDate
                 });
-            }
-            if(selectedFile){
-                formData.append('file', selectedFile?.name); 
             }
             try {
                 const response = await axios.post(

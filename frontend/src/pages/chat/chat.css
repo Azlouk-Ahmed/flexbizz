@@ -104,6 +104,7 @@
 .messages-container {
     padding: 0 1rem;
     position: relative;
+    top: 4rem;
 }
 
 .sent {

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const { Schema, types } = mongoose;
+const { Schema } = mongoose;
 
 const announcementSchema = new Schema({
-  title: {
+  position: {
     type: String,
     required: true,
     trim: true,
@@ -19,7 +19,7 @@ const announcementSchema = new Schema({
   },
   jobType: {
     type: String,
-    enum: ['Full-Time', 'Part-Time', 'Contract', 'Hourly', 'Remote', 'On-Site'],
+    enum: ['Full-Time', 'Part-Time', 'Contract', 'Hourly', 'Freelance', 'On-Site'],
     required: true,
   },
   skillsRequired: {
@@ -30,24 +30,17 @@ const announcementSchema = new Schema({
       message: 'Please provide at least 1 and up to 10 skills required.',
     },
   },
-  budgetRange: {
-    type: String,
+  budgetMin: {
+    type: Number,
     required: true,
-    match: /^\DT\d+-\DT\d+$/,
-    message: 'Budget range must be in the format "DT[low]-[high]".',
+  },
+  budgetMax: {
+    type: Number,
+    required: true,
   },
   deadline: {
     type: Date,
     required: true,
-    validate: {
-      validator: (deadline) => deadline >= Date.now(),
-      message: 'Deadline must be in the future.',
-    },
-  },
-  additionalDetails: {
-    type: String,
-    trim: true,
-    maxlength: 250,
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -70,11 +63,21 @@ const announcementSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  status: {
+  applied: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
+  workingEnvironnement: {
     type: String,
-    enum: ['available', 'working on', 'not available'],
-    default: 'available'
-  }
+    default: 'on site'
+  },
+  status: {
+    type: Boolean,
+    default: 'true'
+  },
+  attachment: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('Announcement', announcementSchema);

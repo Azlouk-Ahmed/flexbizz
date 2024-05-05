@@ -1,0 +1,32 @@
+.user-actions {
+    background-color: var(--light-bg);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2rem;
+}
+
+.sentreq {
+    color: var(--primary);
+}
+
+.actions-wrapper {
+    position: relative;
+}
+
+.actions-wrapper svg {
+    transition: .5s;
+}
+
+.actions-wrapper svg:hover {
+    transform: scale(1.5);
+}
+.actions-wrapper svg:nth-child(3):hover {
+    color: var(--secondary);
+}
+.actions-wrapper svg:nth-child(2):hover {
+    color: var(--primary);
+}
+.actions-wrapper svg:nth-child(1):hover {
+    color: var(--error);
+}

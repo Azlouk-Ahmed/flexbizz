@@ -4,13 +4,21 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    background-color: var(--light-bg);
+    max-width: 40rem;
 }
 .offer p{
     margin: 0;
 }
 
+.page--header {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
 .offer h4 {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .offers {
@@ -30,15 +38,16 @@ strong {
 
 .hiring {
     color: var(--error) !important;
+    background: #ffd2d2 !important;
 }
 
 .skill {
     padding: 8px 17px;
     border-radius: 17px;
     font-size: 10px;
-    background: #445075;
+    background: var(--primary-bg);
     font-weight: bold;
-    color: var(--secondary);
+    color: var(--text);
 }
 
 .actions {
@@ -56,6 +65,9 @@ strong {
 .liked {
     font-weight: bolder;
     color: var(--swiper-theme-color);
+    background: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 5px 10px;
 }
 
 .deadline {
@@ -73,12 +85,22 @@ strong {
 
 }
 
-.chat {
-
+.offers-container .add--offer {
+    position: fixed;
+    left: 11rem;
+    bottom: 4rem;
+    box-shadow: var(--shadow);
+    width: 3rem;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 3rem;
 }
 
-.report {
-
+.offers-container .add--offer .primary-btn{
+    height: 100%;
+    display: grid;
+    place-content: center;
+    font-size: 1.5rem;
 }
 
 .info--container {
@@ -91,7 +113,8 @@ strong {
     align-items: center;
     gap: 5px;
     font-size: 14px;
-    color: var(--secondary);
+    color: var(--swiper-theme-color);
+    font-weight: bold;
 }
 
 .info--container span svg {
@@ -99,3 +122,22 @@ strong {
     color: var(--text);
 }
 
+.offer--form .notifications, .offer--form{
+    left: 30%;
+    width: 25rem;
+    background-color: var(--light-bg);
+}
+
+.offer--form .description    {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.offer--form form{
+    gap: 19px !important;
+}
+
+.offer--form .error {
+    font-size: 10px;
+}

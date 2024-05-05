@@ -13,14 +13,15 @@ import { useFetchData } from '../../hooks/useFetchData';
 import Error from '../../components/error/Error';
 import axios from 'axios';
 import { useNotificationContext } from '../../hooks/useNotificationContext';
+import { useNavigate } from 'react-router-dom';
 
 function Chat() {
     const { socket } = useSocketContext();
     const { chats, dispatch, onlineUsers, selectedChat } = useChatsContext();
     const { auth } = useAuthContext();
+    const navigate = useNavigate();
     const { dispatch: dispatchNotification, messages } = useNotificationContext();
     const [commingMsg, setcommingMsg] = useState(null);
-
     const { data: fetchedChats, loading: fetchingChats, error: fetchChatsError } = useFetchData('http://localhost:5000/chat/');
 
     useEffect(() => {
@@ -28,6 +29,12 @@ function Chat() {
             dispatch({ type: 'SET_CHATS', payload: fetchedChats });
         }
     }, [fetchedChats, dispatch]);
+
+    useEffect(() => {
+        if (!auth) {
+            navigate("/landing");
+        }
+    }, [auth, navigate]);
 
     useEffect(() => {
         if (fetchChatsError) {
@@ -67,7 +74,7 @@ function Chat() {
     };
 
     return (
-        <div className="chat">
+        <>{auth &&<div className="chat">
             <div className="chats-container">
                 <div className='online-users'>
                     <Swiper
@@ -122,7 +129,10 @@ function Chat() {
                 {selectedChat &&<MessagesComponent onlineusers={onlineUsers} />}
                 {!selectedChat && <div className='select-chat'>please select a chat</div>}
             </div>
-        </div>
+
+        </div>}
+        {!auth && <Error error="somthing went wrong , try to log in"/>}
+        </>
     );
 }
 

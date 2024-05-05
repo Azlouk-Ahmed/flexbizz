@@ -21,13 +21,14 @@
 
 .login-content{
 	display: flex;
+    flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
 }
 
 
-form{
+.container form{
     padding: 1rem;
 	width: 360px;
 }
@@ -47,6 +48,17 @@ form{
     margin: 25px 0;
     padding: 5px 0;
     border-bottom: 2px solid #d9d9d9;
+}
+
+.stat-wrapper {
+    position: relative;
+    padding: 8rem;
+}
+
+.div {
+position: absolute;
+    left: 0;
+    top: 6rem;
 }
 
 .login-content .input-div.one{
@@ -95,25 +107,12 @@ form{
 	background: none;
 }
 
-input:-internal-autofill-selected{
-
-}
-
 input:-internal-autofill-previewed {
 	background: var(--third);
 }
 
 .input-div.pass{
 	margin-bottom: 4px;
-}
-
-a{
-	display: block;
-	text-align: right;
-	text-decoration: none;
-	color: #999;
-	font-size: 0.9rem;
-	transition: .3s;
 }
 
 .btn {
@@ -138,3 +137,4 @@ a{
     flex-direction: column;
     gap: 10px;
 }
+

@@ -27,10 +27,7 @@ const getPortfolioById = async (req, res) => {
     try {
       const {userId} = req.params;
       const portfolio = await Portfolio.findOne({ user: userId }).populate('user'); 
-      if (!portfolio) {
-        return res.status(404).json({ message: 'Portfolio not found' });
-      }
-      res.json({ portfolio, user: portfolio.user }); 
+      res.json({ portfolio, user: portfolio?.user }); 
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

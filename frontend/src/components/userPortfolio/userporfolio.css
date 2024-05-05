@@ -1,138 +1,116 @@
-.portfolio--img {
-    border-radius: 50%;
-    z-index: 2;
-    border: 5px solid var(--primary);
-}
-.user--portfolio h3 {
-   font-weight: normal;
-}
-
-.user--portfolio .user{
+.user-portfolio {
+    display: flex;
+    background-color: var(--light-bg);
+    padding: 1rem;
     position: relative;
+    margin: 0 auto;
+    gap: 2rem;
+    width: 80%;
+}
+
+.user-portfolio .content {
+    padding-left: 3rem;
+}
+.portoflioData{
+    width: 60%;
+}
+
+.portfolio-name{
+    padding: 1rem 1rem 1rem 2rem;
+    background-color: var(--primary-bg);
+    border-radius: 10px;
+}
+
+.about-user {
+    
+}
+.about-user p{
+    font-size: 1rem;
+    
+}
+.user-portfolio h4, .user-portfolio h5{
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.user-portfolio ul li{
+    list-style-type: lower-greek;
+    color: var(--primary);
+    font-weight: 700;
+}
+.user-portfolio ul li h5 {
+    margin: 0;
+}
+
+.project-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 10px;
 }
 
-.contact ul {
-    padding: 0;
+.project-container img {
+    max-width: 10rem;
+    border-radius: 10px;
 }
 
-.project.portfolio--view {
-    text-align: center;
-    border: 1px solid var(--primary);
-    width: 17rem;
-    padding: 0rem !important;
-}
-
-.project.portfolio--view img,
-.project.portfolio--view > span{
-    border-bottom: 1px solid var(--primary);
-    display: flex;
-    align-items: center;
-}
-
-.project.portfolio--view > span {
+.desc {
     padding: 5px 1rem;
 }
 
-.projects--container.portfolio--view {
+.user-portfolio a {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
-.project.portfolio--view > div {
-    justify-content: center;
-    flex-wrap: wrap;
-    padding-bottom: 5px;
+.portfolio-img {
+    height: 15rem;
+    padding: 1rem 0;
+    display: grid;
+    place-content: center;
+}
+.portfolio--img {
+    width: 100%;
+    object-fit: fill;
 }
 
-.education.portfolio--view {
-    padding: 2rem 3rem;
+.living {
     display: flex;
-    flex-direction: column;
-    position: relative;
-
+    align-items: center;
+    font-size: 15px;
+    gap: 5px;
 }
 
-.education.portfolio--view .hint {
-    background: var(--third);
-    border-radius: 5px;
-    width: fit-content;
-    padding: 2px 10px;
-    position: absolute;
-    left: -44px;
-    font-size: 10px;
+.portfolio-img .img-cont{
+    border-radius: 50%;
+    width: 11rem;
+    height: 11rem;
+    overflow: hidden;
+    border: 3px solid var(--primary)
+   
 }
 
-.education--container.portfolio--view{
-    display: flex;
+.user-portfolio ul li> div {
+    color: var(--text);
+    font-size: 14px;
 }
 
-.education .line {
-    border: 1px solid var(--third);
-    margin-left: 4rem;
+.data-date {
+    font-weight: bold;
 }
 
-.experience--container {
-    position: relative;
-    display: flex;
-    gap: 5rem;
-    flex-wrap: wrap;
-
+.data-date span {
+    color: var(--primary);
 }
 
-.experience {
-    padding: 4rem 0 2rem 4rem !important;
+.portfolio-name h1 {
+    color: var(--primary);
+    text-align: center;
 }
 
-.experience--container .experience-element {
-    background-color: var(--bg);
-    width: fit-content;
+.portfolio-user-info {
+    border-radius: 10px;
+    background-color: var(--primary-bg);
     padding: 1rem;
-    border-radius: 7px;
-    z-index: 2;
-    position: relative;
-}
-
-
-.horizontal-line {
-    position: absolute;
-    height: 2px;
-    width: 104%;
-    background: var(--primary);
-    top: 50%;
-    transform: translateY(100%);
-    left: -4rem;
-    z-index: 0;
-}
-
-.start {
-    background: var(--success);
-    width: fit-content;
-    padding: 2px 5px;
-    border-radius: 5px;
-    font-size: 11px;
-    position: absolute;
-    left: -4rem;
-    display: flex;
-    gap: 2px;
-    align-items: center;
-}
-
-.end {
-    background: var(--error);
-    display: flex;
-    gap: 2px;
-    align-items: center;
-    width: -moz-fit-content;
-    width: fit-content;
-    padding: 2px 5px;
-    border-radius: 5px;
-    font-size: 11px;
-    position: absolute;
-    bottom: 12px;
-    right: -4rem;
-
 }

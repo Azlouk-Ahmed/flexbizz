@@ -1335,3 +1335,36 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const mockUserStats = [
+  {
+    "id": "scala",
+    "label": "scala",
+    "value": 573,
+    "color": "hsl(318, 70%, 50%)"
+  },
+  {
+    "id": "make",
+    "label": "make",
+    "value": 159,
+    "color": "hsl(187, 70%, 50%)"
+  },
+  {
+    "id": "php",
+    "label": "php",
+    "value": 419,
+    "color": "hsl(63, 70%, 50%)"
+  },
+  {
+    "id": "erlang",
+    "label": "erlang",
+    "value": 379,
+    "color": "hsl(279, 70%, 50%)"
+  },
+  {
+    "id": "ruby",
+    "label": "ruby",
+    "value": 389,
+    "color": "hsl(47, 70%, 50%)"
+  }
+]

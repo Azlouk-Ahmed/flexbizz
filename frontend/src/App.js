@@ -12,6 +12,8 @@ import Landing from './pages/landing/Landing';
 import UserPage from './pages/userPage/UserPage';
 import { useFetchNotification } from './hooks/useFetchNotification';
 import Connections from './pages/connections/Connections';
+import PropositionsPage from './pages/propositions/PropositionsPage';
+import ProfilePage from './pages/proflie/ProfilePage';
 
 function App() {
   const {dispatch,auth} =  useAuthContext();
@@ -60,11 +62,11 @@ function App() {
         />
         <Route 
               path="/landing" 
-              element={!auth? <Landing /> : <Navigate to="/" />} 
+              element={<Landing />} 
         />
         <Route 
               path="/chat" 
-              element={auth? <Chat /> : <Navigate to="/login" />} 
+              element={<Chat />} 
         />
         <Route 
               path="/login" 
@@ -73,6 +75,14 @@ function App() {
         <Route 
               path="/profile" 
               element={<UserPage />} 
+        />
+        <Route 
+              path="/propositions" 
+              element={<PropositionsPage />} 
+        />
+        <Route 
+              path="/profile/:id" 
+              element={<ProfilePage />} 
         />
       </Routes>
       </BrowserRouter>

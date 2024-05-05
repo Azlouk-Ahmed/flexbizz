@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--bg);
+    background-color: var(--light-bg);
     height: 4rem;
     position: fixed;
     top: 0;
@@ -50,17 +50,19 @@
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
-    transition: .25s ease;
+    
 }
 
 a.active {
     color: var(--primary);
+    background: var(--primary-bg);
+    padding: 0 25px;
+    border-radius: 9px;
 }
 
 a.active > span {
     opacity: 1;
+    width: fit-content;
 }
 
 .links{
@@ -71,7 +73,8 @@ a.active > span {
 
 .links span {
     opacity: 0;
-    transition: 0.5s;
+    transition: 0.8s;
+    width: 0;
 }
 
 .links a {
@@ -81,6 +84,9 @@ a.active > span {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: .25s ease-in-out;
 }
 
 .links a svg {
@@ -244,8 +250,8 @@ ul li {
 
 .notification--indicator {
     position: absolute;
-    right: -35%;
-    top: -26%;
+    right: -7px;
+    top: -12%;
     font-size: 12px;
     font-family: inherit;
     margin: 0;
@@ -263,6 +269,7 @@ ul li {
     display: flex;
     gap: 1rem;
     margin-left: auto;
+    font-size: 1.5rem;
 }
 
 
