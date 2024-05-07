@@ -29,7 +29,7 @@ const achievementSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-});
+}, {timestamps: true});
 
 const Achievement = mongoose.model('Achievement', achievementSchema);
 

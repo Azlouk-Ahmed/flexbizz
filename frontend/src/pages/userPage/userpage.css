@@ -44,7 +44,6 @@
 }
 .stats .box{
     width: 25%;
-    height: 10rem;
     overflow: hidden;
     background: var(--light-bg);
     display: flex;
@@ -56,7 +55,7 @@
 }
 
 .box h1 {
-    
+
 }
 
 .box.money {
@@ -73,6 +72,11 @@
 
 .danger {
     color: var(--error)
+}
+
+.danger> .df, .sucess >.df {
+    width: fit-content;
+    justify-content: end;
 }
 
 .sucess {

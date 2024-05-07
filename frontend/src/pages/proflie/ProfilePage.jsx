@@ -54,7 +54,7 @@ function ProfilePage() {
   }, [offersData, dispatch]);
   
 
-  const {data,loading, error} = useFetchData("http://localhost:5000/user/"+id);
+  const {data} = useFetchData("http://localhost:5000/user/"+id);
   const { data: userPorfolio } = useFetchData("http://localhost:5000/portfolio/getuserportfolio/"+id);
   console.log(userPorfolio);
   

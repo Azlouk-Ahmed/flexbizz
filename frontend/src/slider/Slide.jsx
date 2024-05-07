@@ -16,7 +16,7 @@ function Slide({data}) {
   return (
     <div class="card swiper-slide">
                 <div class="image-content">
-                    <span class="overlay"></span>
+                    <span class="overlay-swiper"></span>
                     <div class="card-image">
                         <img src={user?.img} alt="" class="card-img" />
                     </div>

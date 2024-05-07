@@ -5,7 +5,7 @@ import Team from './team/Team'
 function Dashboard() {
   return (
     <div>
-        {/* <MyResponsiveBar /> */}
+        <MyResponsiveBar />
         <Team />
     </div>
   )
