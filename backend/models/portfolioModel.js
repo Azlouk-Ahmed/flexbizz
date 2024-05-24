@@ -19,17 +19,10 @@ const portfolioSchema = new mongoose.Schema({
   socialMedia: {
     type: Object, 
   },
-
-  projects: [{
-    name: String,
-    description: String,
-    link: String,
-    technologies: []
-  }],
   skills: [{
     type: String,
   }],
-  experience: [{
+  experiences: [{
     type: Object, 
   }],
 
@@ -39,10 +32,20 @@ const portfolioSchema = new mongoose.Schema({
   awards: [{
     type: String,
   }],
-  testimonials: [{
-    type: String,
-  }],
-
+image : {
+  type : String
+}
+,city : {
+  type : String,
+},country: {
+  type : String,
+},postalCode :{
+  type : String,
+},gouvernorate : {
+  type : String,
+},website : {
+  type : String
+}
 }, {
   timestamps: true, 
 });

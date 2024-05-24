@@ -18,6 +18,7 @@ const notificationsRouter = require("./routes/notificationRoutes");
 const propositionRouter = require("./routes/PropositionRoutes");
 const paymentRouter = require("./routes/payment");
 const achievementsRouter = require("./routes/achievementRoutes");
+const CurrentProjectrouter = require("./routes/currentProjectRoutes");
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -45,6 +46,7 @@ app.use('/comment', commentRouter);
 app.use('/notification', notificationsRouter);
 app.use("/api",paymentRouter);
 app.use("/achievements",achievementsRouter);
+app.use("/projects",CurrentProjectrouter);
 
 
 mongoose.connect(process.env.MONGO_URI)

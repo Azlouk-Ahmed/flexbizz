@@ -96,6 +96,10 @@ strong {
     height: 3rem;
 }
 
+.w-100 {
+    width: 100% !important;
+}
+
 .offers-container .add--offer .primary-btn{
     height: 100%;
     display: grid;

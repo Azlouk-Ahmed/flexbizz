@@ -33,23 +33,48 @@ const getPortfolioById = async (req, res) => {
     }
   };
 
-const createPortfolio = async (req, res) => {
-    const sanitizedData = _.pick(req.body, ['name', 'description', 'website', 'socialMedia', 'projects', 'skills', 'experience', 'education', 'awards', 'testimonials']); 
-    sanitizedData.user = req.user._id;
+  const createPortfolio = async (req, res) => {
+    const { education, experiences, skills, name, image, description, city, country, postalCode, gouvernorate, website, awards } = req.body; 
+    const requiredFields = ['education', 'experiences', 'skills', 'name', 'image', 'description', 'city', 'country', 'postalCode', 'gouvernorate', 'website', 'awards'];
+  
+    const emptyFields = requiredFields.filter(field => !req.body[field]); 
+  
+    if (emptyFields.length > 0) {
+      const message = `Required fields are missing: ${emptyFields.join(', ')}`;
+      return res.status(400).json({ message });
+    }
+  
+    const userid = req.user._id;
   
     try {
-      const existingPortfolio = await Portfolio.findOne({ user: req.user._id });
+      const existingPortfolio = await Portfolio.findOne({ user: userid });
       if (existingPortfolio) {
         return res.status(400).json({ message: 'User already has a portfolio' });
       }
   
-      const portfolio = new Portfolio(sanitizedData);
+      const portfolio = new Portfolio({
+        education,
+        experiences,
+        skills,
+        name,
+        image,
+        description,
+        city,
+        country,
+        postalCode,
+        gouvernorate,
+        website,
+        awards,
+        createdBy: userid,
+      });
+  
       await portfolio.save();
       res.status(201).json(portfolio);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   };
+  
   
 
 const updatePortfolio = async (req, res) => {

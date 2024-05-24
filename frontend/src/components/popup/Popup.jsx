@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 import axios from "axios";
+import { IoLocation } from "react-icons/io5";
+import { GiSuitcase } from "react-icons/gi";
+import { SlWallet } from "react-icons/sl";
 
 function Popup({ selectedpropositions, setselectedPropositions }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -40,9 +43,39 @@ function Popup({ selectedpropositions, setselectedPropositions }) {
           }}
         />
       </div>
-      <h4 className="title">
-        {selectedpropositions.freelancer.name} sent you a proposition ti hire him to your "{selectedpropositions.announcementId.position}"
-      </h4>
+      <div className="freelancer cb df-c">
+        <div className="df-c prof center">
+          <img src={selectedpropositions.freelancer.img} />
+          <div className="df-c fs">
+            <span className="ta-c">{selectedpropositions.freelancer.name} {selectedpropositions.freelancer.familyName} </span>
+          </div>
+        </div>
+
+        <div className="announcement">
+          <div className="df">
+            <div className="pos">
+            {selectedpropositions.announcementId?.position}
+            </div>
+        <div className="df-c g-0">
+    <span>
+      <GiSuitcase />
+      {selectedpropositions.announcementId?.jobType}
+    </span>
+    <span>
+      <IoLocation />
+      {selectedpropositions.announcementId.workingEnvironnement}
+    </span>
+          </div>
+          <div className="">
+                <div>
+                    <h1>{selectedpropositions.announcementId.budgetMax} DT</h1>
+                </div>
+    </div>
+        </div>
+  </div> 
+  <hr />      
+      </div>
+      <h1>PROCESS</h1>
       <ul>
         <li>Choose payment method.</li>
         <li>{selectedpropositions.announcementId.budgetMax}DT will be transfered to our system.</li>
@@ -58,9 +91,10 @@ function Popup({ selectedpropositions, setselectedPropositions }) {
         <div className="checkmark"></div>
         <label htmlFor="conditions">I agree with those steps</label>
       </div>
+      <hr />
       <div className=" spacer">
         <div className="df">
-
+          
         <label htmlFor="payment">
           <div className={`center box--payment ${selectedPayment === "flouci" ? "checked" : ""}`}>
             <input

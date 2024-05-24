@@ -1368,3 +1368,37 @@ export const mockUserStats = [
     "color": "hsl(47, 70%, 50%)"
   }
 ]
+
+
+export const currentprojectdata = [
+  {
+    "id": "c",
+    "label": "c",
+    "value": 448,
+    "color": "hsl(126, 70%, 50%)"
+  },
+  {
+    "id": "javascript",
+    "label": "javascript",
+    "value": 252,
+    "color": "hsl(247, 70%, 50%)"
+  },
+  {
+    "id": "rust",
+    "label": "rust",
+    "value": 507,
+    "color": "hsl(38, 70%, 50%)"
+  },
+  {
+    "id": "java",
+    "label": "java",
+    "value": 319,
+    "color": "hsl(228, 70%, 50%)"
+  },
+  {
+    "id": "erlang",
+    "label": "erlang",
+    "value": 496,
+    "color": "hsl(335, 70%, 50%)"
+  }
+]

@@ -6,21 +6,20 @@ import { MdOutlineCancel } from "react-icons/md";
 import { useOffersContext } from '../../hooks/useOffersContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
-function ReportModal({ reportedObject, type }) {
+function ReportModal({ reportedObject, type, against }) {
     const { auth } = useAuthContext();
     const { dispatch: dispatchModal } = useOffersContext();
     const [reason, setReason] = useState('');
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false);
     const [error, setError] = useState(null);
-    console.log("opened");
     const handleSubmit = async () => {
         setLoading(true);
         setError(null);
 
         try {
             const response = await axios.post(
-                `http://localhost:5000/report/${reportedObject.createdBy._id}`,
+                `http://localhost:5000/report/${against}`,
                 { description: reason, about:type,elementReported: reportedObject },
                 {
                     headers: {
@@ -29,7 +28,6 @@ function ReportModal({ reportedObject, type }) {
                 }
             );
             setResponse(response.data.message);
-            // Optionally, you can handle success response here
         } catch (error) {
             console.error('Error submitting report:', error);
             setError(error.response.data.error);
@@ -48,7 +46,7 @@ function ReportModal({ reportedObject, type }) {
                 className="message-container report-container notifications"
             >
                 <div>
-                    You are about to send a report against {reportedObject._id}, can you please tell us what's the reason?
+                    You are about to send a report against {reportedObject?._id}, can you please tell us what's the reason?
                     <hr />
                 </div>
                 <textarea

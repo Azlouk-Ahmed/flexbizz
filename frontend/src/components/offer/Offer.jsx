@@ -168,14 +168,14 @@ function Offer({offer}) {
             <LuSend />
           </div>
         )}
-        <div
+        {auth?.user._id !== offer?.createdBy && <div
           className="report"
           onClick={() => {
             dispatch({ type: "OPEN_REPORT_MODAL", payload: offer });
           }}
         >
           <GoReport />
-        </div>
+        </div>}
         {differenceInDays(offer?.deadline, new Date()) > 0 && offer?.status && (
           <div
             onClick={() => {

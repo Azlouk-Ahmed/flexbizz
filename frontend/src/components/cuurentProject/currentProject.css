@@ -1,0 +1,150 @@
+.current--project {
+    align-items: normal !important;
+}
+.current--project .box, .freelancer .box{
+    background: #a1ffc2;
+    padding: 1rem;
+    border-radius: 1rem;
+    
+}
+.freelancer .prof{
+    width: 5rem;
+}
+.freelancer img{
+    width: 5rem;
+    border-radius: 1rem;
+}
+
+.freelancer .announcement> .df{
+
+    justify-content: space-around;
+}
+
+.cb {
+    color: black;
+}
+
+.g-0 {
+    gap: 0 !important;
+}
+
+.ta-c {
+    text-align: center;
+}
+.fs {
+    font-size: 10px;
+}
+.current--project .client--img{
+    width: 3rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    position: relative;
+    z-index: 3; 
+}
+.current--project .freelancer--img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    position: relative;
+    border: 3px solid var(--primary);
+    left: -2rem;
+    z-index: 1; 
+}
+
+.dec {
+    transform: scale(0.7);
+}
+.current--project > .df-c {
+    background: var(--light-bg);
+    padding: 1rem;
+    border-radius: 1rem;   
+}
+
+.collabs {
+    background: var(--light-bg);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.collabs span{
+    font-size: 10px;
+}
+
+
+.current--project .project--date{
+    background: var(--light-bg);
+    padding: 1rem 4rem;
+    border-radius: 1rem;
+}
+
+.version{
+    width: 10rem;
+    height: 10rem;
+    font-size: 10px;
+    padding: 5px !important;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.versioncontent {
+    text-align: center;
+}
+
+.pending{
+}
+
+.confirmedspan {
+    font-weight: 700;
+    display: block;
+    margin-top: auto;
+    color: var(--primary);
+    position: absolute;
+    bottom: 7px;
+    transform: translateX(-50%);
+    left: 50%;
+}
+.waitting {
+    font-weight: 700;
+    display: block;
+    margin-top: auto;
+    color: var(--error);
+    position: absolute;
+    bottom: 7px;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.dfcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.b0 {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.right {
+    right: 5px !important;
+}
+.version svg {
+    font-size: 2rem;
+    color: var(--primary);
+}
+.version .primary-btn, .version .danger-btn{
+    padding: 5px 7px !important;
+    font-size: 10px !important;
+}
+
+
+.project--date .month h1{
+
+}

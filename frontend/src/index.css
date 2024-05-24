@@ -43,6 +43,11 @@
   font-size: 12px;
   text-align: center;
   border: 1px solid var(--primary);
+  width: fit-content;
+}
+
+.center {
+  margin: 0 auto;
 }
 .danger-btn {
   color: var(--error);
@@ -87,12 +92,12 @@ body {
 }
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background: #334756;
+  background: var(--primary-bg);
 
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-bg);
+  background: var(--primary);
     border-radius: 19px;
 }
 
@@ -125,7 +130,50 @@ body {
   box-shadow: 0 0 0 0 var(--primary)
 }
 
+.title {
+  color: var(--black);
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 1rem;
+}
 
+.title::before {
+  content: "";
+  height: 3px;
+  width: 33px;
+  background-color: var(--primary);
+  position: absolute;
+  bottom: -9px;
+  z-index: 1;
+}
+
+.title::after {
+  content: "";
+  height: 3px;
+  width: 80%;
+  background-color: rgb(163 163 163 / 26%);
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  z-index: 0;
+}
+.title::before {
+  animation: leftright 9s ease-in-out infinite;
+}
+
+
+@keyframes leftright {
+  0% {
+      left: 0px;
+      bottom: -9px;
+  }
+
+  100% {
+      left: 50%;
+      bottom: -9px;
+  }
+}
 
 @keyframes circle-pulse {
   0% {

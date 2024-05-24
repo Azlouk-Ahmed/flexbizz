@@ -32,11 +32,12 @@
     left: 50%;
     transform: rotate(45deg);
     transform: translate(-50%,-50%) !important;
+    background: var(--light-bg);
+    width: 40%;
 }
 
 .proposition--popup ul li{
     list-style: auto;
-    color: var(--error);
     font-size: 10px;
     margin-top: 11px;
 }
