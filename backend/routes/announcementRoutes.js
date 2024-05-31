@@ -4,9 +4,11 @@ const { deleteAnnouncement, updateAnnouncement, getAnnouncementById, getAnnounce
 const handleFileUpload = require('../multerUploads/multer');
 const announcementRouter = express.Router();
 const Announcement = require('../models/AnnoucementModal');
+const ActionTypes = require('../constants/actionTypes');
+const logActivity = require('../middlewares/logActivity');
 
 
-announcementRouter.post('/', requireAuth,handleFileUpload("_file"), createAnnouncement);
+announcementRouter.post('/', requireAuth,handleFileUpload("_file"),logActivity(ActionTypes.CREATE_ANNOUNCEMENT), createAnnouncement);
 
 announcementRouter.get('/', getAnnouncements);
 
@@ -91,7 +93,7 @@ announcementRouter.put('/:id',requireAuth, updateAnnouncement);
 
 announcementRouter.put('/apply/:id',requireAuth, applyAnnouncement);
 
-announcementRouter.put('/like/:id',requireAuth, likeAnnouncement);
+announcementRouter.put('/like/:id',requireAuth, logActivity(ActionTypes.LIKE_ANNOUNCEMENT), likeAnnouncement);
 
 announcementRouter.delete('/:id',requireAuth,deleteAnnouncement);
 

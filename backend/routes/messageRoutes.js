@@ -3,6 +3,8 @@ const { addMessage, getMessages} = require("../controllers/messageController");
 const requireAuth = require("../middlewares/requireUserAuth");
 const MessageModel = require("../models/messageModel")
 const multer = require('multer');
+const logActivity = require("../middlewares/logActivity");
+const ActionTypes = require("../constants/actionTypes");
 
 const MessageRouter = express.Router();
 
@@ -17,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-MessageRouter.post('/', requireAuth, upload.single('_file'), addMessage);
+MessageRouter.post('/', requireAuth, upload.single('_file'),logActivity(ActionTypes.SEND_MESSAGE), addMessage);
 
 MessageRouter.get('/:chatId', requireAuth, getMessages);
 // MessageRouter.js

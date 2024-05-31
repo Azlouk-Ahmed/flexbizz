@@ -16,6 +16,7 @@ import { MdWorkOutline } from "react-icons/md";
 import { useOffersContext } from '../../hooks/useOffersContext';
 import LazyImage from '../lazyloadimg/LazyImage';
 import { CiSearch } from 'react-icons/ci';
+import { MdSupportAgent } from "react-icons/md";
 
 function Navbar({user}) {
     const {data} = useFetchData("http://localhost:5000/user/connections/pending");
@@ -69,7 +70,7 @@ function Navbar({user}) {
         {propositions?.length>0 &&<pre className="notification--indicator">{propositions?.length}</pre>}
       </NavLink>
       {user.role ==="Support" && <NavLink to="/client-service">
-        <MdConnectWithoutContact />
+        <MdSupportAgent className="support"/>
         <span>client service</span>
       </NavLink>}
     </div>}

@@ -1,6 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/userModel");
+const Activity = require("../models/AcitivityModel");
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -23,9 +24,15 @@ passport.use(
         },
         (accessToken, refreshToken, profile, done) => {
             User.findOne({ googleId: profile.id })
-                .then((currentUser) => {
+                .then(async (currentUser) => {
                     if (currentUser) {
                         console.log("User is: ", currentUser);
+                        // Log login activity
+                        const loginActivity = new Activity({
+                            userId: currentUser._id,
+                            action: "LOGIN",
+                        });
+                        await loginActivity.save();
                         done(null, currentUser);
                     } else {
                         new User({
@@ -36,8 +43,14 @@ passport.use(
                             img: profile._json.picture,
                         })
                             .save()
-                            .then((newUser) => {
+                            .then(async (newUser) => {
                                 console.log("Created new user: ", newUser);
+                                // Log account creation activity
+                                const createdAccountActivity = new Activity({
+                                    userId: newUser._id,
+                                    action: "CREATED_ACCOUNT",
+                                });
+                                await createdAccountActivity.save();
                                 done(null, newUser);
                             })
                             .catch((err) => done(err));

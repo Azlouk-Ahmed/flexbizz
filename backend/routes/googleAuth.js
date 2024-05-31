@@ -4,6 +4,8 @@ const passport = require("passport");
 const { getUserFromReq } = require("../controllers/authcontroller");
 const path = require("path");
 const { log } = require("console");
+const logActivity = require("../middlewares/logActivity");
+const ActionTypes = require("../constants/actionTypes");
 
 const googleAuthRouter = express.Router();
 
