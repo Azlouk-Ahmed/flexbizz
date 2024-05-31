@@ -55,8 +55,6 @@ function OfferForm({ setIsOpenForm }) {
             return;
         }
         const workingEnvironment = location === "onPlatform" ? "onPlatform" : government;
-        console.log("work",workingEnvironment);
-        
         const formData = new FormData();
         formData.append('position', position);
         formData.append('description', description);

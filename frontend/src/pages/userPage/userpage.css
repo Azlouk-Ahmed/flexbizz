@@ -19,6 +19,10 @@
     gap: 5px;
 }
 
+.badges svg{
+    color: var(--primary);
+}
+
 .profile .user--header .img--container{
     overflow: hidden;
     border-radius: 10px;

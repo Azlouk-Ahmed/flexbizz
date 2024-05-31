@@ -19,7 +19,7 @@
     transition: .5s;
 }
 
-.actions-wrapper svg:hover {
+.actions-wrapper > svg:hover {
     transform: scale(1.5);
 }
 .actions-wrapper svg:nth-child(3):hover {

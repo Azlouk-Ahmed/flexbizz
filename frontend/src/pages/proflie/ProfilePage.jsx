@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useFetchData } from "../../hooks/useFetchData";
 import UserHeader from "../../components/userheader/UserHeader";
 import Stats from "../../components/stats/Stats";
@@ -16,19 +17,19 @@ import MessageModal from "../../components/messageModal/MessageModal";
 import { useOffersContext } from "../../hooks/useOffersContext";
 import { IoPersonRemove } from "react-icons/io5";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { ResponsivePie } from "@nivo/pie";
-import { mockUserStats } from "../../data/mockdata";
 import MyResponsiveBar from "../admindashboard/resopnsiveBar/MyResponsiveBar";
 import Donut from "../../components/charts/Donut";
 import ReportModal from "../../components/reportModal/ReportModal";
 import Slider from "../../slider/Slider";
 import CurrentProject from "../../components/cuurentProject/CurrentProject";
 import Rating from "../../components/ratingform/Rating";
+import "../userPage/userpage.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProfilePage() {
   const { auth } = useAuthContext();
-  const { sendMessageModal, dispatch, offers, reportModal } =
-    useOffersContext();
+  const { sendMessageModal, dispatch, offers, reportModal } = useOffersContext();
   let { id } = useParams();
   const navigate = useNavigate();
   const exportPDF = () => {
@@ -40,7 +41,6 @@ function ProfilePage() {
   const { data: freelancerRating } = useFetchData(
     "http://localhost:5000/achievements/freelancer/" + id
   );
-  console.log("freelancer", freelancerRating);
   const { data: offersData } = useFetchData(
     "http://localhost:5000/announcement/createdby/" + id
   );
@@ -60,17 +60,64 @@ function ProfilePage() {
   const { data: currentProjects } = useFetchData(
     "http://localhost:5000/projects/user/" + id
   );
-  const { data: userPorfolio } = useFetchData(
+  const { data: userPortfolio } = useFetchData(
     "http://localhost:5000/portfolio/getuserportfolio/" + id
   );
   const [open, setopen] = useState(false);
+  const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    if (auth && auth.user) {
+      setConnections(auth.user.connections);
+    }
+  }, [auth]);
+
+  // Axios methods for connection requests
+  const sendConnectionRequest = async (userId) => {
+    try {
+      await axios.post(`http://localhost:5000/user/connection/${userId}`, null, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      console.log("Connection request sent successfully");
+      toast.success('request sent successfully');
+      // Update local state
+      setConnections((prev) => [...prev, { userId, status: 'pending' }]);
+    } catch (error) {
+      toast.error('Failed to send connection request');
+      console.error("Failed to send connection request:", error);
+    }
+  };
+  
+  const removeConnection = async (userId) => {
+    try {
+      await axios.post(
+        `http://localhost:5000/user/connections/remove/${userId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+
+      toast.success('removed successfully');
+      // Update local state
+      setConnections((prev) => prev.filter((connection) => connection.userId !== userId));
+    } catch (error) {
+      console.error("Failed to remove connection:", error);
+      toast.error('Failed to send connection request');
+    }
+  };
 
   return (
     <div className="page-gap">
-      {open && <Rating setopen={setopen}/>}
+      {open && <Rating setopen={setopen} project={open} />}
       {sendMessageModal && <MessageModal />}
       {reportModal && <ReportModal reportedObject={data} type="profile" />}
       <div className="page--header">
+      <ToastContainer />
         {data && (
           <div className="actions-wrapper">
             <UserHeader user={data} />
@@ -80,12 +127,10 @@ function ProfilePage() {
                   dispatch({ type: "OPEN_REPORT_MODAL", payload: data });
                 }}
               />
-              {auth.user.connections.some(
-                (connection) => connection.userId === id
-              ) ? (
-                <IoPersonRemove className="sentreq" />
+              {connections.some((connection) => connection.userId === id) ? (
+                <IoPersonRemove onClick={() => removeConnection(id)} className="sentreq" />
               ) : (
-                <IoIosPersonAdd />
+                <IoIosPersonAdd onClick={() => sendConnectionRequest(id)} />
               )}
               <AiOutlineMessage
                 onClick={() => {
@@ -108,12 +153,11 @@ function ProfilePage() {
         <h1>portfolio</h1>
       </div>
       <div className="portfolio">
-        {userPorfolio?.portfolio != null && (
+        {userPortfolio?.portfolio != null && (
           <div className="pdf--view">
             <div onClick={exportPDF} className="danger-btn">
-              dowload <HiOutlineDownload />
+              download <HiOutlineDownload />
             </div>
-
             <PDFExport
               ref={pdfExportComponent}
               fileName="portfolio.pdf"
@@ -124,19 +168,20 @@ function ProfilePage() {
                 left: "20mm",
               }}
             >
-              <UserPortfolio data={userPorfolio?.portfolio} />
+              <UserPortfolio data={userPortfolio?.portfolio} userId={id} />
             </PDFExport>
           </div>
         )}
-        {userPorfolio?.portfolio == null && <Empty />}
+        {userPortfolio?.portfolio == null && <Empty />}
       </div>
-
       <div className="one">
         <h1>currently working on</h1>
       </div>
       {currentProjects?.length > 0 ? (
         currentProjects.map((project) => {
-          return <CurrentProject key={project._id} setopen={setopen} project={project} />;
+          return (
+            <CurrentProject key={project._id} setopen={setopen} project={project} />
+          );
         })
       ) : (
         <Empty />
@@ -152,12 +197,12 @@ function ProfilePage() {
         <Empty />
       )}
       <div className="one">
-        <h1>anouncements as client</h1>
+        <h1>announcements as client</h1>
       </div>
       {offers && (
         <div className="offers">
           {offers.map((offer) => (
-            <Offer offer={offer} />
+            <Offer key={offer._id} offer={offer} />
           ))}
         </div>
       )}

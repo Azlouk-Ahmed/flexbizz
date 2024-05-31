@@ -3,6 +3,7 @@ import { MdConnectWithoutContact } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useFetchData } from "../../hooks/useFetchData";
+import LazyImage from "../lazyloadimg/LazyImage";
 
 function InlineUserInfo({user, showDate}) {
   const {data : userData } = useFetchData(`http://localhost:5000/user/${user}`);
@@ -10,7 +11,11 @@ function InlineUserInfo({user, showDate}) {
   return (
     <div className="profile-container al-i-center" key={userData?._id}>
       <div className="profile-img addjust-img">
-        <img src={userData?.img} alt="" className="notification-user-avatar" />
+        <LazyImage
+            src={userData?.img}
+            alt=""
+            className="notification-user-avatar"
+          />
       </div>
       <div className="user-info">
         <span>

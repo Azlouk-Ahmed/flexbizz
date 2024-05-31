@@ -36,14 +36,72 @@ const createAnnouncement = async (req, res) => {
     }
   };
 
-const getAnnouncements = async (req, res) => {
+  const getAnnouncements = async (req, res) => {
+    const {
+      position,
+      workingEnvironment, // Updated from onPlatform and onSite
+      government, // Added from the query parameters
+      fullTime,
+      partTime,
+      hourly,
+      contract,
+      minBudget,
+      maxBudget,
+      expired,
+      available,
+    } = req.query;
+  
+    let filter = {};
+  
+    if (position) filter.position = { $regex: new RegExp(position, 'i') };
+    if (workingEnvironment) filter.workingEnvironnement = workingEnvironment; // Updated from onPlatform and onSite
+    if (government) filter.government = government; // Added from the query parameters
+    if (fullTime) filter.jobType = 'Full-Time';
+    if (partTime) filter.jobType = 'Part-Time';
+    if (hourly) filter.jobType = 'Hourly';
+    if (contract) filter.jobType = 'Contract';
+    if (minBudget) filter.budgetMin = { $gte: minBudget };
+    if (maxBudget) filter.budgetMax = { $lte: maxBudget };
+    if (expired) filter.status = false;
+    if (available) filter.status = true;
+  
+    try {
+      const announcements = await Announcement.find(filter);
+      res.json(announcements);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+  
+
+const infiniteGetAnnouncement = async (req, res) => {
+  const { page = 1, limit = 3 } = req.query;
+
   try {
-    const announcements = await Announcement.find();
-    res.json(announcements);
+      const offers = await Announcement.find()
+          .sort({ createdAt: 1 })
+          .skip((page - 1) * limit)
+          .limit(limit);
+
+      if (!offers) {
+          return res.status(500).json({ message: "Error fetching offers" });
+      }
+
+      const totalOffers = await Announcement.countDocuments();
+      const totalPages = Math.ceil(totalOffers / limit);
+
+      res.status(200).json({
+          offers,
+          currentPage: parseInt(page),
+          totalPages
+      });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      console.error(error);
+      res.status(500).json({ message: "Error fetching offers" });
   }
 };
+
 
 const getAnnouncementById = async (req, res) => {
   try {
@@ -165,5 +223,6 @@ module.exports = {
   getAnnouncementById,
   updateAnnouncement,
   deleteAnnouncement,
-  getAnnouncementsByUser
+  getAnnouncementsByUser,
+  infiniteGetAnnouncement
 };

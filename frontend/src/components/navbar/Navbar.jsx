@@ -14,6 +14,8 @@ import ConnectionRequests from '../../notification/ConnectionRequests';
 import { useFetchData } from '../../hooks/useFetchData';
 import { MdWorkOutline } from "react-icons/md";
 import { useOffersContext } from '../../hooks/useOffersContext';
+import LazyImage from '../lazyloadimg/LazyImage';
+import { CiSearch } from 'react-icons/ci';
 
 function Navbar({user}) {
     const {data} = useFetchData("http://localhost:5000/user/connections/pending");
@@ -40,6 +42,10 @@ function Navbar({user}) {
     </div>
     {user && <div className="links">
 
+      <NavLink to="/search">
+        <CiSearch />
+        <span>search</span>
+      </NavLink>
       <NavLink to="/">
         <AiOutlineGlobal />
         <span>Timeline</span>
@@ -56,15 +62,16 @@ function Navbar({user}) {
         <span>profile</span>
       </NavLink>
 
-      <NavLink to="/connections">
-        <MdConnectWithoutContact />
-        <span>connections</span>
-      </NavLink>
+      
       <NavLink to="/propositions">
         <MdWorkOutline />
         <span>propositions</span>
         {propositions?.length>0 &&<pre className="notification--indicator">{propositions?.length}</pre>}
       </NavLink>
+      {user.role ==="Support" && <NavLink to="/client-service">
+        <MdConnectWithoutContact />
+        <span>client service</span>
+      </NavLink>}
     </div>}
     {notifopened && <Notifications setnotifOpened={setnotifOpened}/>}
     {reqopened && data &&<ConnectionRequests setreqOpened={setreqOpened} data={data} />}
@@ -74,22 +81,32 @@ function Navbar({user}) {
         <GoPersonAdd onClick={()=>setreqOpened(!reqopened)} />
         {data?.length>0 &&<pre className="notification--indicator">{data?.length}</pre>}
     </div>
+
     <div>
         <IoIosNotificationsOutline onClick={()=>setnotifOpened(!notifopened)} />
         {notifications?.length>0 &&<pre className="notification--indicator">{notifications?.length}</pre>}
     </div>
+    
     <div className="user">
         {user && (
             <div className="profile-menu">
                 <div className="profile-img" onClick={()=>setOpened(!opened)} >
-                    <img src={user.img} alt="" className='profilpic' />
+                    <LazyImage
+            src={user.img}
+            alt=""
+            className="profilpic"
+          />
                 </div>
                 <ul className={(opened)? "show" : ""} >
                     <li>
                         <div className="profile-window">
                             <div className="profile-container">
                                 <div className="profile-img" >
-                                    <img src={user.img} alt="" className='profilpic' />
+                                    <LazyImage
+            src={user.img}
+            alt=""
+            className="profilpic"
+          />
                                 </div>
                                 <div className="user-info">
                                     <span>{user.name} {user.familyName}</span>

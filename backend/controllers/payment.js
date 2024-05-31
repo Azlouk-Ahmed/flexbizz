@@ -13,8 +13,8 @@ const payer = async (req, res) => {
         "accept_card": "true",
         "amount": amount,
         "session_timeout_secs": 1200,
-        "success_link": "http://localhost:5000/sucess",
-        "fail_link": "http://localhost:5000/fail",
+        "success_link": "http://localhost:3000/payment/success",
+        "fail_link": "http://localhost:3000/payment/fail",
         "developer_tracking_id": "74b5c855-fad3-4ed9-b2fd-4b539d8d4ad0"
     }
     await axios.post(url, payload)

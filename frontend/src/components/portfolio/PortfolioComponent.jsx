@@ -11,6 +11,7 @@ import { useFetchData } from '../../hooks/useFetchData';
 import Loading from '../loading/Loading';
 import Error from '../error/Error';
 import Empty from '../error/Empty';
+import LazyImage from '../lazyloadimg/LazyImage';
 
 
 
@@ -25,12 +26,16 @@ function PortfolioComponent() {
 
   return (
     <div className='portfolio'>
-      <div className="one">
-        <h1>your portfolio</h1>
-      </div>
+      
       {portfolioData && <div className="portfolio--data">
         <div className="user">
-          <img src={portfolioData.portfolio.user?.img} alt="" srcSet="" />
+         
+          <LazyImage
+            src={portfolioData.portfolio.user?.img}
+            alt=""
+            className=""
+          />
+
           <h3>{portfolioData.portfolio.user?.name} {portfolioData.portfolio.user?.familyName}</h3>
           <h5>{portfolioData.portfolio.education.length > 0 ? portfolioData.portfolio.education[0].institution : "No education yet"}</h5>
           {portfolioData.portfolio.user?.status === "hiring" &&<div className="status hiring"><div>is hiring </div><span className="hiring__circle"></span></div>}

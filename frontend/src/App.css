@@ -28,7 +28,7 @@
     flex-wrap: wrap;
 }
 
-.center {
+.centergrid {
     display: grid;
     place-content: center;
 }

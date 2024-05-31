@@ -59,6 +59,16 @@ function Chat() {
     const createChat = async (userId) => {
         if (auth) {
             try {
+                // Check if chat already exists
+                const existingChat = chats.find(chat => chat.members.includes(userId));
+            if (existingChat) {
+                dispatch({
+                    type: "SET_CHAT",
+                    payload: existingChat
+                });// Return the existing chat object
+                return;
+            }
+
                 const response = await axios.post(`http://localhost:5000/chat/${userId}`, {}, {
                     headers: {
                         'authorization': `Bearer ${auth.token}`
@@ -66,9 +76,13 @@ function Chat() {
                 });
                 if (response.status === 200) {
                     dispatch({ type: 'CREATE_CHAT', payload: response.data });
+                    dispatch({
+                        type: "SET_CHAT",
+                        payload: response.data
+                    });
                 }
             } catch (error) {
-                console.error('Error fetching chats:', error);
+                console.error('Error creating chat:', error);
             }
         }
     };

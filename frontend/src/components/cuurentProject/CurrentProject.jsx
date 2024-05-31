@@ -12,6 +12,7 @@ import ProjectChart from './ProjectChart';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css'; 
+import LazyImage from '../lazyloadimg/LazyImage';
 
 function CurrentProject({ project, setopen }) {
   const { dispatch } = useOffersContext();
@@ -20,17 +21,42 @@ function CurrentProject({ project, setopen }) {
   const { data: client } = useFetchData("http://localhost:5000/user/" + project.client);
   const { data: announcement } = useFetchData("http://localhost:5000/announcement/" + project.announcement);
   const [file, setFile] = useState(null);
+  const [file1, setFile1] = useState(null);
+  const [file2, setFile2] = useState(null);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loadingFileUpload, setLoadingFileUpload] = useState(false);
+const [loadingFileUpload1, setLoadingFileUpload1] = useState(false);
+const [loadingFileUpload2, setLoadingFileUpload2] = useState(false);
+
+const [loadingFileEdit, setLoadingFileEdit] = useState(false);
+const [loadingFileEdit1, setLoadingFileEdit1] = useState(false);
+const [loadingFileEdit2, setLoadingFileEdit2] = useState(false);
+
+const [loadingFileConfirm1, setLoadingFileConfirm1] = useState(false);
+const [loadingFileConfirm2, setLoadingFileConfirm2] = useState(false);
+const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
+
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     console.log(file);
   };
+  const handleFileChange1 = (e) => {
+    setFile1(e.target.files[0]);
+    console.log(file1);
+  };
+  const handleFileChange2 = (e) => {
+    setFile2(e.target.files[0]);
+    console.log(file1);
+  };
 
   const handleFileUpload = async () => {
+    setLoadingFileUpload(true);
     try {
       const formData = new FormData();
-      formData.append('content', file.name); // Append filename
-      formData.append('file', file); // Append file without specifying name
+      formData.append('content', file.name);
+      formData.append('file', file);
       console.log(formData);
   
       const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
@@ -42,10 +68,236 @@ function CurrentProject({ project, setopen }) {
   
       console.log('File uploaded successfully:', response.data);
       toast.success('File uploaded successfully');
-  
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
     } catch (error) {
-      console.error('Error uploading file:', error);
-      toast.error('Error uploading file');
+      console.error('Error uploading file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error uploading file');
+      setSuccess(false);
+      setError(true);
+    } finally {
+      setLoadingFileUpload(false);
+    }
+  };
+  
+  const handleFileEdit = async () => {
+    setLoadingFileEdit(true);
+    try {
+      const formData = new FormData();
+      formData.append('content', file.name);
+      formData.append('file', file);
+      console.log(formData);
+  
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/1`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File edited successfully:', response.data);
+      toast.success('File edited successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+    } catch (error) {
+      console.error('Error editing file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error editing file');
+      setSuccess(false);
+      setError(true);
+    } finally {
+      setLoadingFileEdit(false);
+    }
+  };
+  
+  const handleFileEdit1 = async () => {
+    setLoadingFileEdit1(true);
+    try {
+      const formData = new FormData();
+      formData.append('content', file1.name);
+      formData.append('file', file1);
+      console.log(formData);
+  
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/2`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File uploaded successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+     
+      
+      
+    } catch (error) {
+      console.error('Error uploading file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error uploading file');
+      setSuccess(false);
+      setError(true);
+    } finally {
+      setLoadingFileEdit1(false);
+    }
+  };
+  const handleFileEdit2 = async () => {
+    setLoadingFileEdit2(true);
+    try {
+      const formData = new FormData();
+      formData.append('content', file2.name);
+      formData.append('file', file2);
+      console.log(formData);
+  
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/3`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File uploaded successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+      
+      
+    } catch (error) {
+      console.error('Error uploading file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error uploading file');
+      setSuccess(false);
+      setError(true);
+    } finally {
+      setLoadingFileEdit2(false);
+    }
+  };
+  const handleFileUpload1 = async () => {
+    setLoadingFileUpload2(true);
+    try {
+      const formData = new FormData();
+      formData.append('content', file1.name);
+      formData.append('file', file1);
+      console.log(formData);
+  
+      const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File uploaded successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+      
+      
+    } catch (error) {
+      console.error('Error uploading file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error uploading file');
+      setSuccess(false);
+      setError(true);
+    }finally {
+      setLoadingFileUpload1(false);
+    }
+  };
+  const handleFileUpload2 = async () => {
+    setLoadingFileUpload2(true);
+    try {
+      const formData = new FormData();
+      formData.append('content', file2.name);
+      formData.append('file', file2);
+      console.log(formData);
+  
+      const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File uploaded successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+      
+      
+    } catch (error) {
+      console.error('Error uploading file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error uploading file');
+      setSuccess(false);
+      setError(true);
+    }finally {
+      setLoadingFileUpload2(false);
+    }
+  };
+
+  const confirmVersion1 = async () => {
+    setLoadingFileConfirm1(true);
+    try {
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/1/confirm`, {}, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File confirmed successfully:', response.data);
+      toast.success('File accepted successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+    } catch (error) {
+      console.error('Error accepting file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error accepting file');
+      setSuccess(false);
+      setError(true);
+    } finally {
+      setLoadingFileConfirm1(false);
+    }
+  };
+  
+
+  const confirmVersion2 = async () => {
+    setLoadingFileConfirm2(true);
+    try {
+  
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/2/confirm`, {}, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File accepted successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+      
+      
+    } catch (error) {
+      console.error('Error accepting file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error accepting file');
+      setSuccess(false);
+      setError(true);
+    }finally {
+      setLoadingFileConfirm2(false);
+    }
+  };
+
+  const confirmVersion3 = async () => {
+    setLoadingFileConfirm3(true);
+    try {
+  
+      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/3/confirm`, {}, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+  
+      console.log('File uploaded successfully:', response.data);
+      toast.success('File accepted successfully');
+      dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
+      
+      
+    } catch (error) {
+      console.error('Error accepting file:', error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Error accepting file');
+      setSuccess(false);
+      setError(true);
+    }finally {
+      setLoadingFileConfirm2(false);
     }
   };
   
@@ -57,8 +309,16 @@ function CurrentProject({ project, setopen }) {
     
         <div className="collabs">
             <div className="df">
-                <img src={freelancer.img} className="client--img" />
-                <img src={client.img} className="freelancer--img" />
+                <LazyImage
+            src={freelancer.img}
+            alt=""
+            className="client--img"
+          />
+                <LazyImage
+            src={client.img}
+            alt=""
+            className="freelancer--img"
+          />
             </div>
             <div className="df">
             <span>{freelancer.name} {freelancer.familyName}</span>
@@ -104,117 +364,155 @@ function CurrentProject({ project, setopen }) {
   {(auth?.user._id === freelancer._id || auth?.user._id === client._id) && (
   <>
     <div className={`df-c project--date version ${project.workVersions[0]?.confirmed === false ? "pending" : ""}`}>
-      <div className="versioncontent">
-        {project.workVersions[0]?.content ? (
-          <>
-            {project.workVersions[0].content}
-            {auth?.user._id === client._id && project.workVersions[0]?.confirmed === false && (
-              <div className="df">
-                <div className="primary-btn">confirm</div>
-              </div>
-            )}
-          </>
-        ) : (
-          auth?.user._id === project.freelancer && (
-            <>
-              <label htmlFor="doc0">
-                <AiOutlineCloudUpload />
-                <div>
-                  <h4>Upload a file</h4>
-                </div>
-                <input type="file" id="doc0" name="doc" hidden />
-              </label>
-              <div className="df">
-                <div className="primary-btn">confirm</div>
-                <div className="danger-btn">cancel</div>
-              </div>
-            </>
-          )
+  <div className="versioncontent">
+    {project.workVersions[0]?.content ? (
+      <>
+        {project.workVersions[0].content}
+        {auth?.user._id === client._id && project.workVersions[0]?.confirmed === false && (
+          <div className="df">
+            {!loadingFileConfirm1 &&<div className="primary-btn b0" onClick={confirmVersion1}>confirm</div>}
+            {loadingFileConfirm1 && <div>processing ...</div>}
+          </div>
         )}
-        {project.workVersions[0]?.confirmed === false && project.freelancer === auth?.user._id && (
-          <span className="waitting">waiting to be confirmed</span>
-        )}
-        {project.workVersions[0]?.confirmed === true && (
-          <span className="confirmedspan">confirmed</span>
-        )}
+      </>
+    ) : (
+      auth?.user._id === project.freelancer && (
+        <>
+          <label htmlFor="doc0">
+            <AiOutlineCloudUpload />
+            <div>
+              <h4>Upload a file</h4>
+            </div>
+            <input type="file" id="doc0" onChange={handleFileChange} name="doc" hidden />
+          </label>
+          {file && file.name}
+          <div className="df mtpx">
+            {!loadingFileUpload &&<div className="primary-btn" onClick={handleFileUpload}>upload</div>}
+            {loadingFileUpload &&<div>processing</div>}
+            {project.workVersions[0]?.content && <div className="danger-btn">update</div>}
+            {success && "success"}
+          </div>
+        </>
+      )
+    )}
+    {project.workVersions[0]?.confirmed === false && project.freelancer === auth?.user._id && (
+      <div className='df-c'>
+        <span className="waitting">waiting to be confirmed</span>
+        <label htmlFor="doc0">
+            <AiOutlineCloudUpload />
+            <div>
+            </div>
+            <input type="file" id="doc0" onChange={handleFileChange} name="doc" hidden />
+          </label>
+          <div className='primary-btn center p0' onClick={handleFileEdit}>update</div>
       </div>
-    </div>
+    )}
+    {project.workVersions[0]?.confirmed === true && (
+      <span className="confirmedspan">confirmed</span>
+    )}
+  </div>
+</div>
 
-    <div className={`df-c project--date version ${project.workVersions[1]?.confirmed === false ? "pending" : ""}`}>
-      <div className="versioncontent">
-        {project.workVersions[1]?.content ? (
-          <>
-            {project.workVersions[1].content}
-            {auth?.user._id === client._id && project.workVersions[1]?.confirmed === false && (
-              <div className="df">
-                <div className="primary-btn b0">confirm</div>
-              </div>
-            )}
-          </>
-        ) : (
-          auth?.user._id === project.freelancer && (
-            <>
-              <label htmlFor="doc1">
-                <AiOutlineCloudUpload />
-                <div>
-                  <h4>Upload a file</h4>
+<div className={`df-c project--date version ${project.workVersions[1]?.confirmed === false ? "pending" : ""}`}>
+            <div className="versioncontent">
+              {project.workVersions[1]?.content ? (
+                <>
+                  {project.workVersions[1].content}
+                  {auth?.user._id === client._id && project.workVersions[1]?.confirmed === false && (
+                    <div className="df">
+                      {!loadingFileConfirm2 &&<div className="primary-btn b0" onClick={confirmVersion2}>confirm</div>}
+            {loadingFileConfirm2 && <div>processing ...</div>}
+                    </div>
+                  )}
+                </>
+              ) : (
+                auth?.user._id === project.freelancer && (
+                  <>
+                    <label htmlFor="doc1">
+                      <AiOutlineCloudUpload />
+                      <div>
+                        <h4>Upload a file</h4>
+                      </div>
+                      <input type="file" id="doc1" onChange={handleFileChange1} name="doc" hidden />
+                    </label>
+                    {file1 && file1.name}
+                    <div className="df mtpx">
+                    {!loadingFileUpload1 &&<div className="primary-btn" onClick={handleFileUpload1}>upload</div>}
+            {loadingFileUpload1 &&<div>processing</div>}
+                      {project.workVersions[1]?.content && <div className="danger-btn">update</div>}
+                      {success && "success"}
+                    </div>
+                  </>
+                )
+              )}
+              {project.workVersions[1]?.confirmed === false && project.freelancer === auth?.user._id && (
+                <div className='df-c'>
+                  <span className="waitting">waiting to be confirmed</span>
+                  <label htmlFor="doc1">
+                    <AiOutlineCloudUpload />
+                    <div>
+                    </div>
+                    <input type="file" id="doc1" onChange={handleFileChange1} name="doc" hidden />
+                  </label>
+                  <div className='primary-btn center p0' onClick={handleFileEdit1}>update</div>
                 </div>
-                <input type="file" id="doc1" name="doc" hidden />
-              </label>
-              <div className="df">
-                <div className="primary-btn">confirm</div>
-                <div className="danger-btn">cancel</div>
-              </div>
-            </>
-          )
-        )}
-        {project.workVersions[1]?.confirmed === false && project.freelancer === auth?.user._id && (
-          <span className="waitting">waiting to be confirmed</span>
-        )}
-        {project.workVersions[1]?.confirmed === true && (
-          <span className="confirmedspan">confirmed</span>
-        )}
-      </div>
-    </div>
+              )}
+              {project.workVersions[1]?.confirmed === true && (
+                <span className="confirmedspan">confirmed</span>
+              )}
+            </div>
+          </div>
 
-    <div className={`df-c project--date version ${project.workVersions[2]?.confirmed === false ? "pending" : ""}`}>
-      <div className="versioncontent">
-        {project.workVersions[2]?.content ? (
-          <>
-            {project.workVersions[2].content}
-            {auth?.user._id === client._id && project.workVersions[2]?.confirmed === false && (
-              <div className="df">
-                <div className="primary-btn">confirm</div>
-              </div>
-            )}
-          </>
-        ) : (
-          auth?.user._id === project.freelancer && (
-            <>
-              <label htmlFor="doc2">
-                <AiOutlineCloudUpload />
-                <div>
-                  <h4>Upload a file</h4>
+
+          <div className={`df-c project--date version ${project.workVersions[2]?.confirmed === false ? "pending" : ""}`}>
+            <div className="versioncontent">
+              {project.workVersions[2]?.content ? (
+                <>
+                  {project.workVersions[2].content}
+                  {auth?.user._id === client._id && project.workVersions[2]?.confirmed === false && (
+                    <div className="df">
+                      {!loadingFileConfirm3 &&<div className="primary-btn b0" onClick={confirmVersion3}>confirm</div>}
+            {loadingFileConfirm3 && <div>processing ...</div>}
+                    </div>
+                  )}
+                </>
+              ) : (
+                auth?.user._id === project.freelancer && (
+                  <>
+                    <label htmlFor="doc2">
+                      <AiOutlineCloudUpload />
+                      <div>
+                        <h4>Upload a file</h4>
+                      </div>
+                      <input type="file" id="doc2" onChange={handleFileChange2} name="doc" hidden />
+                    </label>
+                    {file2 && file2.name}
+                    <div className="df mtpx">
+                    {!loadingFileUpload2 &&<div className="primary-btn" onClick={handleFileUpload2}>upload</div>}
+            {loadingFileUpload2 &&<div>processing</div>}
+                      {project.workVersions[2]?.content && <div className="danger-btn">update</div>}
+                      {success && "success"}
+                    </div>
+                  </>
+                )
+              )}
+              {project.workVersions[2]?.confirmed === false && project.freelancer === auth?.user._id && (
+                <div className='df-c'>
+                  <span className="waitting">waiting to be confirmed</span>
+                  <label htmlFor="doc2">
+                    <AiOutlineCloudUpload />
+                    <div>
+                    </div>
+                    <input type="file" id="doc2" onChange={handleFileChange2} name="doc" hidden />
+                  </label>
+                  <div className='primary-btn center p0' onClick={handleFileEdit2}>update</div>
                 </div>
-                <input type="file" id="doc2" onChange={handleFileChange} name="doc" hidden />
-              </label>
-              <div className="df">
-                <div className="primary-btn" onClick={handleFileUpload}>confirm</div>
-                <div className="danger-btn">cancel</div>
-              </div>
-            </>
-          )
-        )}
-        {project.workVersions[2]?.confirmed === false && project.freelancer === auth?.user._id && (
-          <span className="waitting">waiting to be confirmed</span>
-        )}
-        {project.workVersions[2]?.confirmed === true && (
-          <span className="confirmedspan">confirmed</span>
-        )}
-        
-      </div>
-      
-    </div>
+              )}
+              {project.workVersions[2]?.confirmed === true && (
+                <span className="confirmedspan">confirmed</span>
+              )}
+            </div>
+          </div>
       
   </>
 )}
@@ -226,8 +524,12 @@ function CurrentProject({ project, setopen }) {
           dispatch({ type: "OPEN_REPORT_MODAL", payload: project });
         }}
         >reclamation</div>
-        <div className={`primary-btn w-100${(project.workVersions.length < 3) ? " err" : ""}`}>
-payer</div>
+        <div onClick={()=> {
+          setopen(project)
+        }} className={`primary-btn w-100${(project.workVersions.length >= 3 && project.workVersions.every(version => version.confirmed)) ? "" : " err"}`}>
+  payer
+</div>
+
         {
           auth.user._id === project.client && <span>to pay user , the three version of work should be accepted</span>
         }

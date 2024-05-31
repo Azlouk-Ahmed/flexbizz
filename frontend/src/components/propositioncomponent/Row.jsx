@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useOffersContext } from '../../hooks/useOffersContext';
+import { TbStar } from "react-icons/tb";
+import { TbStarFilled } from "react-icons/tb";
+import { useFetchData } from '../../hooks/useFetchData';
 
 function Row({proposition, setselectedPropositions}) {
     const { dispatch } = useOffersContext();
     const {auth} = useAuthContext();
+    const {data} = useFetchData("http://localhost:5000/achievements/freelancer/rate/"+proposition.freelancer._id);
+    const stars = Array.from({ length: 5 }, (_, index) =>
+        index < data?.avgRating ? <TbStarFilled /> : <TbStar />
+    );
     async function deleteElement(id) {
       if(auth) {
         try {
@@ -33,8 +40,9 @@ function Row({proposition, setselectedPropositions}) {
                 {proposition.freelancer?.status !== "hiring" &&<div className="status "><div>{proposition.freelancer?.status}</div><span className="status__available-circle"></span></div>}
         </td>
         <td>
-        {proposition.portfolio && <a>potfolio link</a>}
-        {!proposition.portfolio && "this user have no portfolio"}
+        {
+          stars
+        }
         </td>
         <td>
             {proposition.announcementId.position} 

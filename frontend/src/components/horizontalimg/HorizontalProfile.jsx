@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./horizontal.css";
+import LazyImage from '../lazyloadimg/LazyImage';
 
 function HorizontalProfile({ user, onlineusers }) {
   const [userData, setUserData] = useState(null);
@@ -21,7 +22,12 @@ function HorizontalProfile({ user, onlineusers }) {
   return (
     <div className="user-info">
       <div className='user-info-wrapper'>
-        <img src={userData ? userData.img : require("../../img/defaultuser.png")} alt="User Avatar" />
+        <LazyImage
+
+            src={userData?.img}
+            alt=""
+            className=""
+          />
         <div className='user-info'>
           <p>{userData ? userData.name+" "+userData.familyName : "Loading..."}</p>
           {onlineusers?.some(item => item.userId === user)&&<p>active now</p>}

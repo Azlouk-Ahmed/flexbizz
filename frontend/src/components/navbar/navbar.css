@@ -63,6 +63,7 @@ a.active {
 a.active > span {
     opacity: 1;
     width: fit-content;
+    height: fit-content;
 }
 
 .links{
@@ -75,6 +76,7 @@ a.active > span {
     opacity: 0;
     transition: 0.8s;
     width: 0;
+    height: 0;
 }
 
 .links a {

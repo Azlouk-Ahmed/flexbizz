@@ -1,8 +1,15 @@
 import React from 'react'
 import { MdVerified } from "react-icons/md";
+import { useFetchData } from '../../hooks/useFetchData';
+import { TbStar } from "react-icons/tb";
+import { TbStarFilled } from "react-icons/tb";
 
 
 function UserHeader({user}) {
+    const {data} = useFetchData("http://localhost:5000/achievements/freelancer/rate/"+user._id);
+    const stars = Array.from({ length: 5 }, (_, index) =>
+        index < data?.avgRating ? <TbStarFilled /> : <TbStar />
+    );
   return (
     <div className="user--header">
                 <div className="img--container">
@@ -22,7 +29,7 @@ function UserHeader({user}) {
                         connections : <span>{user.connections.length}</span>
                     </div>
                     <div className="badges">
-                        badges : <span>{user.badges.length}</span>
+                        arverage rating : <span>{stars}</span>
                     </div>
                 </div>
             </div>

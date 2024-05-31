@@ -87,26 +87,23 @@ function Offer({offer}) {
           console.log(error);
         }
       }
+    console.log(offer?.createdBy);  
   return (
     <div className="offer" key={offer?._id}>
-      <Link to={"/profile/"+offer?.createdBy}>
-        <InlineUserInfo user={offer?.createdBy} />
+      <Link to={`/profile/${offer.createdBy._id ? offer.createdBy._id : offer?.createdBy}`}>
+        <InlineUserInfo user={`${offer.createdBy._id ? offer.createdBy._id : offer?.createdBy}`} />
       </Link>
       <hr />
       <h4>{offer?.position}</h4>
-      <div className="technologies">
+      
+      <div className="technologies df">
         {offer?.skillsRequired?.map((item, index) => (
           <div className="skill" key={index}>
             {item}
           </div>
         ))}
       </div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum aperiam
-        nulla quaerat adipisci obcaecati ipsam molestias exercitationem
-        reprehenderit earum, error, aliquam dicta voluptates repudiandae
-        voluptas atque eius maiores facilis consequuntur!
-      </p>
+      
       <div className="info--container">
         <span>
           <GiSuitcase />
@@ -196,7 +193,7 @@ function Offer({offer}) {
           }`}
         >
           <FaClock />{" "}
-          {differenceInDays(offer?.deadline, new Date()) > 0 ? (
+          {differenceInDays(offer?.deadline, new Date()) >= 0 ? (
             <span>{differenceInDays(offer?.deadline, new Date())} d</span>
           ) : (
             <span>expired !</span>

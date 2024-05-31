@@ -34,31 +34,58 @@ const sendConnectionRequest = async (req, res) => {
 
   try {
     const recipientUser = await User.findById(recipientId);
+    const requesterUser = await User.findById(requesterId);
 
     if (!recipientUser) {
       return res.status(404).json({ message: "Recipient user not found." });
     }
 
-    const existingConnectionIndex = recipientUser.connections.findIndex(
+    if (!requesterUser) {
+      return res.status(404).json({ message: "Requester user not found." });
+    }
+
+    // Check if the recipient already has a connection from the requester
+    const existingRecipientConnectionIndex = recipientUser.connections.findIndex(
       (connection) => connection.userId.toString() === requesterId.toString()
     );
 
-    if (existingConnectionIndex !== -1) {
-      recipientUser.connections.pull(recipientUser.connections[existingConnectionIndex]._id);
+    // Check if the requester already has a connection with the recipient
+    const existingRequesterConnectionIndex = requesterUser.connections.findIndex(
+      (connection) => connection.userId.toString() === recipientId.toString()
+    );
+
+    // Remove existing connection if found (for recipient)
+    if (existingRecipientConnectionIndex !== -1) {
+      recipientUser.connections.pull(recipientUser.connections[existingRecipientConnectionIndex]._id);
     }
 
+    // Remove existing connection if found (for requester)
+    if (existingRequesterConnectionIndex !== -1) {
+      requesterUser.connections.pull(requesterUser.connections[existingRequesterConnectionIndex]._id);
+    }
+
+    // Add new pending connection for recipient
     recipientUser.connections.push({
       userId: requesterId,
       status: 'pending',
     });
 
+    // Add new pending connection for requester
+    requesterUser.connections.push({
+      userId: recipientId,
+      status: 'accepted',
+    });
+
+    // Save both users
     await recipientUser.save();
+    await requesterUser.save();
 
     res.status(200).json({ message: "Connection request sent successfully." });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 
 const getPendingConnectionsForUser = async (req, res) => {
@@ -159,7 +186,48 @@ const rejectConnectionRequest = async (req, res) => {
   }
 };
 
+const removeConnection = async (req, res) => {
+  const userId = req.user._id;
+  const requestedUserId = req.params.userId; // This should be the ID of the user to be removed from connections
+
+  try {
+    // Find the current user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Find the connection to be removed
+    const connectionIndex = user.connections.findIndex(
+      (conn) => conn.userId.toString() === requestedUserId
+    );
+
+    if (connectionIndex === -1) {
+      return res.status(404).json({ message: "Connection not found." });
+    }
+
+    // Remove the connection from the current user's connections array
+    user.connections.splice(connectionIndex, 1);
+    await user.save();
+
+    // Find the connected user and remove the connection to the current user
+    const connectedUser = await User.findById(requestedUserId);
+    if (connectedUser) {
+      const reverseConnectionIndex = connectedUser.connections.findIndex(
+        (conn) => conn.userId.toString() === userId.toString()
+      );
+
+      if (reverseConnectionIndex !== -1) {
+        connectedUser.connections.splice(reverseConnectionIndex, 1);
+        await connectedUser.save();
+      }
+    }
+
+    res.json({ message: "Connection removed successfully." });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 
-
-module.exports = { getUserById,getPendingConnectionsForUser, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };
+module.exports = { getUserById,getPendingConnectionsForUser,removeConnection, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };

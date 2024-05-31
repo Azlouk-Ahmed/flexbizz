@@ -115,7 +115,7 @@
 
 
 .received {
-    background: var(--swiper-theme-color);
+    background: var(--blue);
     margin-right: auto;
 }
 
@@ -168,7 +168,7 @@
 
 .received .arrow {
     top: 50%;
-    color: var(--swiper-theme-color);
+    color: var(--blue) !important;
     transform: rotate(180deg) translateY(50%);
     left: -18px;
 }

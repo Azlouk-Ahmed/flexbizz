@@ -53,6 +53,7 @@ const getPortfolioById = async (req, res) => {
       }
   
       const portfolio = new Portfolio({
+        user : userid,
         education,
         experiences,
         skills,

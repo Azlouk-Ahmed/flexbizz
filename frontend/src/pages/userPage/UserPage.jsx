@@ -27,7 +27,7 @@ function UserPage() {
     const { loading, data, error } = useFetchData("http://localhost:5000/portfolio/user");
     
     const pdfExportComponent = useRef(null);
-    const { sendMessageModal,commentsOpened, dispatch, offers, reportModal } =
+    const { currentProjects,commentsOpened, dispatch, offers, reportModal } =
     useOffersContext();
     const navigate = useNavigate();
     const authLocal = JSON.parse(localStorage.getItem('auth'));
@@ -51,14 +51,21 @@ function UserPage() {
             pdfExportComponent.current.save();
         }
     };
-    const { data: currentProjects } = useFetchData(
+    const { data: currentProjectsData } = useFetchData(
         "http://localhost:5000/projects/user/" + auth?.user._id
       );
+
+      useEffect(() => {
+        dispatch({ type: "CURRENT_PROJECTS", payload: currentProjectsData });
+      
+
+      }, [dispatch, currentProjectsData])
+      
       console.log("report modal",reportModal);
       const [open, setopen] = useState(false);
   return (
       <div className="profile ">
-        {open && <Rating setopen={setopen}/>}
+        {open && <Rating setOpen={setopen} project={open}/>}
         {reportModal && <ReportModal reportedObject={reportModal} against={reportModal.freelancer} type={"reclamation"} />}
         {commentsOpened && <Comments />}
         {auth &&<div className="user-details">
@@ -80,7 +87,7 @@ function UserPage() {
                 <div className="pdf--view">
                     <HiOutlineDownload onClick={exportPDF} />
                     <PDFExport ref={pdfExportComponent} fileName="portfolio.pdf" margin={{ top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' }}>
-                        <UserPortfolio data={data.portfolio} />
+                        <UserPortfolio data={data.portfolio} userId={auth.user._id} />
                     </PDFExport>
                 </div>
                 }

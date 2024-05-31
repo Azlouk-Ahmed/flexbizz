@@ -5,14 +5,18 @@ import axios from "axios";
 import { IoLocation } from "react-icons/io5";
 import { GiSuitcase } from "react-icons/gi";
 import { SlWallet } from "react-icons/sl";
+import { useOffersContext } from "../../hooks/useOffersContext";
+import LazyImage from "../lazyloadimg/LazyImage";
 
 function Popup({ selectedpropositions, setselectedPropositions }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {dispatch} = useOffersContext();
   const ammount = selectedpropositions.announcementId.budgetMax * 1000;
   
   const handlePayment = async() => {
     try{
+        localStorage.setItem("payto",JSON.stringify(selectedpropositions));
         setLoading(true);
         const response =await axios.post("http://localhost:5000/api/payer",{"amount":ammount});
         window.open(response.data.result.link, "_blank");
@@ -45,7 +49,11 @@ function Popup({ selectedpropositions, setselectedPropositions }) {
       </div>
       <div className="freelancer cb df-c">
         <div className="df-c prof center">
-          <img src={selectedpropositions.freelancer.img} />
+          <LazyImage
+            src={selectedpropositions.freelancer.img}
+            alt=""
+            className=""
+          />
           <div className="df-c fs">
             <span className="ta-c">{selectedpropositions.freelancer.name} {selectedpropositions.freelancer.familyName} </span>
           </div>

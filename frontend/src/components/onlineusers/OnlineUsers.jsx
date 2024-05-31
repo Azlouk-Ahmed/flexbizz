@@ -1,6 +1,7 @@
 import "./onlineusers.css"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import LazyImage from "../lazyloadimg/LazyImage";
 
 function OnlineUsers({userId}) {
   const [userData, setUserData] = useState(null);
@@ -21,7 +22,11 @@ function OnlineUsers({userId}) {
   return (
     <div className='online-user'>
         <div className="profile-img" >
-            <img src={userData?.img} alt="" className='profilpic' />
+            <LazyImage
+            src={userData?.img}
+            alt=""
+            className="profilpic"
+          />
             <div className="dot"></div>
         </div> 
         <span>{userData?.name+" "+userData?.familyName}</span>

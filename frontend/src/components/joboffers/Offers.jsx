@@ -8,6 +8,7 @@ import { useFetchData } from "../../hooks/useFetchData";
 import OfferForm from "../add offer component/OfferForm";
 import Offer from "../offer/Offer";
 import ReportModal from "../reportModal/ReportModal";
+import Empty from "../error/Empty";
 function Offers() {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const { dispatch, offers, commentsOpened, sendMessageModal,reportModal } = useOffersContext();
@@ -23,15 +24,16 @@ function Offers() {
   }, [data, dispatch]);
 
   
+  if(offers) {
+    console.log("offer before serch",offers[0]);
+
+  }
   
 
   return (
     <div className="offers-container">
       {isOpenForm&& <OfferForm setIsOpenForm={setIsOpenForm}/>}
-      <div className="add--offer " onClick={()=>setIsOpenForm(true)}>
-        <div className="primary-btn">+</div>
-      </div>
-      {offers &&
+      {offers?.length>0 &&
         <div className="offers">
           {offers.map((offer) => (
             <Offer offer={offer} />
@@ -42,6 +44,9 @@ function Offers() {
         <ReportModal reportedObject={reportModal} type="announcement" />
       )}
         </div>}
+        {
+          offers?.length == 0 && <Empty className="annoucemnet-w" msg="no announcements found" />
+        }
         {loading && <><div><Loading /></div></>}
     </div>
   );

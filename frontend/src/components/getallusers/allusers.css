@@ -42,11 +42,10 @@
 }
 
 .connections--container {
-    background-color: var(--light-bg);
-    padding: 0 1rem;
-    max-height: 40vh;
-    max-height: 70vh;
+        padding: 0 1rem;
     overflow-y: scroll;
+    height: 83vh;
+    background: aliceblue;
 }
 
 .connections--container::-webkit-scrollbar {

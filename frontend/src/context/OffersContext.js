@@ -73,6 +73,25 @@ export const OffersReducer = (state, action) => {
         ...state,
         reportModal: action.payload,
     };
+    case "CURRENT_PROJECTS":
+      return {
+        ...state,
+        currentProjects: action.payload,
+    };
+    case "CURRENT_PROJECT_UPDATE":
+      return {
+        ...state,
+        currentProjects: state.currentProjects.map((project) =>
+          project._id === action.payload._id ? action.payload : project
+        ),
+    };
+    case 'ADD_OFFERS':
+        return { ...state, offers: [...state.offers, ...action.payload] };
+    case "OPEN_REPORT_MODAL":
+      return {
+        ...state,
+        reportModal: action.payload,
+    };
     default:
       return state;
   }
@@ -83,12 +102,13 @@ export const OfferContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(OffersReducer, {
     offers: [],
     propositions: [],
+    currentProjects: [],
     comments: [],
     commentsOpened: false,
     sendMessageModal: false,
     reportModal: false,
   });
-  console.log("ofefers",state.offers);
+  console.log("acceptedprep",state.currentProjects);
   return (
     <OffersContext.Provider value={{ ...state, dispatch }}>
       {children}

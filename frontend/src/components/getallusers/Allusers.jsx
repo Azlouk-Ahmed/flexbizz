@@ -6,6 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdPersonAdd } from "react-icons/io";
 import { useFetchData } from "../../hooks/useFetchData";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 function Allusers() {
   const [users, setUsers] = useState([]);
@@ -49,7 +50,9 @@ function Allusers() {
                 <img src={user.img} alt="" className="profile-pic" />
               </div>
               <div className="user-info">
-                <span>{user.name} {user.familyName}</span>
+                <Link to={"/profile/"+user._id}>
+                  <span>{user.name} {user.familyName}</span>
+                </Link>
                 <span><MdConnectWithoutContact /> {user.connections?.length} • <FcApproval /> {user.badges?.length}</span>
               </div>
               <IoMdPersonAdd />

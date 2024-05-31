@@ -2,9 +2,17 @@ import React, { useState } from 'react'
 import { motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 import "./userporfolio.css"
+import { useAuthContext } from '../../hooks/useAuthContext';
+import axios from 'axios';
 
 function Addportfolio({setaddportfolio}) {
+    const {auth } = useAuthContext();
     const [inputValue, setInputValue] = useState('');
+    const [projects, setProjects] = useState([]);
+    const [projectDescription, setProjectDescription] = useState('');
+    const [projectLink, setProjectLink] = useState('');
+    const [projectTitle, setProjectTitle] = useState('');
+    const [projectImage, setProjectImage] = useState('');
     const [skills, setSkills] = useState([]);
     const [award, setaward] = useState('');
     const [awards, setawards] = useState([]);
@@ -18,6 +26,43 @@ function Addportfolio({setaddportfolio}) {
     const [gouvernorate, setGouvernorate] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [image, setImage] = useState('');
+    const handleProjectImageChange = (e) => {
+        setProjectImage(e.target.value);
+
+    };
+
+    const handleProjectTitleChange = (e) => {
+        setProjectTitle(e.target.value);
+    };
+
+    const handleProjectDescriptionChange = (e) => {
+        setProjectDescription(e.target.value);
+    };
+
+    const handleProjectLinkChange = (e) => {
+        setProjectLink(e.target.value);
+    };
+    const handleAddProject = () => {
+        if (projectImage.trim() !== '' && projectTitle.trim() !== '' && projectDescription.trim() !== '' && projectLink.trim() !== '') {
+            setProjects([...projects, {
+                image: projectImage.trim(),
+                title: projectTitle.trim(),
+                description: projectDescription.trim(),
+                link: projectLink.trim()
+            }]);
+            // Reset project fields after adding
+            setProjectImage('');
+            setProjectTitle('');
+            setProjectDescription('');
+            setProjectLink('');
+        }
+    };
+
+    const handleRemoveProject = (index) => {
+        const newProjects = [...projects];
+        newProjects.splice(index, 1);
+        setProjects(newProjects);
+    };
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -197,10 +242,43 @@ function Addportfolio({setaddportfolio}) {
         neweducations.splice(index, 1);
         setExperiences(neweducations);
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("variables",education,experiences,skills,name,image,descriptionp,city,country,postalCode,gouvernorate,awards,website);
-    };
+        if(auth) {
+
+        
+        const portfolioData = {
+          name,
+          description: descriptionp,
+          city,
+          country,
+          gouvernorate,
+          postalCode,
+          image,
+          website,
+          socialMedia,
+          skills,
+          awards,
+          experiences,
+          education,
+        };
+    
+        try {
+          const response = await axios.post('http://localhost:5000/portfolio', portfolioData, {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          if (response.status === 201) {
+            window.location.reload(); 
+          }
+        } catch (error) {
+          console.error('There was an error!', error);
+          alert('Error: Unable to submit portfolio');
+        }
+    }
+      };
   return (
     <motion.div
       initial={{ opacity: 0, translateX: 100 }}
@@ -320,6 +398,46 @@ function Addportfolio({setaddportfolio}) {
                                 <div key={index} style={{ display: 'inline-block', marginRight: '5px' }}>
                                     <div className="df addskill">
                                         {media.name}: {media.link}
+                                        <span onClick={() => handleRemoveSocialMedia(index)}>X</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+        <div className="input-group input-group-icon df-c">
+        <h4>porjects</h4>
+                        <div className="df">
+                            <input
+                                type="text"
+                                value={projectTitle}
+                                onChange={handleProjectTitleChange}
+                                placeholder="Enter project title"
+                            />
+                            <input
+                                type="TEXT"
+                                value={projectImage}
+                                onChange={handleProjectImageChange}
+                                placeholder="Enter mimage"
+                            />
+                            <input
+                                type="text"
+                                value={projectDescription}
+                                onChange={handleProjectDescriptionChange}
+                                placeholder="Enter image"
+                            />
+                            <input
+                                type="text"
+                                value={projectLink}
+                                onChange={handleProjectLinkChange}
+                                placeholder="Enter project link"
+                            />
+                            <div className="primary-btn" onClick={handleAddProject}>Add</div>
+                        </div>
+                        <div className="df">
+                            {projects.map((project, index) => (
+                                <div key={index} style={{ display: 'inline-block', marginRight: '5px' }}>
+                                    <div className="df addskill">
+                                        {project.name}: {project.link}
                                         <span onClick={() => handleRemoveSocialMedia(index)}>X</span>
                                     </div>
                                 </div>

@@ -40,8 +40,8 @@ import Empty from '../../components/error/Empty';
                     <th>image</th>
                     <th>full name</th>
                     <th>Status</th>
-                    <th>potfolio</th>
-                    <th>position</th>
+                    <th>rating</th>
+                    <th>position applied</th>
                     <th>actions</th>
                   </tr>
                 </thead>

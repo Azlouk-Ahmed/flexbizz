@@ -1,6 +1,6 @@
 .home--page {
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    /* grid-template-columns: auto auto; */
     gap: 1rem;
 }
 

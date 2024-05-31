@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: 12px;
     background-color: var(--light-bg);
-    max-width: 40rem;
+    min-width: 37rem;
 }
 .offer p{
     margin: 0;
@@ -17,8 +17,22 @@
     gap: 3rem;
 }
 
+.infinite-scroll-component {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem
+}
+
 .offer h4 {
     margin: 0;
+}
+
+.annoucemnet-w {
+    width: 37rem;
+}
+
+.offers-container {
+    width: 37rem;
 }
 
 .offers {
@@ -39,6 +53,11 @@ strong {
 .hiring {
     color: var(--error) !important;
     background: #ffd2d2 !important;
+    display: flex;
+    gap: 1rem;
+    font-size: 10px;
+    align-items: center;
+    padding: 2px 9px
 }
 
 .skill {
@@ -64,7 +83,7 @@ strong {
 
 .liked {
     font-weight: bolder;
-    color: var(--swiper-theme-color);
+    color: var(--blue);
     background: var(--secondary-bg);
     border-radius: 16px;
     padding: 5px 10px;
@@ -117,7 +136,7 @@ strong {
     align-items: center;
     gap: 5px;
     font-size: 14px;
-    color: var(--swiper-theme-color);
+    color: var(--blue);
     font-weight: bold;
 }
 
