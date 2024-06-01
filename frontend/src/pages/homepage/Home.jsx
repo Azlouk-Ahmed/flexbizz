@@ -21,7 +21,6 @@ function Home() {
     <div className="home--page">
       {/* <Offers /> */}
       {<OfferInfinite />}
-      <PortfolioComponent />
     </div>
   );
 }

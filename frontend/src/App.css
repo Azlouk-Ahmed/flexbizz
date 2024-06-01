@@ -1,5 +1,22 @@
 .App {
-    padding: 5rem 10rem 5px
+    padding: 0rem 0rem 5px;
+}
+
+.main--container {
+    display: flex;
+    gap: 1rem;
+    
+}
+
+.main-view {
+    height: 100vh;
+    overflow-y: scroll;
+    padding: 0rem 1rem 0 0;
+    width: 100%;
+}
+
+.main-view::-webkit-scrollbar {
+    display: none;
 }
 
 .error {
@@ -19,6 +36,16 @@
     border-radius: 7px;
     background: var(--success);
     padding: 1rem 1rem;
+}
+
+.header {
+    justify-content: space-between;
+    background-color: var(--light-bg);
+    padding: 7px 5rem;
+    font-size: 10px;
+}
+.header img {
+    width: 15rem;
 }
 
 .df {

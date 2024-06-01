@@ -8,9 +8,6 @@ async function createCurrentProject(req, res) {
         if (!client) {
             throw new Error("Client not found");
         }
-        if (client.status === "available for work") {
-            throw new Error("The user is not a client");
-        }
         const freelancerId = req.params.freelancerId;
         const freelancer = await User.findById(freelancerId);
         if (!freelancer) {

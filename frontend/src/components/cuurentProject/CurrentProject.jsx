@@ -48,7 +48,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
   };
   const handleFileChange2 = (e) => {
     setFile2(e.target.files[0]);
-    console.log(file1);
+    console.log(file2);
   };
 
   const handleFileUpload = async () => {
@@ -167,7 +167,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
     }
   };
   const handleFileUpload1 = async () => {
-    setLoadingFileUpload2(true);
+    setLoadingFileUpload1(true);
     try {
       const formData = new FormData();
       formData.append('content', file1.name);

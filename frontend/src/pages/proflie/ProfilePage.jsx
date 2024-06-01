@@ -115,7 +115,7 @@ function ProfilePage() {
     <div className="page-gap">
       {open && <Rating setopen={setopen} project={open} />}
       {sendMessageModal && <MessageModal />}
-      {reportModal && <ReportModal reportedObject={data} type="profile" />}
+      {reportModal && id && <ReportModal reportedObject={reportModal} against={id} type="profile" />}
       <div className="page--header">
       <ToastContainer />
         {data && (

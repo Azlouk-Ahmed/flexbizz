@@ -3,9 +3,22 @@ const User = require("../models/userModel")
 
 const createReport = async (req, res) => {
     try {
+        console.log("reporter", req.user);
         const { about, elementReported, description } = req.body;
+        
+        // Check if req.user exists and contains _id
+        if (!req.user || !req.user._id) {
+            return res.status(400).json({ error: 'Invalid user object' });
+        }
+        
         const reporter = req.user._id;
         const reported = req.params.reportedUserId;
+
+        // Check if reported user ID is provided
+        if (!reported) {
+            return res.status(400).json({ error: 'Reported user ID is required' });
+        }
+
         const reporterObj = await User.findById(reporter);
         if (!reporterObj) {
             return res.status(404).json({ error: 'Reporter not found' });
@@ -15,10 +28,11 @@ const createReport = async (req, res) => {
         if (!reportedObj) {
             return res.status(404).json({ error: 'Reported user not found' });
         }
-        
-        if(description == ""){
-            return res.status(403).json({ error: 'Reported user not found' });
+
+        if(description === ""){
+            return res.status(403).json({ error: 'Description should not be empty' });
         }
+
         const report = new Report({
             about,
             elementReported,
@@ -34,6 +48,7 @@ const createReport = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 
 const getAllReports = async (req, res) => {
     try {

@@ -8,6 +8,8 @@ import { AuthContextProvider } from './context/AuthContext';
 import { OfferContextProvider } from './context/OffersContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationContextProvider } from './context/NotificationContext';
+import { BrowserRouter } from 'react-router-dom';
+import { ActContextProvider } from './context/ActivitiesContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +18,11 @@ root.render(
       <ChatsContextProvider>
         <SocketProvider>
           <NotificationContextProvider>
-              <App />
+            <ActContextProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </ActContextProvider>
             </NotificationContextProvider>
         </SocketProvider>
       </ChatsContextProvider>

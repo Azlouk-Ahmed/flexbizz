@@ -6,16 +6,18 @@ import { useFetchData } from "../../hooks/useFetchData";
 import LazyImage from "../lazyloadimg/LazyImage";
 
 function InlineUserInfo({user, showDate}) {
+
   const {data : userData } = useFetchData(`http://localhost:5000/user/${user}`);
   
   return (
     <div className="profile-container al-i-center" key={userData?._id}>
       <div className="profile-img addjust-img">
-        <LazyImage
+        {/* <LazyImage
             src={userData?.img}
             alt=""
             className="notification-user-avatar"
-          />
+          /> */}
+          <img src={userData?.img} alt="" srcset="" />
       </div>
       <div className="user-info">
         <span>

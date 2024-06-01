@@ -21,6 +21,7 @@
 .logocontainer{
     display: flex;
     align-items: center;
+    color: var(--text);
 }
 .logocontainer span {
     font-weight: bolder;
@@ -54,10 +55,7 @@ a {
 }
 
 a.active {
-    color: var(--primary);
-    background: var(--primary-bg);
-    padding: 0 25px;
-    border-radius: 9px;
+    color: var(--primary) !important;
 }
 
 a.active > span {
@@ -252,8 +250,8 @@ ul li {
 
 .notification--indicator {
     position: absolute;
-    right: -7px;
-    top: -12%;
+    right: 11px;
+    top: 30%;
     font-size: 12px;
     font-family: inherit;
     margin: 0;

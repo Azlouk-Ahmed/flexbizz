@@ -2,6 +2,13 @@
     display: flex;
     /* grid-template-columns: auto auto; */
     gap: 1rem;
+    padding-bottom: 5rem;
+}
+
+.no-scroll {
+    overflow: unset !important;
+    height: auto !important;
+
 }
 
 .addjust-img {
@@ -18,3 +25,5 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.loading {}

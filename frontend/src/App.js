@@ -1,6 +1,5 @@
 import "./App.css";
 import "../src/pages/chat/chat.css"
-
 import "../src/pages/homepage/home.css"
 import "../src/pages/landing/landing.css"
 import "../src/pages/loginpage/login.css"
@@ -9,14 +8,15 @@ import "../src/pages/propositions/proposition.css"
 import "../src/pages/userPage/userpage.css"
 import "../src/components/joboffers/offers.css"
 import "../src/components/search/search.css"
+import "../src/pages/client service page/clientservice.css"
 
-import React, { lazy, Suspense } from "react";
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { lazy, Suspense, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useFetchNotification } from "./hooks/useFetchNotification";
 import SearchPage from "./pages/searchpage/SearchPage";
+import GoogleAuthBtn from "./components/googleAuthbtn/GoogleAuthBtn";
 
 const Landing = lazy(() => import("./pages/landing/Landing"));
 const Home = lazy(() => import("./pages/homepage/Home"));
@@ -37,6 +37,8 @@ const PaymentRedirectError = lazy(() =>
 
 function App() {
   const { dispatch, auth } = useAuthContext();
+  const location = useLocation(); // Get the current route
+
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:5000/auth/login/success", {
@@ -67,35 +69,38 @@ function App() {
 
   useFetchNotification();
 
+  // Determine the class to apply based on the route
+  const mainViewClass = location.pathname === '/' ? 'main-view df-c no-scroll' : 'main-view df-c';
+
   return (
     <div className="App">
-      <BrowserRouter>
-        
-        <Navbar user={auth?.user} />
-        <Suspense fallback={<p>loading page data ...</p>}>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home />
-              }
-            />
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/chat" element={<Chat />} />
-            <Route
-              path="/login"
-              element={!auth ? <Login /> : <Navigate to="/" />}
-            />
-            <Route path="/profile" element={<UserPage />} />
-            <Route path="/propositions" element={<PropositionsPage />} />
-            <Route path="/profile/:id" element={<ProfilePage />} />
-            <Route path="/payment/success" element={<PaymentRedirect />} />
-            <Route path="/payment/fail" element={<PaymentRedirectError />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/client-service" element={<ClientServicePage />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+        <div className="main--container">
+          
+          {auth && <Navbar user={auth?.user} />}
+
+          <div className={mainViewClass}>
+            <div className="header df">
+              Siège: AV. Hssine Farhat, 5180 Salakta, Mahdia Tél: 00 216 92 025 942
+              <img src={require("../src/img/wego.jpg")} alt="wego"/>
+            </div>
+
+            <Suspense fallback={<p>loading page data ...</p>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/landing" element={<Landing />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/login" element={!auth ? <Login /> : <Navigate to="/" />} />
+                <Route path="/profile" element={<UserPage />} />
+                <Route path="/propositions" element={<PropositionsPage />} />
+                <Route path="/profile/:id" element={<ProfilePage />} />
+                <Route path="/payment/success" element={<PaymentRedirect />} />
+                <Route path="/payment/fail" element={<PaymentRedirectError />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/client-service" element={<ClientServicePage />} />
+              </Routes>
+            </Suspense>
+          </div>
+        </div>
       {/* <Dashboard /> */}
     </div>
   );

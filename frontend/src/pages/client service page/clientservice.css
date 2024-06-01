@@ -1,3 +1,198 @@
 .support {
     color: var(--error);
 }
+
+.cbx {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098A9;
+    transition: all 0.2s ease;
+}
+
+.cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.cbx span:last-child {
+    padding-left: 8px;
+}
+
+.cbx:hover span:first-child {
+    border-color: var(--primary);
+}
+
+.inp-cbx:checked+.cbx span:first-child {
+    background: var(--primary);
+    border-color: var(--primary);
+    animation: wave 0.4s ease;
+}
+
+.inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.inp-cbx:checked+.cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.sb {
+    justify-content: space-between;
+}
+
+.members {
+    background-color: var(--light-bg);
+    padding: 1rem;
+    border-radius: 1rem;
+    min-width: 25%;
+    height: 100vh;
+    font-size: 13px;
+}
+
+.members .title1 {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.actuser {
+    justify-content: space-between;
+    padding: 0.5rem 17px;
+    font-weight: bold;
+    
+}
+
+.input {
+    align-items: unset;
+}
+
+.input input {
+    border: 1px solid #d0d0d0;
+    
+}
+
+input {
+    color: var(--text);
+    padding-left: 7px;
+    font-family: inherit;
+
+}
+
+.actuser a {
+    color: black;
+    transition: 0.5s;
+}
+.actuser a:hover {
+    color: var(--primary);
+}
+
+.members hr {
+    margin: 0;
+}
+.members .menu {
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 3px; 
+}
+
+.memberscontainer {
+    height: 70%;
+    overflow-y: scroll;
+}
+
+.memberscontainer::-webkit-scrollbar {
+    display: none;
+}
+
+.actimg {
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.actimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.activities {
+    background: var(--light-bg);
+    height: 100vh;
+    overflow-y: scroll;
+    width: 61%;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 14px;
+}
+
+.time {
+    margin-left: auto;
+    font-size: 9px;
+    color: var(--primary);
+}
+
+.actmsg {
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--error);
+}
+
+.count {
+    text-align: center;
+    display: inline-block;
+    background-color: var(--primary);
+    padding: 3px 10px;
+    border-radius: 13px;
+    color: var(--light-bg);
+    font-size: 8px;
+    width: 30px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

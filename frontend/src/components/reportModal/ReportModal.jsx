@@ -18,6 +18,7 @@ function ReportModal({ reportedObject, type, against }) {
         setError(null);
 
         try {
+            console.log('Against:', against);
             const response = await axios.post(
                 `http://localhost:5000/report/${against}`,
                 { description: reason, about:type,elementReported: reportedObject },

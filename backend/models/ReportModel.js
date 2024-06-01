@@ -14,7 +14,7 @@ const reportSchema = new mongoose.Schema(
     },
     about: {
       type: String,
-      enum: ["chat", "announcement", "scams", "comments", "reclamation","freelancer report"],
+      enum: ["chat", "announcement", "scams", "comments", "reclamation", "profile","freelancer report"],
       required: true,
     },
     elementReported: { type: Object },

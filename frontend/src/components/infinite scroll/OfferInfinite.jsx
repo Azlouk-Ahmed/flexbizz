@@ -10,6 +10,7 @@ import Comments from '../comments/Comments';
 import OfferForm from '../add offer component/OfferForm';
 
 function OfferInfinite() {
+    
     const { auth } = useAuthContext();
     const [isOpenForm, setIsOpenForm] = useState(false);
     const {  commentsOpened, sendMessageModal,reportModal, dispatch, offers } = useOffersContext();

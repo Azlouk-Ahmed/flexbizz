@@ -1,12 +1,12 @@
-const express = require("express");
-const mongoose = require("mongoose");
 const cookieSession = require('cookie-session');
-const app = express();
-const passport = require('passport');
+const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const app = express();
 require("dotenv").config();
-const googleAuthRouter = require("./routes/googleAuth");
 const passportSetup  = require("./config/passport-setup");
+const passport = require('passport');
+const googleAuthRouter = require("./routes/googleAuth");
 const chatRouter = require("./routes/chatRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -19,17 +19,19 @@ const propositionRouter = require("./routes/PropositionRoutes");
 const paymentRouter = require("./routes/payment");
 const achievementsRouter = require("./routes/achievementRoutes");
 const CurrentProjectrouter = require("./routes/currentProjectRoutes");
+const activitiesRoutes = require("./routes/activityRoutes");
 
+app.use(cookieSession({
+    name : "session",
+    maxAge: 24 * 60 * 60 * 100,
+    keys: ["lama"]
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true 
 }));
-app.use(cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: ["somestrongsecretkey"]
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.json());
 
@@ -47,6 +49,7 @@ app.use('/notification', notificationsRouter);
 app.use("/api",paymentRouter);
 app.use("/achievements",achievementsRouter);
 app.use("/projects",CurrentProjectrouter);
+app.use("/activities",activitiesRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI)

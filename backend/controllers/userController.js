@@ -229,5 +229,25 @@ const removeConnection = async (req, res) => {
   }
 };
 
+const getUserByName = async (req, res) => {
+  const { name } = req.body;
 
-module.exports = { getUserById,getPendingConnectionsForUser,removeConnection, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };
+  try {
+
+    const users = await User.find({
+      $or: [
+        { name: { $regex: name, $options: 'i' } }, // Case-insensitive regex match for name
+        { familyName: { $regex: name, $options: 'i' } } // Case-insensitive regex match for familyName
+      ]
+    });
+
+
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+module.exports = { getUserById, getUserByName,getPendingConnectionsForUser,removeConnection, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };
