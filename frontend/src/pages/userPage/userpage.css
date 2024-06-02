@@ -78,6 +78,19 @@
     color: var(--error)
 }
 
+.green {
+    font-size: 20px;
+    color: var(--success);
+}
+.primary {
+    font-size: 20px;
+    color: var(--primary);
+}
+.red {
+    font-size: 20px;
+    color: var(--error);
+}
+
 .danger> .df, .sucess >.df {
     width: fit-content;
     justify-content: end;
@@ -95,6 +108,9 @@
 .box.money:nth-child(2) div:nth-child(2){
     background: #ffc6a1;
     padding: 1rem;
+}
+.g0 {
+    gap: 0 !important;
 }
 .box.money .df {
     padding: 1rem;

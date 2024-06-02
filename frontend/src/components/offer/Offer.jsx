@@ -90,8 +90,8 @@ function Offer({offer}) {
     console.log(offer?.createdBy);  
   return (
     <div className="offer" key={offer?._id}>
-      <Link to={`/profile/${offer.createdBy._id ? offer.createdBy._id : offer?.createdBy}`}>
-        <InlineUserInfo user={`${offer.createdBy._id ? offer.createdBy._id : offer?.createdBy}`} />
+      <Link to={`/profile/${offer?.createdBy?._id ? offer.createdBy._id : offer?.createdBy}`}>
+        <InlineUserInfo user={`${offer?.createdBy?._id ? offer.createdBy._id : offer?.createdBy}`} />
       </Link>
       <hr />
       <h4>{offer?.position}</h4>

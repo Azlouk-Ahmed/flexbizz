@@ -6,6 +6,7 @@
     gap: 12px;
     background-color: var(--light-bg);
     min-width: 37rem;
+    max-width: 40rem;
 }
 .offer p{
     margin: 0;

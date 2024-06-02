@@ -68,6 +68,41 @@ table {
     font-weight: 900;
   }
 
+  .userobjj {
+    display: flex;
+    align-items: center;
+  }
+
+  .collabs-img img:nth-child(2) {
+    
+  }
+  .collabs-img img {
+  
+  }
+
+  .collabs-img> .userobjj {
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .collabs-img> .userobjj:nth-child(2){
+    left: -1.5rem;
+    z-index: 0;
+  }
+  .collabs-img> .userobjj:nth-child(1){
+    z-index: 1;
+  }
+
+  .evaluation {
+    padding-left: 2rem;
+    border-left: 1px solid;
+  }
+
+  .evaluation svg {
+    color: var(--primary);
+  }
+
   .df {
     display: flex;
     align-items: center;
@@ -83,6 +118,10 @@ table {
   table a {
     text-decoration: none;
     color: #2962ff;
+  }
+  .tabledata a {
+    text-decoration: none;
+    color: var(--primary);
   }
   table .status {
     border-radius: 0.2rem;

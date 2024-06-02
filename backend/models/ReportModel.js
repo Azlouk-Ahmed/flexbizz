@@ -19,7 +19,7 @@ const reportSchema = new mongoose.Schema(
     },
     elementReported: { type: Object },
     description: { type: String, required: true },
-    status: { type: String, enum: ["pending", "handled"], default: "pending" },
+    status: { type: String, enum: ["delivered", "pending", "cancelled","handled"], default: "pending" },
   },
   { timestamps: true }
 );

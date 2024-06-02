@@ -165,7 +165,8 @@ input {
     width: 61%;
     border-radius: 1rem;
     padding: 1rem;
-    font-size: 14px;
+    font-size: 11px;
+    padding: 3rem 5rem;
 }
 
 .time {

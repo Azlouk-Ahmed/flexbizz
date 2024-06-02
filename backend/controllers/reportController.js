@@ -59,25 +59,44 @@ const getAllReports = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+const getreportbyid = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const report = await Report.findById(id);
+        res.json(report);
+    } catch (error) {
+        console.error('Error getting report:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 
 const updateReportStatus = async (req, res) => {
     try {
         const { reportId } = req.params;
+        const { status } = req.body;
+
+        if (!["delivered", "pending", "cancelled", "handled"].includes(status)) {
+            return res.status(400).json({ error: 'Invalid status' });
+        }
 
         const report = await Report.findById(reportId);
         if (!report) {
             return res.status(404).json({ error: 'Report not found' });
         }
 
-        report.status = 'handled';
+        report.status = status;
         await report.save();
 
-        res.json({ message: 'Report status updated successfully' });
+        const updatedReport = await Report.findById(reportId);
+
+        res.json({ report: updatedReport });
     } catch (error) {
         console.error('Error updating report status:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
 
 const deleteReport = async (req, res) => {
     try {
@@ -96,5 +115,6 @@ module.exports = {
     createReport,
     getAllReports,
     updateReportStatus,
-    deleteReport
+    deleteReport,
+    getreportbyid
 };

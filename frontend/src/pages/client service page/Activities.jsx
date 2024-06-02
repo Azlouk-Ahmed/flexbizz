@@ -4,6 +4,13 @@ import { formatDistanceToNow } from 'date-fns';
 import UserObj from './UserObj';
 import { IoLogIn } from 'react-icons/io5';
 import { useActContext } from '../../hooks/useActContext';
+import Loading from "../../components/loading/Loading"
+import { FcLike } from "react-icons/fc";
+import { FcBrokenLink } from "react-icons/fc";
+import { FcOk } from "react-icons/fc";
+import { TbStar } from "react-icons/tb";
+import { TbStarFilled } from "react-icons/tb";
+import { HiOutlineUsers } from "react-icons/hi2";
 
 const ActionTypes = Object.freeze({
   SEND_MESSAGE: 'SEND_MESSAGE',
@@ -31,7 +38,7 @@ const ActionTypes = Object.freeze({
   HIRE: 'HIRE',
 });
 
-function Activities() {
+function Activities({loading}) {
     const {activities} = useActContext();
 
   const renderActivityMessage = (activity) => {
@@ -39,9 +46,12 @@ function Activities() {
 
     switch (action) {
       case ActionTypes.CONSULTED_USER:
+        if(userId == details.params.freelancerId) {
+          return null;
+        }
         return (
-          <div className="df">
-            <span><UserObj id={userId}/></span> visited <span><UserObj id={details.params.freelancerId}/> </span>profile
+          <div className="userobjj">
+            <span><UserObj id={userId}/> </span>&nbsp; visited &nbsp;<span> <UserObj id={details.params.freelancerId}/> </span>&nbsp; &nbsp;profile
             <div className="time">
                 {timestamp && formatDistanceToNow(new Date(timestamp), {
                 addSuffix: true,
@@ -52,8 +62,8 @@ function Activities() {
         );
       case ActionTypes.SEND_MESSAGE:
         return (
-          <div className="df">
-            <span><UserObj id={userId}/></span> sent a message: <span className='actmsg'>{details.body.text}</span>
+          <div className="userobjj">
+            <span><UserObj id={userId}/></span> sent a message:&nbsp; &nbsp;<span className='actmsg'>{details.body.text}</span>
             <div className="time">
                 {timestamp && formatDistanceToNow(new Date(timestamp), {
                 addSuffix: true,
@@ -62,28 +72,78 @@ function Activities() {
             </div>
           </div>
         );
-      // Add more cases as needed for other action types
       case ActionTypes.LOGIN:
+        
         return (
-          <div className="df">
-            <UserObj id={userId}/> logged in <IoLogIn />
+          <div className="userobjj">
+            <UserObj id={userId}/> logged in &nbsp; <FcBrokenLink />
             <div className="time">
                 {timestamp && formatDistanceToNow(new Date(timestamp), {
                 addSuffix: true,
                 })}
 
             </div>
+          </div>
+        );
+      case ActionTypes.HIRE:
+        
+        return (
+          <div className="userobjj ">
+            <div className="collabs-img df">
+            <UserObj id={userId} collabs={true}/> 
+            <UserObj id={details.params.freelancerId} collabs={true}/> 
+
+            </div>
+            <div>are now collaborated in a new project <HiOutlineUsers /></div>
+            
           </div>
         );
       case ActionTypes.LOGOUT:
         return (
-          <div className="df">
-            <span>{userId}</span> logged out
+          <div className="userobjj">
+            <span><UserObj id={userId}/></span> logged out
           </div>
+        );
+      case ActionTypes.EVALUATE:
+        const stars = Array.from({ length: 5 }, (_, index) =>
+          index < details.body.clientRating ? <TbStarFilled /> : <TbStar />
+        );
+        return (
+          <div className="df-c">
+            <span className='df'><UserObj id={userId}/> created an evaluation : </span>
+            <div className="evaluation df-c">
+              <p className="p ">
+                comment : {details.body.clientComment}
+              </p>
+              <div>{stars} , spent {details.body.budget} DT</div>
+              <div className='df'>rated user : <UserObj id={details.params.id}/></div>
+            </div>
+          </div>
+        );
+      case ActionTypes.ADD_VERSION:
+        return (
+          <div className="df-c">
+            <span className='df'><UserObj id={userId}/> pushed a version : </span>
+            <div className="evaluation df-c">
+              <p className="p ">
+                file : {details.body.content}
+              </p>
+            </div>
+          </div>
+        );
+      case ActionTypes.CONFIRM_VERSION:
+        return (
+
+           <span className='userobjj'><UserObj id={userId}/>&nbsp; confirmed a version&nbsp;  <FcOk /></span>
+ 
+        );
+      case ActionTypes.LIKE_ANNOUNCEMENT:
+        return (
+            <span className='userobjj'><UserObj id={userId}/>&nbsp;  liked &nbsp; <FcLike />&nbsp;  an annoouncement </span>
         );
       default:
         return (
-          <div className="df">
+          <div className="userobjj">
             <span>{userId}</span> performed action: <span>{action}</span>
           </div>
         );
@@ -92,14 +152,16 @@ function Activities() {
 
   return (
     <div className='activities'>
-      <h1>Activities</h1>
-      <div className="df-c">
+      {!loading && <div className="df-c">
         {activities?.map(activity => (
-          <div key={activity._id}>
+          <>
             {renderActivityMessage(activity)}
-          </div>
+          </>
         ))}
-      </div>
+      </div>}
+      {
+        loading && <Loading />
+      }
     </div>
   );
 }

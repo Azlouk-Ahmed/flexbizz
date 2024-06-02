@@ -10,6 +10,7 @@ import Typing from "../typing/Typing";
 import { useSocketContext } from "../../hooks/useSocketContext";
 import { useFetchData } from "../../hooks/useFetchData";
 import Error from "../error/Error";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 function MessagesComponent({ onlineusers }) {
   const { auth } = useAuthContext();

@@ -58,7 +58,7 @@ function OfferInfinite() {
             {commentsOpened && <Comments />}
           {sendMessageModal && <MessageModal />}
           {reportModal && (
-        <ReportModal reportedObject={reportModal} type="announcement" />)}
+        <ReportModal reportedObject={reportModal} against={reportModal.createdBy} type="announcement" />)}
             {offers &&<InfiniteScroll
                 dataLength={offers.length}
                 next={fetchOffers}
