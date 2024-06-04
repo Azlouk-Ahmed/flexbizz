@@ -1,4 +1,23 @@
 const Achievement = require('../models/achievementModel');
+const CurrentProject = require("../models/CurrentProject")
+const Announcement = require("../models/AnnoucementModal");
+
+
+async function getGlobalFinance(req, res) {
+    try {
+        const achievements = await Achievement.find();
+        const announcements = await Announcement.find();
+        const currentProjects = await CurrentProject.find().populate("announcement").select("announcement");
+        const totalBudget = achievements.reduce((acc, el) => acc + el.budget, 0);
+        const predictedIncome = announcements.reduce((acc, el) => acc + el.budgetMax, 0);
+        const insystem = currentProjects.reduce((acc, el) => acc + el.announcement.budgetMax, 0);
+        const netIncome = totalBudget * 0.05;
+        res.json({ totalBudget, netIncome, predictedIncome, insystem });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 
 
 async function getAchievementsByFreelancerId(req, res) {
@@ -135,4 +154,4 @@ async function createAchievement(req, res) {
     }
 }
 
-module.exports = { getAchievementsByFreelancerId, getRatingByFreelancerId, getClientSpendingDifference, getIncomeDifferenceForFreelancer, getClientAchievements, createAchievement };
+module.exports = { getAchievementsByFreelancerId, getGlobalFinance, getRatingByFreelancerId, getClientSpendingDifference, getIncomeDifferenceForFreelancer, getClientAchievements, createAchievement };

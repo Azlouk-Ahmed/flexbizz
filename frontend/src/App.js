@@ -34,6 +34,9 @@ const PaymentRedirect = lazy(() =>
 const PaymentRedirectError = lazy(() =>
   import("./components/payment/PaymentRedirectError")
 );
+const Dashboard = lazy(() =>
+  import("./pages/admindashboard/Dashboard")
+);
 
 function App() {
   const { dispatch, auth } = useAuthContext();
@@ -97,11 +100,11 @@ function App() {
                 <Route path="/payment/fail" element={<PaymentRedirectError />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/client-service" element={<ClientServicePage />} />
+                <Route path="/dashboard" element={<Dashboard />} />
               </Routes>
             </Suspense>
           </div>
         </div>
-      {/* <Dashboard /> */}
     </div>
   );
 }

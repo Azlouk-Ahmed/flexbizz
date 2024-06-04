@@ -189,7 +189,7 @@ function Navbar({user}) {
       </NavLink>
     </div>
     <div class="nav-button">
-      <NavLink to="/client-service">
+      <NavLink to="/dashboard">
         <RiAdminFill className="fas"/>
         <span>dashboard</span>
       </NavLink>

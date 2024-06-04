@@ -56,6 +56,7 @@ function ClientServicePage() {
 
   return (
     <div className='client service'>
+      <h1>activities</h1>
       <div className="df">
         <div className="members df-c">
           <div className="title1">Members</div>

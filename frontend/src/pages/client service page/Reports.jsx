@@ -8,6 +8,8 @@ import { BsEye } from "react-icons/bs";
 import { CiSquareRemove } from "react-icons/ci";
 import { BiCheck } from "react-icons/bi";
 import { useActContext } from "../../hooks/useActContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import axios from "axios";
 
 function formatDate(dateString) {
   const options = {
@@ -25,6 +27,7 @@ function Reports() {
   const [selectedReport, setSelectedReport] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useFetchData("http://localhost:5000/report/");
+  const {auth} = useAuthContext();
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -37,14 +40,33 @@ function Reports() {
     setIsModalOpen(true);
   };
 
-  const handleModify = (id) => {
-    console.log(`Modify action clicked for ID: ${id}`);
-    // Handle modify action here
+  const handleModify =async (id) => {
+    console.log("clicked");
+    if(auth){try {
+      const response = await axios.put(`http://localhost:5000/report/${id}`, { status: "delivered" }, {
+        headers: {
+          Authorization: `Bearer ${auth.token}` 
+        }
+      });
+      console.log(response.data);
+      dispatch({ type: "UPDATE_REPORTS", payload: response.data.report });
+    } catch (error) {
+      console.error('Error modifying report:', error);
+    }}
   };
 
-  const handleDelete = (id) => {
-    console.log(`Delete action clicked for ID: ${id}`);
-    // Handle delete action here
+  const handleDelete = async (id) => {
+    if(auth){try {
+      const response = await axios.put(`http://localhost:5000/report/${id}`, { status: "cancelled" }, {
+        headers: {
+          Authorization: `Bearer ${auth.token}` 
+        }
+      });
+      console.log(response.data);
+      dispatch({ type: "UPDATE_REPORTS", payload: response.data.report });
+    } catch (error) {
+      console.error('Error modifying report:', error);
+    }}
   };
 
   const columns = [

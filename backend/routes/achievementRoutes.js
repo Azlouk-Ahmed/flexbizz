@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAchievementsByFreelancerId, getClientAchievements, createAchievement, getIncomeDifferenceForFreelancer, getClientSpendingDifference, getRatingByFreelancerId } = require('../controllers/achievementController');
+const { getAchievementsByFreelancerId, getClientAchievements, createAchievement, getIncomeDifferenceForFreelancer, getClientSpendingDifference, getRatingByFreelancerId, getGlobalFinance } = require('../controllers/achievementController');
 const requireAuth = require('../middlewares/requireUserAuth');
 const logActivity = require('../middlewares/logActivity');
 const ActionTypes = require('../constants/actionTypes');
@@ -14,6 +14,7 @@ router.get('/spending/:clientId', getClientSpendingDifference);
 
 
 router.get('/client/:id', getClientAchievements);
+router.get('/admin/', getGlobalFinance);
 
 
 router.post('/:id',requireAuth,logActivity(ActionTypes.EVALUATE), createAchievement);

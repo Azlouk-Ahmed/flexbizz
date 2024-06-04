@@ -72,6 +72,21 @@ function Activities({loading}) {
             </div>
           </div>
         );
+      case ActionTypes.CREATE_COMMENT:
+        return (
+          <div className="df-c">
+            <span className='userobjj'><UserObj id={userId}/>&nbsp; commented : </span>
+            <div className="evaluation">
+              {details?.body?.content}
+            </div>
+            <div className="time">
+                {timestamp && formatDistanceToNow(new Date(timestamp), {
+                addSuffix: true,
+                })}
+
+            </div>
+          </div>
+        );
       case ActionTypes.LOGIN:
         
         return (

@@ -1,0 +1,109 @@
+.dash {
+    background-color: var(--light-bg);
+    padding: 3rem 1rem; 
+    border-radius: 1rem;   
+}
+.dash >.df {
+    justify-content: space-evenly;
+    justify-content: flex-start !important;
+} 
+.dash >.df {
+    justify-content: space-evenly;
+} 
+.dash >.df .box{
+    width: 15rem;
+    min-height: 7rem;
+    border-radius: 1rem;
+    padding: 1rem;
+} 
+
+.icon-cont {
+    background-color: #0970fe;
+    border-radius: 10px;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+}
+
+.dashsidebar {
+    width: 20%;
+    background-color: var(--light-bg);
+    border-radius: 1rem;
+    padding: 3rem 1rem;
+}
+
+.icon-cont svg {
+    color: white;
+    font-size: 2rem;
+}
+
+.bashboard {
+    display: flex;
+    gap: 1rem;
+
+}
+
+.boxesholder {
+    display: flex;
+    gap: 3rem;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.wrap span {
+    color: #0970fe;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+
+.df.wrap {
+    justify-content: space-between;
+    align-items:flex-start;
+}
+.dash >.df .box:first-child{
+    background-color: #e4effd;
+} 
+.dash >.df .box .g0.df-c > span{
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
+} 
+.dinar {
+    color: black;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.dash >.df .box:nth-child(2){
+    background-color: #e9f5e6;
+    
+} 
+.dash >.df .box:nth-child(3){
+    background-color: #fef9e5;
+    
+} 
+.dash >.df .box:nth-child(4){
+    background-color: #fde3e3;
+    
+} 
+
+.gr {
+    background-color: #6bd903;
+}
+.yl {
+    background-color: #facf12;
+}
+.or {
+    background-color: #fe0404;
+}
+.gr1 {
+    color: #6bd903 !important;
+}
+.yl1 {
+    color: #facf12 !important;
+}
+.or1 {
+    color: #fe0404 !important;
+}

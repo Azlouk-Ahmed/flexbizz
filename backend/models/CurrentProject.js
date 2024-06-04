@@ -4,10 +4,10 @@ const workVersionSchema = new mongoose.Schema({
   versionNumber: {
     type: Number,
     required: true,
-    enum: [1, 2, 3], // Assuming there are exactly three versions
+    enum: [1, 2, 3], 
   },
   content: {
-    type: String, // or Buffer, depending on the type of work
+    type: String, 
     required: true,
   },
   confirmed: {

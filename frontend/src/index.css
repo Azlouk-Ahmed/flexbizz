@@ -29,6 +29,14 @@
   --blue: #007aff;
 }
 
+.ta-c {
+  text-align: center;
+}
+
+.jc-sb {
+  justify-content: space-between !important;
+}
+
 .primary-btn,.danger-btn, .warning-btn {
   cursor: pointer;
   padding: 8px;
