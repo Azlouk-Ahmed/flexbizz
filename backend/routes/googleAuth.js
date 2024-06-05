@@ -32,7 +32,11 @@ googleAuthRouter.get("/logout", (req, res) => {
 });
 
 
-googleAuthRouter.get("/google", passport.authenticate("google", { scope: ["profile"],prompt: "select_account" }));
+googleAuthRouter.get("/google", passport.authenticate("google", { 
+  scope: ["profile", "email"],
+  prompt: "select_account"
+}));
+
 
 
 

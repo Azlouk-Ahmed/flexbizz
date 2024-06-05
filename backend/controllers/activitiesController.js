@@ -21,6 +21,50 @@ exports.getTotalActivitiesByUser = async (req, res) => {
   }
 };
 
+exports.getTopUsersByActivityCount = async (req, res) => {
+  try {
+    const topUsers = await Activity.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { count: -1 }
+      },
+      {
+        $limit: 3
+      },
+      {
+        $lookup: {
+          from: "users", // Assuming your User model collection is named "users"
+          localField: "_id",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $unwind: "$user" // Unwind the user array
+      },
+      {
+        $project: {
+          _id: "$user._id",
+          name: "$user.name",
+          familyName: "$user.familyName",
+          img: "$user.img",
+          count: 1
+        }
+      }
+    ]);
+
+    res.json(topUsers);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 
 exports.getActivitiesByUser = async (req, res) => {
   try {

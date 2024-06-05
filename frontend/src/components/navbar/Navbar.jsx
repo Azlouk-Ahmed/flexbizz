@@ -182,18 +182,18 @@ function Navbar({user}) {
         {propositions?.length > 0 && <pre className="notification--indicator">{propositions?.length}</pre>}
       </NavLink>
     </div>
-    <div class="nav-button">
+    {user.role ==="Support" &&<div class="nav-button">
       <NavLink to="/client-service">
         <MdSupportAgent className="fas support"/>
         <span>client service</span>
       </NavLink>
-    </div>
-    <div class="nav-button">
+    </div>}
+    {user.role === "Admin" &&<div class="nav-button">
       <NavLink to="/dashboard">
         <RiAdminFill className="fas"/>
         <span>dashboard</span>
       </NavLink>
-    </div>
+    </div>}
     <hr/>
     <div class="nav-button"><IoIosNotificationsOutline className='fas'/><span>notifications</span></div>
     <div class="nav-button"><GoPersonAdd className='fas'/><span>connection requests</span></div>

@@ -33,7 +33,7 @@ passport.use(
                 const currentUser = await User.findOne({ googleId: profile.id });
                 if (currentUser) {
                     console.log("User is: ", currentUser);
-                    // Log login activity
+  
                     const loginActivity = new Activity({
                         userId: currentUser._id,
                         action: "LOGIN",
@@ -50,7 +50,6 @@ passport.use(
                     }).save();
 
                     console.log("Created new user: ", newUser);
-                    // Log account creation activity
                     const createdAccountActivity = new Activity({
                         userId: newUser._id,
                         action: "CREATED_ACCOUNT",

@@ -1402,3 +1402,183 @@ export const currentprojectdata = [
     "color": "hsl(335, 70%, 50%)"
   }
 ]
+
+export const bardata = [
+  {
+    "governorate": "Ariana",
+    "freelancer": 136,
+    "freelancerColor": "hsl(16, 70%, 50%)",
+    "client": 83,
+    "clientColor": "hsl(62, 70%, 50%)"
+  },
+  {
+    "governorate": "Beja",
+    "freelancer": 67,
+    "freelancerColor": "hsl(224, 70%, 50%)",
+    "client": 92,
+    "clientColor": "hsl(298, 70%, 50%)"
+  },
+  {
+    "governorate": "Ben Arous",
+    "freelancer": 58,
+    "freelancerColor": "hsl(181, 70%, 50%)",
+    "client": 174,
+    "clientColor": "hsl(200, 70%, 50%)"
+  },
+  {
+    "governorate": "Bizerte",
+    "freelancer": 90,
+    "freelancerColor": "hsl(336, 70%, 50%)",
+    "client": 120,
+    "clientColor": "hsl(147, 70%, 50%)"
+  },
+  {
+    "governorate": "Gabes",
+    "freelancer": 75,
+    "freelancerColor": "hsl(52, 70%, 50%)",
+    "client": 100,
+    "clientColor": "hsl(133, 70%, 50%)"
+  },
+  {
+    "governorate": "Gafsa",
+    "freelancer": 110,
+    "freelancerColor": "hsl(294, 70%, 50%)",
+    "client": 150,
+    "clientColor": "hsl(9, 70%, 50%)"
+  },
+  {
+    "governorate": "Jendouba",
+    "freelancer": 95,
+    "freelancerColor": "hsl(40, 70%, 50%)",
+    "client": 140,
+    "clientColor": "hsl(155, 70%, 50%)"
+  },
+  {
+    "governorate": "Kairouan",
+    "freelancer": 85,
+    "freelancerColor": "hsl(16, 70%, 50%)",
+    "client": 70,
+    "clientColor": "hsl(62, 70%, 50%)"
+  },
+  {
+    "governorate": "Kasserine",
+    "freelancer": 50,
+    "freelancerColor": "hsl(224, 70%, 50%)",
+    "client": 60,
+    "clientColor": "hsl(298, 70%, 50%)"
+  },
+  {
+    "governorate": "Kebili",
+    "freelancer": 40,
+    "freelancerColor": "hsl(181, 70%, 50%)",
+    "client": 45,
+    "clientColor": "hsl(200, 70%, 50%)"
+  },
+  {
+    "governorate": "La Manouba",
+    "freelancer": 55,
+    "freelancerColor": "hsl(336, 70%, 50%)",
+    "client": 95,
+    "clientColor": "hsl(147, 70%, 50%)"
+  },
+  {
+    "governorate": "Le Kef",
+    "freelancer": 60,
+    "freelancerColor": "hsl(52, 70%, 50%)",
+    "client": 80,
+    "clientColor": "hsl(133, 70%, 50%)"
+  },
+  {
+    "governorate": "Mahdia",
+    "freelancer": 45,
+    "freelancerColor": "hsl(294, 70%, 50%)",
+    "client": 55,
+    "clientColor": "hsl(9, 70%, 50%)"
+  },
+  {
+    "governorate": "Medenine",
+    "freelancer": 70,
+    "freelancerColor": "hsl(40, 70%, 50%)",
+    "client": 110,
+    "clientColor": "hsl(155, 70%, 50%)"
+  },
+  {
+    "governorate": "Monastir",
+    "freelancer": 125,
+    "freelancerColor": "hsl(16, 70%, 50%)",
+    "client": 135,
+    "clientColor": "hsl(62, 70%, 50%)"
+  },
+  {
+    "governorate": "Nabeul",
+    "freelancer": 110,
+    "freelancerColor": "hsl(224, 70%, 50%)",
+    "client": 140,
+    "clientColor": "hsl(298, 70%, 50%)"
+  },
+  {
+    "governorate": "Sfax",
+    "freelancer": 150,
+    "freelancerColor": "hsl(181, 70%, 50%)",
+    "client": 160,
+    "clientColor": "hsl(200, 70%, 50%)"
+  },
+  {
+    "governorate": "Sidi Bouzid",
+    "freelancer": 65,
+    "freelancerColor": "hsl(336, 70%, 50%)",
+    "client": 75,
+    "clientColor": "hsl(147, 70%, 50%)"
+  },
+  {
+    "governorate": "Siliana",
+    "freelancer": 35,
+    "freelancerColor": "hsl(52, 70%, 50%)",
+    "client": 40,
+    "clientColor": "hsl(133, 70%, 50%)"
+  },
+  {
+    "governorate": "Sousse",
+    "freelancer": 130,
+    "freelancerColor": "hsl(294, 70%, 50%)",
+    "client": 145,
+    "clientColor": "hsl(9, 70%, 50%)"
+  },
+  {
+    "governorate": "Tataouine",
+    "freelancer": 75,
+    "freelancerColor": "hsl(40, 70%, 50%)",
+    "client": 85,
+    "clientColor": "hsl(155, 70%, 50%)"
+  },
+  {
+    "governorate": "Tozeur",
+    "freelancer": 50,
+    "freelancerColor": "hsl(16, 70%, 50%)",
+    "client": 60,
+    "clientColor": "hsl(62, 70%, 50%)"
+  },
+  {
+    "governorate": "Tunis",
+    "freelancer": 160,
+    "freelancerColor": "hsl(224, 70%, 50%)",
+    "client": 180,
+    "clientColor": "hsl(298, 70%, 50%)"
+  },
+  {
+    "governorate": "Zaghouan",
+    "freelancer": 45,
+    "freelancerColor": "hsl(181, 70%, 50%)",
+    "client": 50,
+    "clientColor": "hsl(200, 70%, 50%)"
+  }
+];
+
+
+export const donutdata = [
+  { name: 'Canceled', value: 400 },
+  { name: 'Handled', value: 300 },
+  { name: 'Deleted', value: 300 },
+  { name: 'Pending', value: 200 },
+  { name: 'Delivered', value: 100 },
+]

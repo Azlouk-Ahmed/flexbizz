@@ -17,6 +17,10 @@
     padding: 1rem;
 } 
 
+.bashboard .recharts-responsive-container {
+    height: 100%;
+}
+
 .icon-cont {
     background-color: #0970fe;
     border-radius: 10px;
@@ -27,10 +31,11 @@
 }
 
 .dashsidebar {
-    width: 20%;
     background-color: var(--light-bg);
     border-radius: 1rem;
     padding: 3rem 1rem;
+    min-width: 23%;
+    
 }
 
 .icon-cont svg {
@@ -107,3 +112,39 @@
 .or1 {
     color: #fe0404 !important;
 }
+
+
+.chart--container {
+    width: 127vh;
+    font-family: inherit;
+    font-weight: bold;
+    height: 48vh;
+}
+.pie--container {
+    width: 29rem;
+    height: 21rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reports-container {
+    border: 2px solid var(--primary-bg);
+    border-radius: 1rem;
+    width: fit-content;
+    padding: 0 1rem;
+    font-size: 10px;
+}
+.reports-container .icon-cont{
+    width: 2rem;
+    height: 2rem;
+}
+.reports-container .icon-cont svg{
+    font-size: 1rem;
+}
+
+h1 {
+    text-transform: capitalize;
+}
+ 

@@ -136,6 +136,22 @@ input {
     padding-bottom: 3px; 
 }
 
+.crown0 {
+    color: #FFC100;
+}
+.crown1 {
+    color: #686D76;
+}
+.crown2 {
+    color: #A67B5B;
+}
+
+.dashsidebar> .memberscontainer .actuser {
+    padding: 0 !important;
+    font-size: 10px;
+    width: 80%;
+}
+
 .memberscontainer {
     height: 70%;
     overflow-y: scroll;

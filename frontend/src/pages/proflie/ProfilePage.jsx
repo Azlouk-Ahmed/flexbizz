@@ -201,7 +201,7 @@ function ProfilePage() {
       </div>
       {offers && (
         <div className="offers">
-          {offers.map((offer) => (
+          {offers?.map((offer) => (
             <Offer key={offer._id} offer={offer} />
           ))}
         </div>

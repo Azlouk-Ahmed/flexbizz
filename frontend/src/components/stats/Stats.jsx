@@ -3,6 +3,7 @@ import { useFetchData } from '../../hooks/useFetchData'
 import { SlWallet } from "react-icons/sl";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { formatNumber } from '../../utils/utils';
 
 function Stats({id}) {
     const {data: freelancer} = useFetchData("http://localhost:5000/achievements/freelancer/"+id);
@@ -10,17 +11,7 @@ function Stats({id}) {
     const {data: freelancerMonthIncome} = useFetchData("http://localhost:5000/achievements/income/"+id);
     const {data: clientMonthSpending} = useFetchData("http://localhost:5000/achievements/spending/"+id);
 
-    const formatNumber = (num) => {
-        if(!num) {
-            return 0;
-        } else if (num < 1000) {
-          return num.toFixed(1).toString();
-        } else if (num < 1000000) {
-          return (num / 1000).toFixed(1) + 'k';
-        } else {
-          return (num / 1000000).toFixed(1) + 'm';
-        }
-    };
+    
     return (
         <div className="stats">
             <div className="box money">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { useFetchData } from "../../hooks/useFetchData";
-import UserObj from "./UserObj"; // Adjust the import path as necessary
-import Modal from "../../components/popup/Modal"; // Import your modal component
+import UserObj from "./UserObj";
+import Modal from "../../components/popup/Modal";
 import './reports.css';
 import { BsEye } from "react-icons/bs";
 import { CiSquareRemove } from "react-icons/ci";
@@ -10,17 +10,9 @@ import { BiCheck } from "react-icons/bi";
 import { useActContext } from "../../hooks/useActContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import axios from "axios";
+import { formatDate } from "../../utils/utils";
 
-function formatDate(dateString) {
-  const options = {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  return new Date(dateString).toLocaleDateString("en-US", options);
-}
+
 
 function Reports() {
   const {reports, dispatch} = useActContext();
