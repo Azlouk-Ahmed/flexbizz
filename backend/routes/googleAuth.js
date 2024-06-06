@@ -7,7 +7,7 @@ const generateToken = (_id) => {
 
 
 const googleAuthRouter = express.Router();
-const CLIENT_URL = "http://localhost:3000/login";
+const CLIENT_URL = "http://localhost:3000";
 
 googleAuthRouter.get("/login/success", (req, res) => {
   if (req.user) {

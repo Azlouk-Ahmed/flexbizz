@@ -1,9 +1,10 @@
 const express = require("express");
 const requireAuth = require("../middlewares/requireUserAuth");
-const { getUserById, getAllUsers, sendConnectionRequest, getPendingConnectionsForUser, acceptConnectionRequest, removeConnection, getUserByName} = require("../controllers/userController");
+const { getUserById, getAllUsers, sendConnectionRequest, getPendingConnectionsForUser, acceptConnectionRequest, removeConnection, getUserByName, changeUserRole, banUser} = require("../controllers/userController");
 const { loginUser, signUpUser } = require("../controllers/authcontroller");
 const ActionTypes = require("../constants/actionTypes");
 const logActivity = require("../middlewares/logActivity");
+const requireAdminAuth = require("../middlewares/requireAdminAuth");
 
 const userRouter = express.Router();
 
@@ -16,5 +17,8 @@ userRouter.post('/connection/:userId',requireAuth, sendConnectionRequest);
 userRouter.get('/connections/pending',requireAuth,  getPendingConnectionsForUser);
 userRouter.post('/connections/accept/:connectionId',requireAuth,logActivity(ActionTypes.SEND_CONNECTION_REQUEST),  acceptConnectionRequest);
 userRouter.post('/connections/remove/:userId',requireAuth,logActivity(ActionTypes.DECLINE_CONNECTION_REQUEST) , removeConnection);
+userRouter.put('/role',requireAdminAuth,changeUserRole);
+
+userRouter.put('/ban', requireAdminAuth, banUser);
 
 module.exports = userRouter;

@@ -44,7 +44,11 @@ const userSchema = new Schema({
       enum: ['available for work', 'hiring'],
       default: 'available for work'
   },
-  badges: [String]
+  badges: [String],
+  banned: {
+    type: Boolean,
+    default: false,
+  }
 }, { timestamps: true });
 
 userSchema.statics.signUp = async function(email, password, img, name, familyName) {

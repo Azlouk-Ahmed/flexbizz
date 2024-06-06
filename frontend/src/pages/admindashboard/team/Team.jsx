@@ -3,9 +3,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import "./team.css";
 import { formatDate } from '../../../utils/utils';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Team() {
     const [userData, setUserData] = useState([]);
+    const { auth } = useAuthContext();
 
     useEffect(() => {
         axios.get('http://localhost:5000/user/')
@@ -17,39 +20,109 @@ function Team() {
             });
     }, []);
 
-    const handleChangeRole = (userId, newRole) => {
-        // Update the role for the user with userId in the backend
-        // You can use axios.put or axios.post to update the user's role
-        // Example: axios.put(`http://localhost:5000/user/${userId}`, { role: newRole });
-        console.log(`Changing role for user ${userId} to ${newRole}`);
+    const handleLocalChangeRole = (userId, newRole) => {
+        setUserData(prevUserData =>
+            prevUserData.map(user =>
+                user._id === userId ? { ...user, role: newRole } : user
+            )
+        );
     };
-    const handlesubmitrole = (userId, newRole) => {
-        // Update the role for the user with userId in the backend
-        // You can use axios.put or axios.post to update the user's role
-        // Example: axios.put(`http://localhost:5000/user/${userId}`, { role: newRole });
-        console.log(`Changing role for user ${userId} to ${newRole}`);
+
+    const handleChangeRole = (userId, newRole) => {
+        axios.put(`http://localhost:5000/user/role`, { userId, newRole }, {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          })
+            .then(response => {
+                console.log(`Role updated for user ${userId} to ${newRole}`);
+                toast.success('Role changed successfully');
+            })
+            .catch(error => {
+                console.error('Error updating user role:', error);
+                toast.error(error?.response?.data?.error || 'Error changing role');
+            });
+    };
+
+    const handleSelectChange = (userId, newRole) => {
+        handleLocalChangeRole(userId, newRole);
+        handleChangeRole(userId, newRole);
+    };
+
+    const handleToggleBan = (userId) => {
+        axios.put(`http://localhost:5000/user/ban`, { userId }, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`,
+            },
+        })
+            .then(response => {
+                const updatedUser = response.data.user;
+                setUserData(prevUserData =>
+                    prevUserData.map(user =>
+                        user._id === updatedUser._id ? updatedUser : user
+                    )
+                );
+                toast.success(`User ${updatedUser.banned ? 'banned' : 'unbanned'} successfully`);
+            })
+            .catch(error => {
+                console.error('Error toggling ban status:', error);
+                toast.error(error?.response?.data?.error || 'Error toggling ban status');
+            });
     };
 
     const columns = [
-        { field: 'img', headerName: 'Image', width: 70, renderCell: (params) => (<><div className="actimg"><img src={params.value} alt="User" /></div></>) },
+        {
+            field: 'img', headerName: 'Image', width: 70, renderCell: (params) => (
+                <div className="actimg">
+                    <img src={params.value} alt="User" />
+                </div>
+            )
+        },
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'email', headerName: 'Email', width: 250 },
-        { field: 'role', headerName: 'Role', width: 200, renderCell: (params) => (
-            <select value={params.value} onChange={(e) => handleChangeRole(params.row.id, e.target.value)}>
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-                <option value="Support">Support</option>
-            </select>
-        )},
-        { field: 'status', headerName: 'Status', width: 200 },
+        {
+            field: 'role', headerName: 'Role', width: 200, renderCell: (params) => (
+                <select
+                    className={`select ${params.value}`}
+                    value={params.value}
+                    onChange={(e) => handleSelectChange(params.row.id, e.target.value)}
+                >
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Support">Support</option>
+                </select>
+            )
+        },
+        {
+            field: 'status', headerName: 'Status', width: 200, renderCell: (params) => (
+                <>
+                    {params.value === "hiring" ? (
+                        <div className="status hiring">
+                            <div>is hiring</div>
+                            <span className="hiring__circle"></span>
+                        </div>
+                    ) : (
+                        <div className="status">
+                            <div>{params.value}</div>
+                            <span className="status__available-circle"></span>
+                        </div>
+                    )}
+                </>
+            )
+        },
         { field: 'createdAt', headerName: 'Created At', width: 200 },
         { field: 'updatedAt', headerName: 'Updated At', width: 200 },
         {
-            field: 'submit',
-            headerName: 'Submit',
+            field: 'toggleBan',
+            headerName: 'Ban/Unban',
             width: 150,
             renderCell: (params) => (
-                <button className='primary-btn' onClick={() => handleChangeRole(params.row.id, params.row.role)}>Change Role</button>
+                <button
+                    className='primary-btn w-100'
+                    onClick={() => handleToggleBan(params.row.id)}
+                >
+                    {params.row.banned ? 'Unban User' : 'Ban User'}
+                </button>
             )
         }
     ];
@@ -63,17 +136,18 @@ function Team() {
         status: user.status,
         createdAt: formatDate(user.createdAt),
         updatedAt: formatDate(user.updatedAt),
+        banned: user.banned,
     }));
 
     return (
         <div className='df-c' style={{ height: 400, width: 900, background: "white" }}>
-            FlexBizz Team
+            <ToastContainer />
+            FlexBizz Members
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
             />
         </div>
     );

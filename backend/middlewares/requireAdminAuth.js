@@ -8,7 +8,7 @@ const requireAdminAuth = async (req, res, next) => {
     }
     const token = Authorization.split(" ")[1];
 
-    try {
+    try {   
         const id = jwt.verify(token, process.env.SECRET);
         const user = await User.findById(id);
 
@@ -25,4 +25,4 @@ const requireAdminAuth = async (req, res, next) => {
     }
 }
 
-module.export = requireAdminAuth;
+module.exports = requireAdminAuth;

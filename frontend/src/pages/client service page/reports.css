@@ -26,7 +26,7 @@ table, th, td {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #d5d1defe;
+    background-color: #f3f2f4fe;
     cursor: pointer;
     text-transform: capitalize;
     color: var(--primary);
@@ -68,6 +68,7 @@ tbody tr.hide td img {
     height: 0;
     transition: .2s ease-in-out .5s;
 }
+
 
 .status {
 

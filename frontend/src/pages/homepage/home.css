@@ -11,11 +11,11 @@
 
 }
 
-/* HTML: <div class="laading"></div> */
+/* HTML:  */
 .laading {
     width: 40px;
     height: 30px;
-    --c:no-repeat linear-gradient(#000 0 0);
+    --c:no-repeat linear-gradient(var(--primary) 0 0);
     background:
       var(--c) 0    100%/8px 30px,
       var(--c) 50%  100%/8px 20px,
@@ -29,7 +29,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #000;
+    background: var(--primary);
     left: -16px;
     top: 0;
     animation: 

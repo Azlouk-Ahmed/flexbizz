@@ -45,7 +45,7 @@ function Mess() {
       dataLength={messages.length}
       next={fetchMessages}
       hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
+      loader={<div class="laading"></div>}
       endMessage={<p>No more messages to load</p>}
       scrollThreshold={0.9}
     >

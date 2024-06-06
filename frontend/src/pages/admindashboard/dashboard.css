@@ -113,9 +113,29 @@
     color: #fe0404 !important;
 }
 
+.select {
+    width: 100%;
+    height: 3rem !important;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-family: inherit;
+    text-align: center;
+    background-color: var(--primary-bg);
+}
+
+.select.Admin {
+    background-color: #6fcaea;
+}
+.select.Support {
+    background-color: #d893a3;
+}
+
+
 
 .chart--container {
-    width: 127vh;
+    width: 118vh;
     font-family: inherit;
     font-weight: bold;
     height: 48vh;

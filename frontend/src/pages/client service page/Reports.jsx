@@ -3,7 +3,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useFetchData } from "../../hooks/useFetchData";
 import UserObj from "./UserObj";
 import Modal from "../../components/popup/Modal";
-import './reports.css';
 import { BsEye } from "react-icons/bs";
 import { CiSquareRemove } from "react-icons/ci";
 import { BiCheck } from "react-icons/bi";

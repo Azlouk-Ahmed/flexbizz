@@ -24,6 +24,26 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const banUser = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.banned = !user.banned;
+    await user.save();
+    
+    console.log(user);
+    res.status(200).json({ user: user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 const sendConnectionRequest = async (req, res) => {
   const requesterId = req.user._id;
   const recipientId = req.params.userId; 
@@ -31,6 +51,8 @@ const sendConnectionRequest = async (req, res) => {
   if (requesterId.toString() === recipientId) {
     return res.status(400).json({ message: "You cannot connect to yourself." });
   }
+
+
 
   try {
     const recipientUser = await User.findById(recipientId);
@@ -113,6 +135,27 @@ const getPendingConnectionsForUser = async (req, res) => {
 };
 
 
+const changeUserRole = async (req, res) => {
+  const { userId, newRole } = req.body;
+  const validRoles = ['Admin', 'Support', 'User'];
+
+  if (!validRoles.includes(newRole)) {
+      return res.status(400).json({ error: "Invalid role" });
+  }
+
+  try {
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ error: "User not found" });
+      }
+
+      user.role = newRole;
+      const updatedUser = await user.save();
+      res.status(200).json(updatedUser);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
 
 
 
@@ -250,4 +293,4 @@ const getUserByName = async (req, res) => {
 
 
 
-module.exports = { getUserById, getUserByName,getPendingConnectionsForUser,removeConnection, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };
+module.exports = { getUserById,changeUserRole , banUser , getUserByName,getPendingConnectionsForUser,removeConnection, getAllUsers,sendConnectionRequest, acceptConnectionRequest, rejectConnectionRequest };

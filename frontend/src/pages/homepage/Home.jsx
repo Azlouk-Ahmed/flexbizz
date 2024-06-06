@@ -6,6 +6,7 @@ import Allusers from "../../components/getallusers/Allusers";
 import Offers from "../../components/joboffers/Offers";
 import Search from "../../components/search/Search";
 import OfferInfinite from "../../components/infinite scroll/OfferInfinite";
+import OfferForm from "../../components/add offer component/OfferForm";
 
 function Home() {
   const navigate = useNavigate();

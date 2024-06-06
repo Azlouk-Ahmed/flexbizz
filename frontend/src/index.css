@@ -29,12 +29,20 @@
   --blue: #007aff;
 }
 
+.ban {
+  height: 100vh;
+}
+
 .ta-c {
   text-align: center;
 }
 
 .jc-sb {
   justify-content: space-between !important;
+}
+
+.mt {
+  margin-top: 1rem;
 }
 
 .primary-btn,.danger-btn, .warning-btn {

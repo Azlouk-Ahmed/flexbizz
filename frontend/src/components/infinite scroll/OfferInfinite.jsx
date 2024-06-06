@@ -48,13 +48,7 @@ function OfferInfinite() {
     }, []);
     return (
         <div className='df-c'>
-            {isOpenForm&& <OfferForm setIsOpenForm={setIsOpenForm}/>}
-            <div className="df">
-            add an announcement as client
-            <div className="add--offer " onClick={()=>setIsOpenForm(true)}>
-                <div className="primary-btn">+</div>
-            </div>
-            </div>
+            <OfferForm />
             {commentsOpened && <Comments />}
           {sendMessageModal && <MessageModal />}
           {reportModal && (
@@ -63,7 +57,7 @@ function OfferInfinite() {
                 dataLength={offers.length}
                 next={fetchOffers}
                 hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
+                loader={<div class="laading"></div>}
                 endMessage={<p>No more offers to display</p>}
             >
                 {offers.map((offer) => (

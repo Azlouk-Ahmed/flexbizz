@@ -8,7 +8,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import Error from '../error/Error';
 import { useOffersContext } from '../../hooks/useOffersContext';
 
-function OfferForm({ setIsOpenForm }) {
+function OfferForm() {
     const {auth} = useAuthContext();
     const {dispatch} = useOffersContext();
     const fileRef = useRef();
@@ -79,8 +79,7 @@ function OfferForm({ setIsOpenForm }) {
             setErrorReq(false)
             setError(false);
             console.log(data);
-            dispatch({type:"ADD_OFFER", payload : data});
-            setIsOpenForm(false);   
+            dispatch({type:"ADD_OFFER", payload : data}); 
         }
         if(error) {
             setErrorReq(error);
@@ -132,20 +131,11 @@ function OfferForm({ setIsOpenForm }) {
       };
 
     return (
-        <div className="offer--form">
-            <div className="search--container">
-                <motion.div
-                    initial={{ opacity: 0, translateX: 100 }}
-                    animate={{ opacity: 1, translateX: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="notifications"
+        <div className="">
+            <div className="">
+                <div
+                    
                 >
-                    <div className="notification-header">
-                        <IoCloseOutline
-                            onClick={() => setIsOpenForm(false)}
-                            className="notification-close"
-                        />
-                    </div>
                     
                     <form onSubmit={handleSubmit}>
                         <div className="posted-by">
@@ -237,7 +227,7 @@ function OfferForm({ setIsOpenForm }) {
                             Submit
                         </button>
                     </form>
-                </motion.div>
+                </div>
             </div>
         </div>
     );
