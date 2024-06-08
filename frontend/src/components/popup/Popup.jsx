@@ -88,7 +88,7 @@ function Popup({ selectedpropositions, setselectedPropositions }) {
         <li>Choose payment method.</li>
         <li>{selectedpropositions.announcementId.budgetMax}DT will be transfered to our system.</li>
         <li>Your money remains safe; you can proceed or cancel the transaction.</li>
-        <li>Track your project with a new link in the navigation bar.</li>
+        <li>Track your project in your profile.</li>
         <li>Stay updated with the freelancer's progress.</li>
         <li>Pay the freelancer upon satisfaction.</li>
         <li>Unsatisfied? Request a refund; our client service will handle it.</li>

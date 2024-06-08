@@ -44,6 +44,9 @@ const userSchema = new Schema({
       enum: ['available for work', 'hiring'],
       default: 'available for work'
   },
+  government : {
+    type: String
+  },
   badges: [String],
   banned: {
     type: Boolean,
@@ -51,7 +54,7 @@ const userSchema = new Schema({
   }
 }, { timestamps: true });
 
-userSchema.statics.signUp = async function(email, password, img, name, familyName) {
+userSchema.statics.signUp = async function(email, password, img, name, familyName, government, status) {
   if (!email || !password) {
       throw Error("email or password connot be empty")
   }
@@ -64,7 +67,7 @@ userSchema.statics.signUp = async function(email, password, img, name, familyNam
   }
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt)
-  const user = await this.create({email: email, password : hash, img : img, name : name, familyName : familyName})
+  const user = await this.create({email: email, password : hash, img : img, name : name, familyName : familyName, government, status})
   return user;
 }
 

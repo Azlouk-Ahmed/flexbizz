@@ -16,7 +16,9 @@ import "../src/components/joboffers/offers.css";
 import "../src/components/search/search.css";
 import "../src/pages/client service page/clientservice.css";
 import "../src/pages/client service page/reports.css";
+import "../src/pages/signup/signup.css"
 import Banned from "./pages/Banned";
+import SignUp from "./pages/signup/SignUp";
 
 const Landing = lazy(() => import("./pages/landing/Landing"));
 const Home = lazy(() => import("./pages/homepage/Home"));
@@ -65,10 +67,9 @@ function App() {
 
   useFetchNotification();
 
-  // Determine the class to apply based on the route
   const mainViewClass = location.pathname === '/' ? 'main-view df-c no-scroll' : 'main-view df-c';
 
-  // Check if user is banned, if yes, render Banned component
+ 
   if (auth && auth.user && auth.user.banned) {
     return (
       <div className="App">
@@ -105,6 +106,8 @@ function App() {
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/client-service" element={<ClientServicePage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/signup" element={<SignUp />} />
+
               </Routes>
             </Suspense>
           </div>

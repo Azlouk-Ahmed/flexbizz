@@ -7,6 +7,9 @@
     justify-content: space-evenly;
     justify-content: flex-start !important;
 } 
+.fs {
+    align-items: flex-start !important;
+}
 .dash >.df {
     justify-content: space-evenly;
 } 
@@ -35,6 +38,7 @@
     border-radius: 1rem;
     padding: 3rem 1rem;
     min-width: 23%;
+    height: fit-content;
     
 }
 
@@ -135,10 +139,12 @@
 
 
 .chart--container {
-    width: 118vh;
+    padding: 1rem;
+    width: 100%;
     font-family: inherit;
-    font-weight: bold;
     height: 48vh;
+    background-color: var(--light-bg);
+    border-radius: 1rem;
 }
 .pie--container {
     width: 29rem;
@@ -166,5 +172,27 @@
 
 h1 {
     text-transform: capitalize;
+}
+
+.offers-container> .offers-container {
+    width: 165vh !important;
+    padding: 1rem;
+}
+
+.pendingannouncement {
+    background-color: var(--light-bg);
+    padding: 1rem;
+}
+
+.offers-container> .offers-container> .offers {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.offers-container> .offers-container> .offers .offer {
+    width: 24rem;
+    font-size: 10px;
+    border: 1px solid var(--primary-bg);
+    border-radius: 1rem;
 }
  

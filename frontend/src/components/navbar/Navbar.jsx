@@ -139,6 +139,8 @@ function Navbar({user}) {
     
   // </div>
   <div id="nav-bar">
+    {notifopened && <Notifications setnotifOpened={setnotifOpened}/>}
+    {reqopened && data &&<ConnectionRequests setreqOpened={setreqOpened} data={data} />}
   <input id="nav-toggle" checked={istoggled===true} onChange={handletogglechange} type="checkbox"/>
   <label for="nav-toggle" className={`${(!istoggled) ? "" : "rotate"}`}><span id="nav-toggle-burger" className=''></span></label>
   <div id="nav-header">
@@ -210,7 +212,7 @@ function Navbar({user}) {
       <label for="nav-footer-toggle"><IoIosArrowUp className='fas'/></label>
     </div>
     <div id="nav-footer-content">
-      <div className="primary-btn w-100" onClick={logout}>log out</div>
+      <div className="primary-btn center" onClick={logout}  >log out</div>
     </div>
   </div>
 </div>

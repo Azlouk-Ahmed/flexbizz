@@ -20,9 +20,10 @@ const getUserFromReq = (req, res) => {
 }
 
 const signUpUser = async (req , res) => {
-    const {email, password, img, name, familyName} = req.body;
+    console.log("req",req.body);
+    const {email, password, img, name, familyName, government, status} = req.body;
     try {
-        const user = await User.signUp(email, password, img, name, familyName);
+        const user = await User.signUp(email, password, img, name, familyName, government, status);
         const token = generateToken(user._id);
         res.status(200).json({user, token});
     } catch (error) {

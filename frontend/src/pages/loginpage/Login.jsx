@@ -5,6 +5,7 @@ import { CiLock, CiUser } from "react-icons/ci";
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Error from '../../components/error/Error';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ function Login() {
                         <div className="social-auth-container">
                             <span>or login with </span>
                             <GoogleAuthBtn />
+                            <Link to={"/signup"}>sign up</Link>
                         </div>
                     </form>
 						{error && <Error error = {error} className="error"/>}

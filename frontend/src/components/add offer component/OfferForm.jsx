@@ -29,7 +29,7 @@ function OfferForm() {
     const validateForm = () => {
         if (!position) return "Please enter position.";
         if (!description) return "Please enter description.";
-        if (budgetMin <= 0 || budgetMax <= 0)
+        if (budgetMin <= -1 || budgetMax <= 0)
           return "Budget values should be greater than 0.";
         if (budgetMin >= budgetMax)
           return "Minimum budget should be less than maximum budget.";
@@ -131,20 +131,21 @@ function OfferForm() {
       };
 
     return (
-        <div className="">
+        <div className="offerform ">
             <div className="">
                 <div
-                    
+                   className='' 
                 >
                     
-                    <form onSubmit={handleSubmit}>
-                        <div className="posted-by">
+                    <form className='df-c' onSubmit={handleSubmit}>
+                        <div className="df-c g5px">
                             position <input type="text" placeholder="enter position" onChange={handlePositionChange} value={position} />
                         </div>
-                        <div className="description">
+                        <div className="description df-c g5px">
                             description <textarea onChange={handleDescriptionChange} value={description} placeholder="offer description" cols="30" rows="10"></textarea>
                         </div>
-                        <div className="input">
+                        <div className="df">
+                        <div className="input df">
     <input
         type="radio"
         name="loc"
@@ -156,7 +157,7 @@ function OfferForm() {
     <div className="checkmark"></div>
     <label htmlFor="formloc">on platform</label>
         </div>
-        <div className="input">
+        <div className="input df">
             <input
                 type="radio"
                 name="loc"
@@ -168,8 +169,10 @@ function OfferForm() {
             <div className="checkmark"></div>
             <label htmlFor="formloc2">on site</label>
         </div>
+                        </div>
+                        
 
-                        {location === "onSite"&& <div className="input">
+                        {location === "onSite"&& <div className="df-c g5px">
                             <label htmlFor="formloc3">government</label>
                             <select className="custom-select" id="formloc3" onChange={handleGovernmentChange} value={government}>
                             <option value="government1">government1</option>
@@ -177,20 +180,16 @@ function OfferForm() {
                             <option value="government3">government3</option>
                             </select>
                         </div>}
-                        <div className="salary">
-                            <div className="input">
-                                <label htmlFor="min">min</label>
-                                <input type="number" id="min" onChange={handlebudgetMinChange} value={budgetMin} />
-                            </div>
-                            <div className="input">
-                                <label htmlFor="max">max</label>
+                        <div className="salary df">
+                            <div className="input df-c g5px">
+                                <label htmlFor="max">buget</label>
                                 <input type="number" id="max" onChange={handlebudgetMaxChange} value={budgetMax} />
                             </div>
                         </div>
                         <div className="offer-status">
                             deadline : <input type="date" onChange={handleDeadlineChange} value={deadline} />
                         </div>
-                        <div className="input">
+                        <div className="input df-c g5px">
                             <label htmlFor="jobtype">job type</label>
                             <select className="custom-select" id="jobtype" onChange={handleJobTypeChange} value={jobType}>
                                 <option value="">Select Job Type</option>
@@ -202,15 +201,12 @@ function OfferForm() {
                                 <option value="On-Site">On-Site</option>
                             </select>
                         </div>
-                        <div className="skills">
+                        <div className="skills df-c g5px">
                             required skills(separated by commas) <input type="text" placeholder="Enter skills separated by commas" onChange={handleSkillsRequiredChange} value={skillsRequired} />
                         </div>
-                        <div className="attachments">
+                        <div className="attachments df">
                             <div>add an attachement : </div>
-                            {selectedFile && <div className='selected-file'>
-                                <MdOutlineCancel onClick={() => setSelectedFile(null)} />
-                                {selectedFile.name}
-                            </div>}
+                            
                             <div onClick={() => fileRef.current.click()} style={{ cursor: "pointer", fontSize: "19px", color: "var(--primary)" }}><IoAttachOutline /></div>
                             <input
                                 type="file"
@@ -220,10 +216,14 @@ function OfferForm() {
                                 ref={fileRef}
                                 onChange={handleFileChange}
                             />
+                            {selectedFile && <div className='df or1'>
+                                <MdOutlineCancel onClick={() => setSelectedFile(null)} />
+                                {selectedFile.name}
+                            </div>}
                         </div>
                         {errorReq && (<Error error = {errorReq} />)}
                         {error && <p className="error">{error}</p>}
-                        <button className={`primary-btn ${loading ? "err" : ""}`}>
+                        <button className={`primary-btn w-100 mt ${loading ? "err" : ""}`}>
                             Submit
                         </button>
                     </form>

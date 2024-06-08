@@ -33,6 +33,10 @@
   height: 100vh;
 }
 
+.fs {
+  align-items: flex-start !important;
+}
+
 .ta-c {
   text-align: center;
 }
@@ -43,6 +47,10 @@
 
 .mt {
   margin-top: 1rem;
+}
+
+.w-50 {
+  width: 50% !important;
 }
 
 .primary-btn,.danger-btn, .warning-btn {

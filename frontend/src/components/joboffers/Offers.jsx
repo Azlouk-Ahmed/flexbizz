@@ -9,7 +9,7 @@ import OfferForm from "../add offer component/OfferForm";
 import Offer from "../offer/Offer";
 import ReportModal from "../reportModal/ReportModal";
 import Empty from "../error/Empty";
-function Offers() {
+function Offers({admin}) {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const { dispatch, offers, commentsOpened, sendMessageModal,reportModal } = useOffersContext();
   const {loading, data} = useFetchData("http://localhost:5000/announcement")
@@ -36,7 +36,7 @@ function Offers() {
       {offers?.length>0 &&
         <div className="offers">
           {offers.map((offer) => (
-            <Offer offer={offer} />
+            <Offer offer={offer} admin={admin} />
           ))}
           {commentsOpened && <Comments />}
           {sendMessageModal && <MessageModal />}

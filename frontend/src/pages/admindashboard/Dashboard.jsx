@@ -16,6 +16,7 @@ import { IoCheckmarkDone } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { CiDeliveryTruck } from "react-icons/ci";
 import Team from "../admindashboard/team/Team"
+import Offers from '../../components/joboffers/Offers'
 
 
 function Dashboard() {
@@ -23,6 +24,8 @@ function Dashboard() {
   const {data: finance} = useFetchData("http://localhost:5000/achievements/admin");
   const {data: topactive} = useFetchData("http://localhost:5000/activities/activities/top");
   return (
+    <>
+    
     <div className="bashboard">
       <div className='df-c dash'>
           <div className="df">
@@ -67,7 +70,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <Barchart data = {bardata} />
+          
           <div className="reports-container df">
             <div className="df-c g0">
 
@@ -102,7 +105,7 @@ function Dashboard() {
               
             </div>
           </div>
-          <Team />
+          
       </div>
       <div className="dashsidebar df-c">
         <div className="df jc-sb">
@@ -113,7 +116,7 @@ function Dashboard() {
           <div className="df-c ta-c">
             <span className='or1'>banned user</span>
             
-            <div className="dinar or1 df ta-c"><MdRemoveCircle /> 27</div>
+            <div className="dinar or1 df ta-c"><MdRemoveCircle /> 5 </div>
           </div>
         </div>
         <div className="primary-btn w-100">block users</div>
@@ -132,8 +135,18 @@ function Dashboard() {
             ))}
         </div>
       </div>
-
     </div>
+    <div style={{ height: '600px', width: '100%' }}>
+        <Barchart data={bardata} />
+      </div>
+      <Team />
+      <div className="pendingannouncement">
+          Pending Offers
+          <div className="offers-container">
+            <Offers admin={true}/>
+          </div>
+      </div>
+    </>
   )
 }
 

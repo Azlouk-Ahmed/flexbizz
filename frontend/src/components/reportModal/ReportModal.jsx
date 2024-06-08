@@ -56,7 +56,7 @@ function ReportModal({ reportedObject, type, against }) {
                     rows="10"
                 ></textarea>
                 {error && <div className="error-message">{error}</div>}
-                {!response &&<button className='primary-btn' onClick={handleSubmit} disabled={loading}>
+                {!response &&<button className='primary-btn mt' onClick={handleSubmit} disabled={loading}>
                     {loading ? 'Submitting...' : 'Submit'}
                 </button>}
                 {response && <div>{response}</div> }

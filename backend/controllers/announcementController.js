@@ -66,7 +66,7 @@ const createAnnouncement = async (req, res) => {
     if (available) filter.status = true;
   
     try {
-      const announcements = await Announcement.find(filter);
+      const announcements = await Announcement.find(filter).sort({ createdAt: -1 });
       res.json(announcements);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -80,7 +80,7 @@ const infiniteGetAnnouncement = async (req, res) => {
 
   try {
       const offers = await Announcement.find()
-          .sort({ createdAt: 1 })
+          .sort({ createdAt: -1 })
           .skip((page - 1) * limit)
           .limit(limit);
 

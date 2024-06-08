@@ -27,7 +27,7 @@ export const OffersReducer = (state, action) => {
     case "ADD_OFFER":
       return {
         ...state,
-        offers: [...state.offers, action.payload],
+        offers: [action.payload ,...state.offers ],
       };
     case "SET_COMMENTS":
       return {
@@ -86,7 +86,7 @@ export const OffersReducer = (state, action) => {
         ),
     };
     case 'ADD_OFFERS':
-        return { ...state, offers: [...state.offers, ...action.payload] };
+        return { ...state, offers: [...state.offers, ...action.payload ] };
     case "OPEN_REPORT_MODAL":
       return {
         ...state,

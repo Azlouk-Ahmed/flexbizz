@@ -19,11 +19,12 @@ function Home() {
     }
   }, [authLocal, navigate]);
 
-  const containerClass = location.pathname === '/' ? 'home--page no-scroll' : 'home--page';
 
   return (
-    <div id="home--page">
+    <div className="df fs">
+      <OfferForm />
       {<OfferInfinite />}
+      <Allusers />
     </div>
   );
 }

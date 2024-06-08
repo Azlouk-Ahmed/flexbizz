@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css'; 
 import LazyImage from '../lazyloadimg/LazyImage';
+import { BiDownload } from 'react-icons/bi';
 
 function CurrentProject({ project, setopen }) {
   const { dispatch } = useOffersContext();
@@ -367,7 +368,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
   <div className="versioncontent">
     {project.workVersions[0]?.content ? (
       <>
-        {project.workVersions[0].content}
+        {project.workVersions[0].content} <BiDownload />
         {auth?.user._id === client._id && project.workVersions[0]?.confirmed === false && (
           <div className="df">
             {!loadingFileConfirm1 &&<div className="primary-btn b0" onClick={confirmVersion1}>confirm</div>}
@@ -417,7 +418,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
             <div className="versioncontent">
               {project.workVersions[1]?.content ? (
                 <>
-                  {project.workVersions[1].content}
+                  {project.workVersions[1].content} <BiDownload />
                   {auth?.user._id === client._id && project.workVersions[1]?.confirmed === false && (
                     <div className="df">
                       {!loadingFileConfirm2 &&<div className="primary-btn b0" onClick={confirmVersion2}>confirm</div>}
@@ -468,7 +469,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
             <div className="versioncontent">
               {project.workVersions[2]?.content ? (
                 <>
-                  {project.workVersions[2].content}
+                  {project.workVersions[2].content} <BiDownload />
                   {auth?.user._id === client._id && project.workVersions[2]?.confirmed === false && (
                     <div className="df">
                       {!loadingFileConfirm3 &&<div className="primary-btn b0" onClick={confirmVersion3}>confirm</div>}

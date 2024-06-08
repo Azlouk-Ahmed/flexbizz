@@ -4,6 +4,12 @@ import { IoCloseOutline } from "react-icons/io5";
 import "./userporfolio.css"
 import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
+import { CiUser } from 'react-icons/ci';
+import { MdDescription } from 'react-icons/md';
+import { FaCity } from 'react-icons/fa6';
+import { BsFlag, BsPostage } from 'react-icons/bs';
+import { GiDoubleQuaver, GiWebSpit } from 'react-icons/gi';
+import { BiImages } from 'react-icons/bi';
 
 function Addportfolio({setaddportfolio}) {
     const {auth } = useAuthContext();
@@ -299,36 +305,36 @@ function Addportfolio({setaddportfolio}) {
         <h4>Basic Details</h4>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="Name" value={name} onChange={handleNameChange} />
-                        <div className="input-icon"><i className="fa fa-user"></i></div>
+                        <div className="input-icon"><CiUser className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="Description" value={descriptionp} onChange={handleDescriptionChangep} />
-                        <div className="input-icon"><i className="fa fa-envelope"></i></div>
+                        <div className="input-icon"><MdDescription className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="City" value={city} onChange={handleCityChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><FaCity className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="Country" value={country} onChange={handleCountryChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><BsFlag className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="Gouvernorate" value={gouvernorate} onChange={handleGouvernorateChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><GiDoubleQuaver className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="website" value={website} onChange={handlewebsiteChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><GiWebSpit className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon">
                         <input type="text" placeholder="Postal Code" value={postalCode} onChange={handlePostalCodeChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><BsPostage className="fa fa-user"/></div>
                     </div>
                     <div className="input-group input-group-icon df-c">
                         <label htmlFor="img">Image</label>
                         <input type="file" id='img' placeholder="Image" value={image} onChange={handleImageChange} />
-                        <div className="input-icon"><i className="fa fa-key"></i></div>
+                        <div className="input-icon"><BiImages className="fa fa-user"/></div>
                     </div>
         <div className="input-group input-group-icon df-c">
             <h4>skills</h4>
@@ -356,6 +362,7 @@ function Addportfolio({setaddportfolio}) {
         <div className="input-group input-group-icon df-c">
             <h4>awards</h4>
             <div className="df">
+                <CiUser className="fa fa-user"/>
 
                 <input
                 type="text"

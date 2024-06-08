@@ -19,7 +19,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { createApplyRequest, createNotification } from "../../API/API";
 import { Link } from "react-router-dom";
 
-function Offer({offer}) {
+function Offer({offer, admin}) {
     const { dispatch } = useOffersContext();
     const { auth } = useAuthContext();
     const { socket } = useSocketContext();
@@ -103,6 +103,9 @@ function Offer({offer}) {
           </div>
         ))}
       </div>
+      <div className="offer-description">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum voluptates sapiente, fugiat quis qui saepe expedita.
+      </div>
       
       <div className="info--container">
         <span>
@@ -119,7 +122,7 @@ function Offer({offer}) {
         </span>
       </div>
       <div>
-        <div className="offer-description">
+        <div className="offer-description df">
           <IoMdAttach />
           <a
             className="display-file"
@@ -133,7 +136,7 @@ function Offer({offer}) {
         </div>
         <hr />
       </div>
-      <div className="actions">
+      {!admin &&<div className="actions">
         <div
           className={`like ${
             offer?.likes.includes(auth?.user._id) ? "liked" : null
@@ -199,7 +202,14 @@ function Offer({offer}) {
             <span>expired !</span>
           )}
         </div>
-      </div>
+      </div>}
+      {
+        admin &&
+          <div className="df">
+            <div className="primary-btn">accept</div>
+            <div className="danger-btn">delete</div>
+          </div>
+      }
       
     </div>
   );

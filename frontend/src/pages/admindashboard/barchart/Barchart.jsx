@@ -2,11 +2,40 @@ import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 
 function Barchart({ data }) {
+  const theme = {
+    axis: {
+        ticks: {
+            text: {
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: 12,
+            },
+        },
+        legend: {
+            text: {
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: 14,
+            },
+        },
+    },
+    legends: {
+        text: {
+            fontFamily: "'Poppins', sans-serif",
+            fontSize: 12,
+        },
+    },
+    tooltip: {
+        container: {
+            fontFamily: "'Poppins', sans-serif",
+            fontSize: 12,
+        },
+    },
+  };
   // Define the color mapping for each key
   const colors = { freelancer: '#8B54FF', client: '#ddafff' };
 
   return (
     <div className="chart--container">
+      members count by each gouvernment
       <ResponsiveBar
         data={data}
         keys={['freelancer', 'client']}
@@ -70,6 +99,7 @@ function Barchart({ data }) {
             ]
           }
         ]}
+        theme={theme} // Apply the theme here
         role="application"
         ariaLabel="Nivo bar chart demo"
         barAriaLabel={e => `${e.id}: ${e.formattedValue} in governorate: ${e.indexValue}`}

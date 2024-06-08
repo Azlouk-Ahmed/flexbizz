@@ -78,10 +78,10 @@ function Team() {
                 </div>
             )
         },
-        { field: 'name', headerName: 'Name', width: 200 },
-        { field: 'email', headerName: 'Email', width: 250 },
+        { field: 'name', headerName: 'Name', width: 150 },
+        { field: 'email', headerName: 'Email', width: 150 },
         {
-            field: 'role', headerName: 'Role', width: 200, renderCell: (params) => (
+            field: 'role', headerName: 'Role', width: 150, renderCell: (params) => (
                 <select
                     className={`select ${params.value}`}
                     value={params.value}
@@ -140,7 +140,7 @@ function Team() {
     }));
 
     return (
-        <div className='df-c' style={{ height: 400, width: 900, background: "white" }}>
+        <div className='df-c' style={{ padding: "1rem",height: 600, width: "100%", background: "white" }}>
             <ToastContainer />
             FlexBizz Members
             <DataGrid

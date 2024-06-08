@@ -48,7 +48,7 @@ function OfferInfinite() {
     }, []);
     return (
         <div className='df-c'>
-            <OfferForm />
+            
             {commentsOpened && <Comments />}
           {sendMessageModal && <MessageModal />}
           {reportModal && (

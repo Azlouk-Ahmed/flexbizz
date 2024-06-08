@@ -13,6 +13,34 @@
     gap: 2rem
 }
 
+textarea {
+  padding: 7px 1rem;
+  border: 2px solid var(--primary);
+  height: 4rem;
+  border-radius: 1rem;
+  color: var(--text);
+  
+}
+
+.offerform input[type="text"] {
+  height: 3rem;
+}
+
+.offerform {
+  background-color: var(--light-bg);
+  padding: 1rem;
+  width: 24%;
+  font-size: 10px;
+}
+
+.g5px {
+  gap: 5px !important;
+}
+
+.input.df-c {
+  gap: 5px !important;
+}
+
 
 .search--container .filter {
     display: flex;
@@ -23,9 +51,7 @@
     color: var(--primary);
 }
 
-.search--container .search span {}
 
-.search--container .location {}
 
 .search--container .input {
     display: flex;
@@ -113,7 +139,16 @@ h1 em {
 }
 
 
-.search--container .type .input input[type="checkbox"] {}
+input[type="checkbox"] {
+  display: none;
+}
+input[type="radio"] {
+  display: none;
+}
+
+.offerform select {
+  margin: 0 !important;
+}
 
 label {
   cursor: pointer;
