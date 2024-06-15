@@ -16,22 +16,31 @@ const portfolioSchema = new mongoose.Schema({
   website: {
     type: String,
   },
-  socialMedia: {
+  socialMedia: [{
+
     type: Object, 
-  },
+  }
+  ],
   skills: [{
     type: String,
   }],
   experiences: [{
     type: Object, 
   }],
+  projects: [{
+    type: Object, 
+  }],
+  awards : [
+    {type : String}
+  ],
 
   education: [{
     type: Object, 
   }],
-  awards: [{
-    type: String,
+  contact: [{
+    type: Object,
   }],
+
 image : {
   type : String
 }

@@ -139,12 +139,13 @@ h1 em {
 }
 
 
-input[type="checkbox"] {
+input[type="checkbox"]:not(.star) {
   display: none;
 }
-input[type="radio"] {
+input[type="radio"]:not(.star) {
   display: none;
 }
+
 
 .offerform select {
   margin: 0 !important;

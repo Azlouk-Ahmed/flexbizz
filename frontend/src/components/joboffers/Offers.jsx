@@ -35,9 +35,12 @@ function Offers({admin}) {
       {isOpenForm&& <OfferForm setIsOpenForm={setIsOpenForm}/>}
       {offers?.length>0 &&
         <div className="offers">
-          {offers.map((offer) => (
-            <Offer offer={offer} admin={admin} />
-          ))}
+          {offers?.map((offer) => (
+                admin === true && offer.status === false && <Offer key={offer.id} offer={offer} admin={admin} />
+            ))}
+          {offers?.map((offer) => (
+                admin !== true && offer.status === true && <Offer key={offer.id} offer={offer} />
+            ))}
           {commentsOpened && <Comments />}
           {sendMessageModal && <MessageModal />}
           {reportModal && (

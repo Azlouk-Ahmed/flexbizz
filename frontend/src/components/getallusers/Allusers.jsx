@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./allusers.css";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
@@ -7,12 +7,15 @@ import { IoMdPersonAdd } from "react-icons/io";
 import { useFetchData } from "../../hooks/useFetchData";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { IoPersonRemove } from "react-icons/io5";
 
 function Allusers() {
   const [users, setUsers] = useState([]);
   const { error, data, loading } = useFetchData("http://localhost:5000/user/");
   const [searchQuery, setSearchQuery] = useState('');
   const { auth } = useAuthContext();
+  const [requestsSent, setRequestsSent] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -23,6 +26,50 @@ function Allusers() {
       setUsers(filteredData);
     }
   }, [data, auth]);
+
+  const handleUserAdd = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/connection/${userId}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${auth.token}`
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setRequestsSent([...requestsSent, userId]);
+      } else {
+        console.error('Failed to send connection request');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleRemoveConnection = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/connections/remove/${userId}`,{},
+        {
+          headers: {
+            'Authorization': `Bearer ${auth.token}`
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setRequestsSent(requestsSent.filter(id => id !== userId));
+      } else {
+        console.error('Failed to remove connection');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const filteredUsers = users?.filter(user => {
     const fullName = `${user?.name} ${user?.familyName}`.toLowerCase();
@@ -55,7 +102,11 @@ function Allusers() {
                 </Link>
                 <span><MdConnectWithoutContact /> {user.connections?.length} • <FcApproval /> {user.badges?.length}</span>
               </div>
-              <IoMdPersonAdd />
+              {requestsSent.includes(user._id) ? (
+                <IoPersonRemove onClick={() => handleRemoveConnection(user._id)} />
+              ) : (
+                <IoMdPersonAdd onClick={() => handleUserAdd(user._id)} />
+              )}
             </div>
           ))}
         </div>

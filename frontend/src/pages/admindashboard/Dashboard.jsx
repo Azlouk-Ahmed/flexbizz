@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import "./dashboard.css"
 
 import { GiMoneyStack } from 'react-icons/gi'
-import { MdNotificationImportant, MdOutlineLibraryAdd, MdRemoveCircle } from 'react-icons/md'
+import { MdNotificationImportant, MdRemoveCircle } from 'react-icons/md'
 import { BsPiggyBank } from 'react-icons/bs'
 import { useFetchData } from '../../hooks/useFetchData'
 import UserAct from '../client service page/UserAct'
@@ -17,9 +17,20 @@ import { GiSandsOfTime } from "react-icons/gi";
 import { CiDeliveryTruck } from "react-icons/ci";
 import Team from "../admindashboard/team/Team"
 import Offers from '../../components/joboffers/Offers'
+import { useNavigate } from "react-router-dom";
+import CurrentProjectsData from './currentProjects/currentProjectsData'
+import AdminReports from './adminreports/AdminReports'
 
 
 function Dashboard() {
+  const navigate = useNavigate(); 
+  const authLocal = JSON.parse(localStorage.getItem('auth'));
+
+  useEffect(() => {
+    if (!authLocal) {
+        navigate("/login");
+    }
+  }, [authLocal, navigate]);
 
   const {data: finance} = useFetchData("http://localhost:5000/achievements/admin");
   const {data: topactive} = useFetchData("http://localhost:5000/activities/activities/top");
@@ -140,6 +151,8 @@ function Dashboard() {
         <Barchart data={bardata} />
       </div>
       <Team />
+      <CurrentProjectsData />
+      <AdminReports />
       <div className="pendingannouncement">
           Pending Offers
           <div className="offers-container">

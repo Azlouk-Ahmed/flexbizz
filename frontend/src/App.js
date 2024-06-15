@@ -5,6 +5,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import { useFetchNotification } from "./hooks/useFetchNotification";
 import SearchPage from "./pages/searchpage/SearchPage";
 import "./App.css";
+import "../src/components/ratingform/rating.css"
 import "../src/pages/chat/chat.css";
 import "../src/pages/homepage/home.css";
 import "../src/pages/landing/landing.css";
@@ -14,6 +15,7 @@ import "../src/pages/propositions/proposition.css";
 import "../src/pages/userPage/userpage.css";
 import "../src/components/joboffers/offers.css";
 import "../src/components/search/search.css";
+import "../src/components/userPortfolio/userporfolio.css";
 import "../src/pages/client service page/clientservice.css";
 import "../src/pages/client service page/reports.css";
 import "../src/pages/signup/signup.css"

@@ -1,16 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { motion } from "framer-motion";
-import { IoCloseOutline, IoAttachOutline } from "react-icons/io5";
+import { IoAttachOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import "../search/search.css";
 import postRequest from '../../API/API';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Error from '../error/Error';
 import { useOffersContext } from '../../hooks/useOffersContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 function OfferForm() {
     const {auth} = useAuthContext();
-    const {dispatch} = useOffersContext();
     const fileRef = useRef();
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -75,15 +74,20 @@ function OfferForm() {
         
         const {data, error} = await postRequest("http://localhost:5000/announcement",formData,auth?.token);
         if(data) {
+            toast.success('your announcement is sent to admins');
             setLoading(false);
             setErrorReq(false)
             setError(false);
-            console.log(data);
-            dispatch({type:"ADD_OFFER", payload : data}); 
+            setPosition("")
+            setDescription("")
+            setbudgetMax(0)
+            setSkillsRequired("")
+            setSelectedFile(null)
         }
         if(error) {
             setErrorReq(error);
             setLoading(false);
+            toast.error(error || 'Error uploading file');
         }
         console.log(data);
     };
@@ -132,6 +136,7 @@ function OfferForm() {
 
     return (
         <div className="offerform ">
+            <ToastContainer />
             <div className="">
                 <div
                    className='' 

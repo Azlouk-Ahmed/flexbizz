@@ -20,18 +20,22 @@ import Offer from '../../components/offer/Offer';
 import Comments from "../../components/comments/Comments"
 import ReportModal from '../../components/reportModal/ReportModal';
 import Rating from '../../components/ratingform/Rating';
+import axios from 'axios';
+import EditPortfolio from '../../components/userPortfolio/EditPortfolio';
 
 
 function UserPage() {
     const { auth } = useAuthContext();
     const { loading, data, error } = useFetchData("http://localhost:5000/portfolio/user");
-    
+    const { data: incodata } = useFetchData("http://localhost:5000/achievements/finances/"+auth?.user?._id);
+    console.log("inc",incodata);
     const pdfExportComponent = useRef(null);
     const { currentProjects,commentsOpened, dispatch, offers, reportModal } =
     useOffersContext();
     const navigate = useNavigate();
     const authLocal = JSON.parse(localStorage.getItem('auth'));
     const [addportfolio, setaddportfolio] = useState(false);
+    const [editportfolio, setEditPortfolio] = useState(false);
     const { data: offersData } = useFetchData(
         "http://localhost:5000/announcement/createdby/" + auth?.user._id
       );
@@ -61,12 +65,24 @@ function UserPage() {
 
       }, [dispatch, currentProjectsData])
       
-      console.log("report modal",reportModal);
       const [open, setopen] = useState(false);
+      const handleDelete = async () => {
+        try {
+            await axios.delete('http://localhost:5000/portfolio', {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
+                },
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error('Error deleting portfolio', error);
+            alert('Failed to delete portfolio');
+        }
+    };
   return (
       <div className="profile ">
         {open && <Rating setOpen={setopen} project={open}/>}
-        {reportModal && <ReportModal reportedObject={reportModal} against={reportModal.freelancer} type={"reclamation"} />}
+        {reportModal && <ReportModal reportedObject={reportModal} against={reportModal.client} type={"reclamation"} />}
         {commentsOpened && <Comments />}
         {auth &&<div className="user-details">
             <div className="user--container">
@@ -76,7 +92,7 @@ function UserPage() {
             <Stats className="center" id={auth?.user._id}/>
             <div className="df center">
           <MyResponsiveBar />
-          <Donut />
+          <Donut data={incodata} />
         </div>
             <div className="">
                 <div className="one">
@@ -85,10 +101,25 @@ function UserPage() {
                 {data &&
                 
                 <div className="pdf--view">
-                    <HiOutlineDownload onClick={exportPDF} />
-                    <PDFExport ref={pdfExportComponent} fileName="portfolio.pdf" margin={{ top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' }}>
+                    <div className="df-c">
+                    <div className="primary-btn w-100" onClick={exportPDF}>
+                        download <HiOutlineDownload />
+
+                    </div>
+                    <div className="primary-btn w-100" onClick={handleDelete}>
+                        delete
+
+                    </div>
+                    <div className="primary-btn w-100" onClick={()=>{setEditPortfolio(true); console.log(editportfolio)}}>
+                        edit
+
+                    </div>
+
+                    </div>
+                    <PDFExport ref={pdfExportComponent} fileName="portfolio.pdf" margin={{ top: '20mm', right: '90mm', bottom: '20mm', left: '90mm' }}>
                         <UserPortfolio data={data.portfolio} userId={auth.user._id} />
                     </PDFExport>
+                    {editportfolio && <EditPortfolio  setEditPortfolio={setEditPortfolio} data={data?.portfolio} />}
                 </div>
                 }
                 {
@@ -109,9 +140,9 @@ function UserPage() {
         <h1>currently working on</h1>
         </div>
         {currentProjects?.length > 0 ? (
-            currentProjects.map((project) => {
-            return <CurrentProject key={project._id} setopen={setopen} project={project} />;
-            })
+    currentProjects.filter(project => !project.isDone).map((project) => (
+                <CurrentProject key={project._id} setopen={setopen} project={project} />
+            ))
         ) : (
             <Empty />
         )}

@@ -250,7 +250,7 @@ ul li {
 
 .notification--indicator {
     position: absolute;
-    right: 11px;
+    right: 48px;
     top: 30%;
     font-size: 12px;
     font-family: inherit;

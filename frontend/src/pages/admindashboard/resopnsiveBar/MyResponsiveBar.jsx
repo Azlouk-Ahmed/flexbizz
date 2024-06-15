@@ -2,13 +2,12 @@ import React from 'react';
 import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 import "./responsivebar.css";
 
-function MyResponsiveBar() {
+function MyResponsiveBar({data}) {
     const data01 = [
         { name: 'Annoucements', value: 400 },
         { name: 'Achievements', value: 300 },
         { name: 'Likes', value: 300 },
         { name: 'Comments', value: 200 },
-        { name: 'Badges', value: 278 },
         { name: 'Connections', value: 189 },
     ];
 

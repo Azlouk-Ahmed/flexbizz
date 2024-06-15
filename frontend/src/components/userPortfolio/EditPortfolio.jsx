@@ -12,28 +12,29 @@ import { GiDoubleQuaver, GiWebSpit } from 'react-icons/gi';
 import { BiImages } from 'react-icons/bi';
 import { ToastContainer, toast } from 'react-toastify';
 
-function Addportfolio({setaddportfolio}) {
+function EditPortfolio({setEditPortfolio, data}) {
+    console.log("data = ",data);
     const {auth } = useAuthContext();
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState();
     const [projects, setProjects] = useState([]);
     const [projectDescription, setProjectDescription] = useState('');
     const [projectLink, setProjectLink] = useState('');
     const [projectTitle, setProjectTitle] = useState('');
     const [projectImage, setProjectImage] = useState('');
-    const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState([...data.skills]);
     const [award, setaward] = useState('');
-    const [awards, setawards] = useState([]);
+    const [awards, setawards] = useState([...data.awards]);
     const [mediaName, setMediaName] = useState('');
     const [mediaLink, setMediaLink] = useState('');
-    const [socialMedia, setSocialMedia] = useState([]);
-    const [name, setName] = useState('');
-    const [descriptionp, setDescriptionp] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [gouvernorate, setGouvernorate] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const [socialMedia, setSocialMedia] = useState([...data.socialMedia]);
+    const [name, setName] = useState(data.name);
+    const [descriptionp, setDescriptionp] = useState(data.description);
+    const [city, setCity] = useState(data.city);
+    const [country, setCountry] = useState(data.country);
+    const [gouvernorate, setGouvernorate] = useState(data.gouvernorate);
+    const [postalCode, setPostalCode] = useState(data.postalCode);
     const [image, setImage] = useState('');
-    const [contacts, setcontacts] = useState([]);
+    const [contacts, setcontacts] = useState([...data.contact]);
     const [contactmedia, setcontactmedia] = useState("")
     const [contactvalue, setcontactvalue] = useState("")
     const handleProjectImageChange = (e) => {
@@ -173,8 +174,8 @@ function Addportfolio({setaddportfolio}) {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [description, setDescription] = useState('');
-    const [website, setwebsite] = useState('');
-    const [experiences, setExperiences] = useState([]);
+    const [website, setwebsite] = useState(data.website);
+    const [experiences, setExperiences] = useState([...data.experiences]);
 
     const handleCompanyChange = (e) => {
         setCompany(e.target.value);
@@ -222,7 +223,7 @@ function Addportfolio({setaddportfolio}) {
     const [degree, setdegree] = useState('');
     const [startDate2, setStartDate2] = useState('');
     const [endDate2, setEndDate2] = useState('');
-    const [education, seteducation] = useState([]);
+    const [education, seteducation] = useState([...data.education]);
 
     const handleinstitutionChange = (e) => {
         setinstitution(e.target.value);
@@ -270,31 +271,32 @@ function Addportfolio({setaddportfolio}) {
 
         
         const portfolioData = {
-          name,
-          description: descriptionp,
-          city,
-          country,
-          gouvernorate,
-          postalCode,
-          image,
-          website,
-          socialMedia,
-          skills,
-          awards,
-          contact : contacts,
-          experiences,
-          education,
-          projects 
+            name,
+            description: descriptionp,
+            city,
+            country,
+            gouvernorate,
+            postalCode,
+            image,
+            website,
+            socialMedia,
+            skills,
+            awards,
+            contact : contacts,
+            experiences,
+            education,
+            projects 
         };
     
         try {
-          const response = await axios.post('http://localhost:5000/portfolio', portfolioData, {
+          const response = await axios.put('http://localhost:5000/portfolio', portfolioData, {
             headers: {
               Authorization: `Bearer ${auth.token}`,
               'Content-Type': 'application/json'
             }
           });
-          if (response.status === 201) {
+          console.log(response);
+          if (response.status === 200) {
             window.location.reload(); 
           }
         } catch (error) {
@@ -316,7 +318,7 @@ function Addportfolio({setaddportfolio}) {
         <IoCloseOutline
           className="notification-close"
           onClick={() => {
-            setaddportfolio(false);
+            setEditPortfolio(false);
           }}
         />
       </div>
@@ -536,12 +538,9 @@ function Addportfolio({setaddportfolio}) {
                         </div>
                         <div className="df">
                             {experiences.map((experience, index) => (
-                                <div key={index} className="addskill df-c">
+                                <div key={index} className="addskill df">
                                     <div>company :{experience.company}</div>
-                                    <div>role : {experience.role}</div>
-                                    <div>{experience.startDate} - {experience.endDate}</div>
-                                    <div>desc : {experience.description}</div>
-                                    <span className="danger-btn" onClick={() => handleRemoveExperience(index)}>Remove</span>
+                                    <span className="" onClick={() => handleRemoveExperience(index)}>X</span>
                                 </div>
                             ))}
                         </div>
@@ -595,4 +594,4 @@ function Addportfolio({setaddportfolio}) {
   )
 }
 
-export default Addportfolio
+export default EditPortfolio

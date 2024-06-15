@@ -32,6 +32,10 @@ const currentProjectSchema = new mongoose.Schema({
     ref: 'Announcement',
     required: true,
   },
+  isDone : {
+    type: Boolean,
+    default: false
+  },
   workVersions: [workVersionSchema],
 }, { timestamps: true });
 

@@ -29,9 +29,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function ProfilePage() {
   const { auth } = useAuthContext();
+  const navigate = useNavigate(); 
+  const authLocal = JSON.parse(localStorage.getItem('auth'));
+
+  useEffect(() => {
+    if (!authLocal) {
+        navigate("/login");
+    }
+  }, [authLocal, navigate]);
   const { sendMessageModal, dispatch, offers, reportModal } = useOffersContext();
   let { id } = useParams();
-  const navigate = useNavigate();
   const exportPDF = () => {
     if (pdfExportComponent.current) {
       pdfExportComponent.current.save();

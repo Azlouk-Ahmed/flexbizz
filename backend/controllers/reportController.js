@@ -59,6 +59,15 @@ const getAllReports = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+const getDeliveredReports = async (req, res) => {
+    try {
+      const reports = await Report.find({ status: 'delivered' });
+      res.json(reports);
+    } catch (error) {
+      console.error('Error getting reports:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
 const getreportbyid = async (req, res) => {
     const {id} = req.params;
     try {
@@ -116,5 +125,6 @@ module.exports = {
     getAllReports,
     updateReportStatus,
     deleteReport,
-    getreportbyid
+    getreportbyid,
+    getDeliveredReports
 };

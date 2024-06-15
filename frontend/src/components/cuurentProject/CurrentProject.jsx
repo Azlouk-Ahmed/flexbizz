@@ -5,7 +5,6 @@ import { IoLocation } from "react-icons/io5";
 import { GiSuitcase } from "react-icons/gi";
 import { SlWallet } from "react-icons/sl";
 import { useAuthContext } from '../../hooks/useAuthContext';
-import ReportModal from '../reportModal/ReportModal';
 import { useOffersContext } from '../../hooks/useOffersContext';
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import ProjectChart from './ProjectChart';
@@ -13,8 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css'; 
 import LazyImage from '../lazyloadimg/LazyImage';
-import { BiDownload } from 'react-icons/bi';
-
+import { CiFileOn } from 'react-icons/ci';
 function CurrentProject({ project, setopen }) {
   const { dispatch } = useOffersContext();
   const { auth } = useAuthContext();
@@ -68,7 +66,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File uploaded successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
     } catch (error) {
       console.error('Error uploading file:', error?.response?.data?.message);
@@ -96,7 +93,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File edited successfully:', response.data);
-      toast.success('File edited successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
     } catch (error) {
       console.error('Error editing file:', error?.response?.data?.message);
@@ -124,7 +120,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File uploaded successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
      
       
@@ -154,7 +149,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File uploaded successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
       
       
@@ -183,7 +177,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File uploaded successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
       
       
@@ -212,7 +205,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File uploaded successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
       
       
@@ -237,7 +229,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File confirmed successfully:', response.data);
-      toast.success('File accepted successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
     } catch (error) {
       console.error('Error accepting file:', error?.response?.data?.message);
@@ -246,6 +237,21 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       setError(true);
     } finally {
       setLoadingFileConfirm1(false);
+    }
+  };
+
+  const handleCurrentProjectStatusChange = async (projectId) => {
+    try {
+      const response = await axios.patch(`http://localhost:5000/projects/${projectId}/markAsDone`, {}, {
+        headers: {
+          Authorization: `Bearer ${auth?.token}`
+        }
+      });
+      if (response.status === 200) {
+        console.log("statuschanged");
+      }
+    } catch (error) {
+      console.error("Error marking project as done:", error);
     }
   };
   
@@ -262,7 +268,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File accepted successfully');
+
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
       
       
@@ -288,7 +294,6 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       });
   
       console.log('File uploaded successfully:', response.data);
-      toast.success('File accepted successfully');
       dispatch({ type: "CURRENT_PROJECT_UPDATE", payload: response.data.project });
       
       
@@ -368,7 +373,14 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
   <div className="versioncontent">
     {project.workVersions[0]?.content ? (
       <>
-        {project.workVersions[0].content} <BiDownload />
+      <a
+                className="display-file"
+                target='_blank'
+                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[0].content}`}
+                download
+              >
+                <CiFileOn /> {project.workVersions[0].content}
+              </a>
         {auth?.user._id === client._id && project.workVersions[0]?.confirmed === false && (
           <div className="df">
             {!loadingFileConfirm1 &&<div className="primary-btn b0" onClick={confirmVersion1}>confirm</div>}
@@ -418,7 +430,14 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
             <div className="versioncontent">
               {project.workVersions[1]?.content ? (
                 <>
-                  {project.workVersions[1].content} <BiDownload />
+                  <a
+                className="display-file"
+                target='_blank'
+                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[1].content}`}
+                download
+              >
+                <CiFileOn /> {project.workVersions[1].content}
+              </a>
                   {auth?.user._id === client._id && project.workVersions[1]?.confirmed === false && (
                     <div className="df">
                       {!loadingFileConfirm2 &&<div className="primary-btn b0" onClick={confirmVersion2}>confirm</div>}
@@ -469,7 +488,14 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
             <div className="versioncontent">
               {project.workVersions[2]?.content ? (
                 <>
-                  {project.workVersions[2].content} <BiDownload />
+                  <a
+                className="display-file"
+                target='_blank'
+                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[2].content}`}
+                download
+              >
+                <CiFileOn /> {project.workVersions[2].content}
+              </a>
                   {auth?.user._id === client._id && project.workVersions[2]?.confirmed === false && (
                     <div className="df">
                       {!loadingFileConfirm3 &&<div className="primary-btn b0" onClick={confirmVersion3}>confirm</div>}
@@ -526,6 +552,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
         }}
         >reclamation</div>
         <div onClick={()=> {
+          handleCurrentProjectStatusChange(project._id)
           setopen(project)
         }} className={`primary-btn w-100${(project.workVersions.length >= 3 && project.workVersions.every(version => version.confirmed)) ? "" : " err"}`}>
   payer

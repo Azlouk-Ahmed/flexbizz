@@ -34,8 +34,8 @@ const getPortfolioById = async (req, res) => {
   };
 
   const createPortfolio = async (req, res) => {
-    const { education, experiences, skills, name, image, description, city, country, postalCode, gouvernorate, website, awards } = req.body; 
-    const requiredFields = ['education', 'experiences', 'skills', 'name', 'image', 'description', 'city', 'country', 'postalCode', 'gouvernorate', 'website', 'awards'];
+    const { education, experiences, skills, name, image, description, city, country, postalCode, gouvernorate, website, awards, contact, socialMedia, projects } = req.body; 
+    const requiredFields = ['education', 'experiences', 'skills', 'name', 'description', 'city', 'country', 'postalCode', 'gouvernorate', 'website', 'awards', 'socialMedia', 'contact'];
   
     const emptyFields = requiredFields.filter(field => !req.body[field]); 
   
@@ -67,6 +67,9 @@ const getPortfolioById = async (req, res) => {
         website,
         awards,
         createdBy: userid,
+        contact,
+        socialMedia,
+        projects
       });
   
       await portfolio.save();
@@ -79,9 +82,9 @@ const getPortfolioById = async (req, res) => {
   
 
 const updatePortfolio = async (req, res) => {
-  const sanitizedData = _.pick(req.body, ['name', 'description', 'website', 'socialMedia', 'projects', 'skills', 'experience', 'education', 'awards', 'testimonials']); // Sanitize data
+  const sanitizedData = _.pick(req.body, ['education', 'experiences', 'skills', 'name', 'description', 'city', 'country', 'postalCode', 'gouvernorate', 'website', 'awards', 'socialMedia','contact','projects']); 
   try {
-    const portfolio = await Portfolio.findOneAndUpdate({ user: req.user._id }, sanitizedData, { new: true }).populate("user"); // Update and return updated document
+    const portfolio = await Portfolio.findOneAndUpdate({ user: req.user._id }, sanitizedData, { new: true }).populate("user"); 
     if (!portfolio) {
       return res.status(404).json({ message: 'Portfolio not found' });
     }
@@ -90,12 +93,23 @@ const updatePortfolio = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-
+const deletePortfolio = async (req, res) => {
+  try {
+    const portfolio = await Portfolio.findOneAndDelete({ user: req.user._id });
+    if (!portfolio) {
+      return res.status(404).json({ message: 'Portfolio not found' });
+    }
+    res.json({ message: 'Portfolio deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = {
   getAllPortfolios,
   getPortfolioById,
   createPortfolio,
   updatePortfolio,
-  getCurrentUserPortfolio
+  getCurrentUserPortfolio,
+  deletePortfolio
 };

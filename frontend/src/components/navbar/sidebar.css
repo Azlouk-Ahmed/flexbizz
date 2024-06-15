@@ -292,6 +292,14 @@
   .nav-button:nth-of-type(9):hover ~ #nav-content-highlight {
     top: 495px;
   }
+
+  .xx:hover ~ #nav-content-highlight {
+    top: -70px !important;
+  }
+
+  .xx {
+    position: relative;
+  }
   
   #nav-bar .fas {
     min-width: 3rem;

@@ -5,6 +5,7 @@ import { useActContext } from '../../hooks/useActContext';
 import axios from 'axios';
 import Activities from './Activities';
 import Reports from './Reports';
+import { useNavigate } from 'react-router-dom';
 
 function ClientServicePage() {
   const { users, dispatch } = useActContext();
@@ -53,6 +54,14 @@ function ClientServicePage() {
   const handleCheckboxChange = (userId) => {
     setSelectedUserId(prevUserId => prevUserId === userId ? null : userId);
   };
+  const navigate = useNavigate(); 
+  const authLocal = JSON.parse(localStorage.getItem('auth'));
+
+  useEffect(() => {
+    if (!authLocal) {
+        navigate("/login");
+    }
+  }, [authLocal, navigate]);
 
   return (
     <div className='client service'>

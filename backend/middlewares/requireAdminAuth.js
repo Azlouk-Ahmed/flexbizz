@@ -16,6 +16,7 @@ const requireAdminAuth = async (req, res, next) => {
             return res.status(500).json({"mssg": "No user found with this token"});
         }
 
+
         if (user.role !== "Admin") {
             return res.status(500).json({"mssg": "This user is not an admin"});
         }

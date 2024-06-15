@@ -11,6 +11,7 @@ import { FcOk } from "react-icons/fc";
 import { TbStar } from "react-icons/tb";
 import { TbStarFilled } from "react-icons/tb";
 import { HiOutlineUsers } from "react-icons/hi2";
+import { CiFileOn } from 'react-icons/ci';
 
 const ActionTypes = Object.freeze({
   SEND_MESSAGE: 'SEND_MESSAGE',
@@ -140,8 +141,16 @@ function Activities({loading}) {
           <div className="df-c">
             <span className='df'><UserObj id={userId}/> pushed a version : </span>
             <div className="evaluation df-c">
-              <p className="p ">
-                file : {details.body.content}
+              <p className="p df">
+                file : <a
+                className="display-file"
+                target='_blank'
+                href={`http://localhost:5000/uploads/projectfiles/${details.body.content}`}
+                download
+              >
+                <CiFileOn /> {details.body.content}
+              </a>
+                
               </p>
             </div>
           </div>

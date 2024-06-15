@@ -34,9 +34,6 @@ async function deleteCurrentProject(req, res, next) {
         if (!currentProject) {
             return res.status(404).json({ message: "Current project not found" });
         }
-        if (currentProject.client.toString() !== req.user._id.toString()) {
-            return res.status(403).json({ message: "You are not authorized to delete this project" });
-        }
         await CurrentProject.findByIdAndDelete(projectId);
         res.status(200).json({ message: "Current project deleted successfully" });
     } catch (error) {
@@ -158,7 +155,32 @@ async function updateWorkbyVersion(req, res) {
     }
 }
 
+async function markProjectAsDone(req, res) {
+    try {
+        const projectId = req.params.projectId;
+        const project = await CurrentProject.findById(projectId);
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        // Only the client or the freelancer can mark the project as done
+        if (project.client.toString() !== req.user._id.toString() ) {
+            return res.status(403).json({ message: "Only the client can mark the project as done" });
+        }
+
+        project.isDone = true;
+        await project.save();
+
+        res.status(200).json({ message: "Project marked as done successfully", project });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
+    markProjectAsDone,
     createCurrentProject,
     deleteCurrentProject,
     getAllProjects,

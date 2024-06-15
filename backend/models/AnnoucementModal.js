@@ -73,7 +73,7 @@ const announcementSchema = new Schema({
   },
   status: {
     type: Boolean,
-    default: 'true'
+    default: false
   },
   attachment: {
     type: String,

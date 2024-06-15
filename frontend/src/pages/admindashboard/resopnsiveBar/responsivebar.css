@@ -3,8 +3,8 @@
     width: 100%;
 }
 
-.pie-container{
-    width: 25rem;
+.pie-container.chart-container{
+    width: 38rem;
     height: 20rem;
     background: var(--light-bg);
     border-radius: 1rem;

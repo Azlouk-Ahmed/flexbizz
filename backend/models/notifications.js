@@ -22,6 +22,10 @@ const notificationSchema = new Schema({
     required: true,
     enum: ['like', 'comment', 'announcement', 'apply', 'acceptence'],
   },
+  message :  {
+    type : String,
+  }
+  ,
   username: {
     type: String,
     required: true,

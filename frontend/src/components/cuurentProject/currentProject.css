@@ -109,6 +109,11 @@
 .versioncontent {
     text-align: center;
 }
+.versioncontent a{
+    font-size: 10px;
+    max-width: 7rem;
+    overflow: auto;
+}
 
 .pending{
 }

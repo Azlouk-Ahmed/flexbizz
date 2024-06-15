@@ -47,11 +47,16 @@ function Notifications({ setnotifOpened }) {
             <div className="notification" key={notification?.id}>
               <div className="notification-container">
                 <div className="notification-media">
-                  <img
+                  {notification?.username !== "flexbizz Team"&&<img
                     src={notification?.fromId?.img}
                     alt="User avatar"
                     className="notification-user-avatar"
-                  />
+                  />}
+                  {notification?.username === "flexbizz Team"&&<img
+                    src={require("../img/team.webp")}
+                    alt="User avatar"
+                    className="notification-user-avatar"
+                  />}
                   {notification?.notificationType === "like" && (
                     <GoThumbsup className="notification-reaction" />
                   )}
@@ -63,10 +68,10 @@ function Notifications({ setnotifOpened }) {
                       liked your announcement
                     </p>
                   )}
-                {notification?.notificationType === "apply" && (
+                {notification?.notificationType !== "like" && (
                     <p className="notification-text">
                       <strong>{notification?.username} </strong>
-                      applied to your announcement
+                      {notification?.message}
                     </p>
                   )}
                   <span className="notification-timer">

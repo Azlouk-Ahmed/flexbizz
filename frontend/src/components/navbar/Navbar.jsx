@@ -41,6 +41,8 @@ function Navbar({user}) {
       setistoggled(!istoggled);
     }
 
+    const {data: propos} = useFetchData("http://localhost:5000/proposition");
+
     
     
   return (
@@ -181,7 +183,7 @@ function Navbar({user}) {
       <NavLink to="/propositions">
         <MdWorkOutline className='fas'/>
         <span>propositions</span>
-        {propositions?.length > 0 && <pre className="notification--indicator">{propositions?.length}</pre>}
+        {propos?.length > 0 && <pre className="notification--indicator">{propos?.length}</pre>}
       </NavLink>
     </div>
     {user.role ==="Support" &&<div class="nav-button">
@@ -197,8 +199,8 @@ function Navbar({user}) {
       </NavLink>
     </div>}
     <hr/>
-    <div class="nav-button"><IoIosNotificationsOutline className='fas'/><span>notifications</span></div>
-    <div class="nav-button"><GoPersonAdd className='fas'/><span>connection requests</span></div>
+    <div class="nav-button xx" onClick={()=>setnotifOpened(!notifopened)}>{notifications?.length>0 &&<pre className="notification--indicator">{notifications?.length}</pre>}<IoIosNotificationsOutline className='fas'/><span>notifications</span></div>
+    <div class="nav-button xx" onClick={()=>setreqOpened(!reqopened)} >{data?.length>0 &&<pre className="notification--indicator">{data?.length}</pre>}<GoPersonAdd className='fas'/><span>connection requests</span></div>
     <div id="nav-content-highlight"></div>
   </div>
   <input id="nav-footer-toggle" type="checkbox"/>

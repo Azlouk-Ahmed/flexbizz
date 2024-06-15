@@ -17,9 +17,16 @@ import { useNavigate } from 'react-router-dom';
 
 function Chat() {
     const { socket } = useSocketContext();
+    const navigate = useNavigate(); 
+  const authLocal = JSON.parse(localStorage.getItem('auth'));
+
+    useEffect(() => {
+        if (!authLocal) {
+            navigate("/login");
+        }
+    }, [authLocal, navigate]);
     const { chats, dispatch, onlineUsers, selectedChat } = useChatsContext();
     const { auth } = useAuthContext();
-    const navigate = useNavigate();
     const { dispatch: dispatchNotification, messages } = useNotificationContext();
     const [commingMsg, setcommingMsg] = useState(null);
     const { data: fetchedChats, loading: fetchingChats, error: fetchChatsError } = useFetchData('http://localhost:5000/chat/');

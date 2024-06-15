@@ -20,6 +20,7 @@ const paymentRouter = require("./routes/payment");
 const achievementsRouter = require("./routes/achievementRoutes");
 const CurrentProjectrouter = require("./routes/currentProjectRoutes");
 const activitiesRoutes = require("./routes/activityRoutes");
+const transactionRouter = require("./routes/transactionRoutes");
 
 app.use(cookieSession({
     name : "session",
@@ -50,6 +51,7 @@ app.use("/api",paymentRouter);
 app.use("/achievements",achievementsRouter);
 app.use("/projects",CurrentProjectrouter);
 app.use("/activities",activitiesRoutes);
+app.use("/transaction",transactionRouter);
 
 
 mongoose.connect(process.env.MONGO_URI)

@@ -3,7 +3,8 @@ const User = require("../models/userModel");
 
 const createNotification = async (req, res) => {
   try {
-    const { receiverId, elementId, notificationType, username } = req.body;
+    const { receiverId, elementId, notificationType, username, message } = req.body;
+    console.log(req.body);
 
     if (!receiverId || !elementId || !notificationType || !username) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -20,6 +21,7 @@ const createNotification = async (req, res) => {
       elementId,
       notificationType,
       username,
+      message
     });
     const savedNotification = await notification.save();
 

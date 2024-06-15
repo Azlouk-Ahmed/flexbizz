@@ -12,6 +12,7 @@
     right: 1rem;
     overflow: scroll;
     top: 4rem;
+    color: var(--text);
 }
 
 .notifications svg {}

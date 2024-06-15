@@ -1,11 +1,12 @@
 const express = require('express');
 const requireAuth = require('../middlewares/requireUserAuth');
-const { deleteAnnouncement, updateAnnouncement, getAnnouncementById, getAnnouncements, createAnnouncement, likeAnnouncement, applyAnnouncement, getAnnouncementsByUser, infiniteGetAnnouncement } = require('../controllers/announcementController');
+const { deleteAnnouncement, updateAnnouncement, getAnnouncementById, getAnnouncements, createAnnouncement, likeAnnouncement, applyAnnouncement, getAnnouncementsByUser, infiniteGetAnnouncement, toggleAnnouncementStatus } = require('../controllers/announcementController');
 const handleFileUpload = require('../multerUploads/multer');
 const announcementRouter = express.Router();
 const Announcement = require('../models/AnnoucementModal');
 const ActionTypes = require('../constants/actionTypes');
 const logActivity = require('../middlewares/logActivity');
+const requireAdminAuth = require('../middlewares/requireAdminAuth');
 
 
 announcementRouter.post('/', requireAuth,handleFileUpload("_file"),logActivity(ActionTypes.CREATE_ANNOUNCEMENT), createAnnouncement);
@@ -90,11 +91,12 @@ announcementRouter.post('/search', async (req, res) => {
   
 
 announcementRouter.put('/:id',requireAuth, updateAnnouncement);
+announcementRouter.put('/accept/:id',requireAdminAuth, toggleAnnouncementStatus);
 
 announcementRouter.put('/apply/:id',requireAuth, applyAnnouncement);
 
 announcementRouter.put('/like/:id',requireAuth, logActivity(ActionTypes.LIKE_ANNOUNCEMENT), likeAnnouncement);
 
-announcementRouter.delete('/:id',requireAuth,deleteAnnouncement);
+announcementRouter.delete('/del/:id',requireAdminAuth,deleteAnnouncement);
 
 module.exports = announcementRouter;

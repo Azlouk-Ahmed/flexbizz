@@ -23,7 +23,8 @@ export const createNotification = async (
     elementId,
     notificationType,
     username,
-    token
+    token,
+    message
   ) => {
     try {
       const config = {
@@ -38,6 +39,7 @@ export const createNotification = async (
           elementId,
           notificationType,
           username,
+          message
         },
         config
       );

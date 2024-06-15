@@ -136,7 +136,6 @@
     display: flex;
     align-items: center;
     padding: 2px 8px;
-    margin-bottom: auto;
     gap: 7px;
     color: var(--primary);
     font-weight: bold;
@@ -158,11 +157,10 @@
     position: relative;
 }
 
-.pdf--view  .danger-btn {
+.pdf--view>  .df-c {
     position: absolute;
-    right: 1rem;
+    left: -0px;
     top: 1rem;
     z-index: 10;
-    background: var(--light-bg);
     width: fit-content;
 }

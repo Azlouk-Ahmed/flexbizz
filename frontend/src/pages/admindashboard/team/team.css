@@ -1,0 +1,12 @@
+
+.version-content {
+    text-decoration: none;
+    color: blue;
+}
+.version-content:hover {
+    text-decoration: underline;
+}
+
+.link {
+    color: var(--blue);
+}

@@ -39,8 +39,8 @@ const createAnnouncement = async (req, res) => {
   const getAnnouncements = async (req, res) => {
     const {
       position,
-      workingEnvironment, // Updated from onPlatform and onSite
-      government, // Added from the query parameters
+      workingEnvironment, 
+      government,
       fullTime,
       partTime,
       hourly,
@@ -54,8 +54,8 @@ const createAnnouncement = async (req, res) => {
     let filter = {};
   
     if (position) filter.position = { $regex: new RegExp(position, 'i') };
-    if (workingEnvironment) filter.workingEnvironnement = workingEnvironment; // Updated from onPlatform and onSite
-    if (government) filter.government = government; // Added from the query parameters
+    if (workingEnvironment) filter.workingEnvironnement = workingEnvironment;
+    if (government) filter.government = government;
     if (fullTime) filter.jobType = 'Full-Time';
     if (partTime) filter.jobType = 'Part-Time';
     if (hourly) filter.jobType = 'Hourly';
@@ -213,6 +213,22 @@ const likeAnnouncement = async (req, res) => {
     }
 };
 
+const toggleAnnouncementStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const announcement = await Announcement.findById(id);
+    if (!announcement) {
+      return res.status(404).json({ error: 'Announcement not found' });
+    }
+    announcement.status = !announcement.status;
+    await announcement.save();
+    res.json(announcement);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 
 module.exports = {
@@ -224,5 +240,6 @@ module.exports = {
   updateAnnouncement,
   deleteAnnouncement,
   getAnnouncementsByUser,
+  toggleAnnouncementStatus,
   infiniteGetAnnouncement
 };

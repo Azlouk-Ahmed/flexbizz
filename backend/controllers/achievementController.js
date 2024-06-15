@@ -123,7 +123,21 @@ async function getClientSpendingDifference(req, res) {
 }
 
 
-
+async function getTotalFinancesByUserId(req, res) {
+    try {
+        const userId = req.params.userId;
+        
+        const freelancerAchievements = await Achievement.find({ freelancer: userId });
+        const clientAchievements = await Achievement.find({ client: userId });
+        
+        const totalIncome = freelancerAchievements.reduce((acc, el) => acc + el.budget, 0);
+        const totalSpendings = clientAchievements.reduce((acc, el) => acc + el.budget, 0);
+        
+        res.json({ totalIncome, totalSpendings });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 async function getClientAchievements(req, res) {
     try {
@@ -154,4 +168,4 @@ async function createAchievement(req, res) {
     }
 }
 
-module.exports = { getAchievementsByFreelancerId, getGlobalFinance, getRatingByFreelancerId, getClientSpendingDifference, getIncomeDifferenceForFreelancer, getClientAchievements, createAchievement };
+module.exports = { getAchievementsByFreelancerId,getTotalFinancesByUserId, getGlobalFinance, getRatingByFreelancerId, getClientSpendingDifference, getIncomeDifferenceForFreelancer, getClientAchievements, createAchievement };

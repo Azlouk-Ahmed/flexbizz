@@ -3,12 +3,15 @@ import axios from 'axios';
 import './rating.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useFetchData } from '../../hooks/useFetchData';
+import { useNavigate } from 'react-router-dom';
+import { createNotification } from '../../API/API';
 
 function Rating({ setOpen, project }) {
   const [rating, setRating] = useState(1); 
   const [feedback, setFeedback] = useState('');
-  const {auth } = useAuthContext();
-  const {data: dataAnnoucement} = useFetchData("http://localhost:5000/announcement/"+project.announcement)
+  const { auth } = useAuthContext();
+  const { data: dataAnnouncement } = useFetchData(`http://localhost:5000/announcement/${project.announcement}`);
+  const navigate = useNavigate();
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
@@ -17,33 +20,38 @@ function Rating({ setOpen, project }) {
   const handleFeedbackChange = (event) => {
     setFeedback(event.target.value);
   };
-  console.log(project);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(dataAnnoucement && auth) {
+    if (dataAnnouncement && auth) {
+      const token = auth.token;
+      const url = `http://localhost:5000/achievements/${project.freelancer}`;
+      const data = {
+        announcementId: project.announcement,
+        clientRating: rating,
+        clientComment: feedback,
+        budget: dataAnnouncement.budgetMax,
+      };
 
-        const token = auth.token;
-        const url = `http://localhost:5000/achievements/${project.freelancer}`;
-        
-        const data = {
-            announcementId: project.announcement,
-            clientRating: rating,
-            clientComment: feedback,
-            budget: dataAnnoucement.budgetMax, 
-        };
-        
-    try {
-      const response = await axios.post(url, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-    });
-    console.log('Response:', response.data);
-    } catch (err) {
+      try {
+        const response = await axios.post(url, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        createNotification(
+          project.freelancer,
+          project._id,
+          "apply",
+          auth?.user.name,
+          auth?.token,
+          "you recieved an evaluation from "+auth?.user.name
+        );
+        navigate("/profile");
+      } catch (err) {
         console.error('Error:', err.response ? err.response.data : err.message);
+      }
     }
-}
   };
 
   return (
@@ -59,7 +67,7 @@ function Rating({ setOpen, project }) {
               id="one"
               name="star_rating"
               value="1"
-              checked={rating == '1'}
+              checked={rating === '1'}
               onChange={handleRatingChange}
             />
             <input
