@@ -111,3 +111,40 @@
     margin: 0;
 }
 
+@media only screen and (max-width: 600px) {
+    .App {
+        padding: 0 !important;
+
+    }
+
+    #nav-toggle:checked ~ #nav-content .nav-button {
+        justify-content: flex-start;
+        padding-left: 21px;
+    }
+
+    .header.df {
+        display: none;
+    }
+
+    .invoicepage {
+        width: 100%;
+    }
+
+    .offerform {
+        width: 100%;
+    }
+
+    .offer {
+        min-width: 96% !important;
+        font-size: 10px;
+        width: 96% !important;
+    }
+
+    .offer-description {
+        font-size: 8px;
+    }
+    .info--container span {
+        font-size: 8px;
+    }
+}
+

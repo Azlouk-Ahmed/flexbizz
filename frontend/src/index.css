@@ -29,6 +29,10 @@
   --blue: #007aff;
 }
 
+.fs10 {
+  font-size: 10px;
+}
+
 .ban {
   height: 100vh;
 }

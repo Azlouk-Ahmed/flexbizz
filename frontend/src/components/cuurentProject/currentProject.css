@@ -38,6 +38,10 @@
 .fs {
     font-size: 10px;
 }
+
+.fs10 {
+    font-size: 10px !important;
+}
 .current--project .client--img{
     width: 3rem;
     width: 3rem;

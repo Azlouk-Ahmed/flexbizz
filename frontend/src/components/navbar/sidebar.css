@@ -260,7 +260,7 @@
     color: var(--primary);
   }
   .nav-button:nth-of-type(4):hover ~ #nav-content-highlight {
-    top: 198px;
+    top: 178px;
   }
   .nav-button:nth-of-type(5):hover {
     color: var(--primary);

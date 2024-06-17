@@ -21,6 +21,7 @@ import "../src/pages/client service page/reports.css";
 import "../src/pages/signup/signup.css"
 import Banned from "./pages/Banned";
 import SignUp from "./pages/signup/SignUp";
+import Invoices from "./pages/invoice/Invoices";
 
 const Landing = lazy(() => import("./pages/landing/Landing"));
 const Home = lazy(() => import("./pages/homepage/Home"));
@@ -108,6 +109,7 @@ function App() {
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/client-service" element={<ClientServicePage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/invoices" element={<Invoices />} />
                 <Route path="/signup" element={<SignUp />} />
 
               </Routes>

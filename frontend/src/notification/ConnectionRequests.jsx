@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { MdDone } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
 import { MdClose } from "react-icons/md";
@@ -6,8 +7,51 @@ import { IoCloseOutline } from "react-icons/io5";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function ConnectionRequests({ setreqOpened, data }) {
+  const { auth } = useAuthContext();
+  const [acceptedRequests, setAcceptedRequests] = useState([]);
+  const [declinedRequests, setDeclinedRequests] = useState([]);
+
+  const handleAccept = async (connectionUserId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/connections/accept/${connectionUserId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setAcceptedRequests((prev) => [...prev, connectionUserId]);
+      }
+    } catch (error) {
+      console.error("Failed to accept connection request:", error);
+    }
+  };
+
+  const handleDecline = async (connectionUserId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/connections/remove/${connectionUserId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setDeclinedRequests((prev) => [...prev, connectionUserId]);
+      }
+    } catch (error) {
+      console.error("Failed to decline connection request:", error);
+    }
+  };
+
   return (
     <motion.div
       className="notifications"
@@ -23,7 +67,7 @@ function ConnectionRequests({ setreqOpened, data }) {
       </div>
       <div className="connections">
         {data?.length > 0 ? (
-          data?.map((user) => (
+          data.map((user) => (
             <div className="profile-container" key={user?._id}>
               <div className="wrapper">
                 <div className="notification-media">
@@ -49,13 +93,21 @@ function ConnectionRequests({ setreqOpened, data }) {
                 </div>
               </div>
               <div className="operations">
-                <MdDone />
-                <MdClose />
+                {acceptedRequests.includes(user?._id) ? (
+                  <span className="fs10">Accepted</span>
+                ) : declinedRequests.includes(user?._id) ? (
+                  <span className="fs10">Declined</span>
+                ) : (
+                  <>
+                    <MdDone onClick={() => handleAccept(user?._id)} />
+                    <MdClose onClick={() => handleDecline(user?._id)} />
+                  </>
+                )}
               </div>
             </div>
           ))
         ) : (
-          <p>no requests</p>
+          <p>No requests</p>
         )}
       </div>
     </motion.div>

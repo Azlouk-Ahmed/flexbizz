@@ -19,6 +19,7 @@ import { CiSearch } from 'react-icons/ci';
 import { MdSupportAgent } from "react-icons/md";
 import { RiAdminFill } from 'react-icons/ri';
 import { IoIosArrowUp } from "react-icons/io";
+import { FaFileInvoice } from 'react-icons/fa6';
 require("./sidebar.css")
 
 function Navbar({user}) {
@@ -170,6 +171,12 @@ function Navbar({user}) {
         <TbMessageCircle className='fas'/>
         <span>chats</span>
         {messages.length > 0 && <pre className="notification--indicator">{messages.length}</pre>}
+      </NavLink>
+    </div>
+    <div class="nav-button">
+      <NavLink to="/invoices">
+        <FaFileInvoice className='fas'/>
+        <span>invoices</span>
       </NavLink>
     </div>
     <hr/>

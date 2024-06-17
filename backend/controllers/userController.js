@@ -158,50 +158,64 @@ const changeUserRole = async (req, res) => {
 };
 
 
-
 const acceptConnectionRequest = async (req, res) => {
-  const userId = req.user._id;
-  const connectionId = req.params.connectionId;
+  const userId = req.user._id; // ID of the authenticated user
+  const connectionUserId = req.params.connectionId; // User ID from request parameters
 
   try {
+    // Fetch the authenticated user
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
+    // Find the pending connection request in the authenticated user's connections
     const connection = user.connections.find(
-      (connection) => connection._id.toString() === connectionId && connection.status === 'pending'
+      (conn) => conn.userId.toString() === connectionUserId && conn.status === 'pending'
     );
 
     if (!connection) {
+      console.log("Connection not found or already accepted");
       return res.status(404).json({ message: "Connection request not found or already accepted." });
     }
 
+    // Update the status of the connection request to 'accepted' for the authenticated user
     connection.status = 'accepted';
     await user.save();
 
-    const requester = await User.findById(connection.userId);
+    // Fetch the requester who sent the connection request
+    const requester = await User.findById(connectionUserId);
     if (!requester) {
       return res.status(404).json({ message: "Requester not found." });
     }
 
-    const alreadyConnected = requester.connections.some(
-      (connection) => connection.userId.toString() === userId.toString()
+    // Find the connection request in the requester's connections
+    const requesterConnection = requester.connections.find(
+      (conn) => conn.userId.toString() === userId.toString() && conn.status === 'pending'
     );
 
-    if (!alreadyConnected) {
-      requester.connections.push({
-        userId: userId,
-        status: 'accepted',
-      });
-      await requester.save();
+    if (!requesterConnection) {
+      console.log("Requester connection not found or already accepted");
+      return res.status(404).json({ message: "Requester connection not found or already accepted." });
     }
 
+    // Update the status of the connection request to 'accepted' for the requester
+    requesterConnection.status = 'accepted';
+    await requester.save();
+
+    // Respond with a success message
     res.json({ message: "Connection request accepted successfully." });
   } catch (err) {
+    // Handle any errors that occur during the process
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+
+
+
 
 
 const rejectConnectionRequest = async (req, res) => {
@@ -279,8 +293,8 @@ const getUserByName = async (req, res) => {
 
     const users = await User.find({
       $or: [
-        { name: { $regex: name, $options: 'i' } }, // Case-insensitive regex match for name
-        { familyName: { $regex: name, $options: 'i' } } // Case-insensitive regex match for familyName
+        { name: { $regex: name, $options: 'i' } },
+        { familyName: { $regex: name, $options: 'i' } } 
       ]
     });
 

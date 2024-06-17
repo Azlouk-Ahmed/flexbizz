@@ -88,11 +88,9 @@ function ProfilePage() {
         },
       });
       console.log("Connection request sent successfully");
-      toast.success('request sent successfully');
       // Update local state
       setConnections((prev) => [...prev, { userId, status: 'pending' }]);
     } catch (error) {
-      toast.error('Failed to send connection request');
       console.error("Failed to send connection request:", error);
     }
   };
@@ -109,12 +107,10 @@ function ProfilePage() {
         }
       );
 
-      toast.success('removed successfully');
       // Update local state
       setConnections((prev) => prev.filter((connection) => connection.userId !== userId));
     } catch (error) {
       console.error("Failed to remove connection:", error);
-      toast.error('Failed to send connection request');
     }
   };
 
