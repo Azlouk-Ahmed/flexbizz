@@ -46,10 +46,11 @@ function ProfilePage() {
   };
   const pdfExportComponent = useRef(null);
   const { data: freelancerRating } = useFetchData(
-    "http://localhost:5000/achievements/freelancer/" + id
+    process.env.REACT_APP_API_URL+"/achievements/freelancer/" + id
   );
+  const { data: incodata } = useFetchData(process.env.REACT_APP_API_URL+"/achievements/finances/"+id);
   const { data: offersData } = useFetchData(
-    "http://localhost:5000/announcement/createdby/" + id
+    process.env.REACT_APP_API_URL+"/announcement/createdby/" + id
   );
 
   useEffect(() => {
@@ -63,12 +64,12 @@ function ProfilePage() {
     dispatch({ type: "SET_OFFERS", payload: offersData });
   }, [offersData, dispatch]);
 
-  const { data } = useFetchData("http://localhost:5000/user/" + id);
+  const { data } = useFetchData(process.env.REACT_APP_API_URL+"/user/" + id);
   const { data: currentProjects } = useFetchData(
-    "http://localhost:5000/projects/user/" + id
+    process.env.REACT_APP_API_URL+"/projects/user/" + id
   );
   const { data: userPortfolio } = useFetchData(
-    "http://localhost:5000/portfolio/getuserportfolio/" + id
+    process.env.REACT_APP_API_URL+"/portfolio/getuserportfolio/" + id
   );
   const [open, setopen] = useState(false);
   const [connections, setConnections] = useState([]);
@@ -82,7 +83,7 @@ function ProfilePage() {
   // Axios methods for connection requests
   const sendConnectionRequest = async (userId) => {
     try {
-      await axios.post(`http://localhost:5000/user/connection/${userId}`, null, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/user/connection/${userId}`, null, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
@@ -98,7 +99,7 @@ function ProfilePage() {
   const removeConnection = async (userId) => {
     try {
       await axios.post(
-        `http://localhost:5000/user/connections/remove/${userId}`,
+        `${process.env.REACT_APP_API_URL}/user/connections/remove/${userId}`,
         null,
         {
           headers: {
@@ -148,7 +149,7 @@ function ProfilePage() {
         )}
         <div className="df">
           <MyResponsiveBar />
-          <Donut />
+          <Donut data={incodata} />
         </div>
         <Stats id={id} />
       </div>

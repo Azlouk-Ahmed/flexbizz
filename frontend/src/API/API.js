@@ -33,7 +33,7 @@ export const createNotification = async (
         },
       };
       const response = await axios.post(
-        "http://localhost:5000/notification",
+        process.env.REACT_APP_API_URL+"/notification",
         {
           receiverId,
           elementId,
@@ -59,7 +59,7 @@ export const createNotification = async (
             },
         };
         const response = await axios.post(
-            "http://localhost:5000/proposition/"+id,
+            process.env.REACT_APP_API_URL+"/proposition/"+id,
             {},
             config
         );

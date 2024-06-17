@@ -1,13 +1,14 @@
 const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const generateToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, { expiresIn: "365d" })
 }
 
 
 const googleAuthRouter = express.Router();
-const CLIENT_URL = "http://localhost:3000";
+const CLIENT_URL = process.env.REACT_APP_CORS_ORIGIN;
 
 googleAuthRouter.get("/login/success", (req, res) => {
   if (req.user) {

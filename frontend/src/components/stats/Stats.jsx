@@ -6,10 +6,10 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { formatNumber } from '../../utils/utils';
 
 function Stats({id}) {
-    const {data: freelancer} = useFetchData("http://localhost:5000/achievements/freelancer/"+id);
-    const {data: client} = useFetchData("http://localhost:5000/achievements/client/"+id);
-    const {data: freelancerMonthIncome} = useFetchData("http://localhost:5000/achievements/income/"+id);
-    const {data: clientMonthSpending} = useFetchData("http://localhost:5000/achievements/spending/"+id);
+    const {data: freelancer} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/freelancer/"+id);
+    const {data: client} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/client/"+id);
+    const {data: freelancerMonthIncome} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/income/"+id);
+    const {data: clientMonthSpending} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/spending/"+id);
 
     
     return (

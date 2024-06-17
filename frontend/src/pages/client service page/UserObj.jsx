@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function UserObj({ id, collabs}) {
   const { data: user } = useFetchData(
-    `http://localhost:5000/user/${id}`
+    `${process.env.REACT_APP_API_URL}/user/${id}`
   );
   return (
     <div className="userobjj">

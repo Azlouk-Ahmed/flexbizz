@@ -10,14 +10,14 @@ import { useFetchData } from '../../hooks/useFetchData';
 function Row({proposition, setselectedPropositions}) {
     const { dispatch } = useOffersContext();
     const {auth} = useAuthContext();
-    const {data} = useFetchData("http://localhost:5000/achievements/freelancer/rate/"+proposition.freelancer._id);
+    const {data} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/freelancer/rate/"+proposition.freelancer._id);
     const stars = Array.from({ length: 5 }, (_, index) =>
         index < data?.avgRating ? <TbStarFilled /> : <TbStar />
     );
     async function deleteElement(id) {
       if(auth) {
         try {
-            const response = await axios.delete(`http://localhost:5000/proposition/${id}`, {
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/proposition/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${auth.token}`
                 }

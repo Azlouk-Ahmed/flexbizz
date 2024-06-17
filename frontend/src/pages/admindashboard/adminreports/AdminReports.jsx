@@ -10,7 +10,7 @@ import { BiCheck } from 'react-icons/bi';
 
 function AdminReports() {
   const { reports, dispatch } = useActContext();
-  const { data } = useFetchData("http://localhost:5000/report/admin/delivered");
+  const { data } = useFetchData(process.env.REACT_APP_API_URL+"/report/admin/delivered");
   const { auth } = useAuthContext();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function AdminReports() {
     console.log("clicked");
     if (auth) {
       try {
-        const response = await axios.put(`http://localhost:5000/report/admin/${id}`, { status: "handled" }, {
+        const response = await axios.put(`${process.env.REACT_APP_API_URL}/report/admin/${id}`, { status: "handled" }, {
           headers: {
             Authorization: `Bearer ${auth.token}`
           }

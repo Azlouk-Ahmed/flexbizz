@@ -7,8 +7,8 @@ import { formatDate } from "../../utils/utils";
 
 
 function InvoiceComponent({data}) {
-	const {data : client} = useFetchData("http://localhost:5000/user/"+data.clientId);
-	const {data : freelancer} = useFetchData("http://localhost:5000/user/"+data.freelancerId);
+	const {data : client} = useFetchData(process.env.REACT_APP_API_URL+"/user/"+data.clientId);
+	const {data : freelancer} = useFetchData(process.env.REACT_APP_API_URL+"/user/"+data.freelancerId);
 	console.log(data);
   return (
     <div className='invoicepage'>

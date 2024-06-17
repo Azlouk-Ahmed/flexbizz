@@ -38,11 +38,11 @@ function SignUp() {
       // Append the image file
       if (formData.image) {
         formDataToSend.append("image", formData.image);
-        formDataToSend.append("img", "http://localhost:5000/uploads/usersimg/"+formData.image.name);
+        formDataToSend.append("img", process.env.REACT_APP_API_URL+"/uploads/usersimg/"+formData.image.name);
       }
   
       const response = await axios.post(
-        "http://localhost:5000/user/signup",
+        process.env.REACT_APP_API_URL+"/user/signup",
         formDataToSend,
         {
           headers: {

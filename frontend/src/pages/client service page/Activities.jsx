@@ -145,7 +145,7 @@ function Activities({loading}) {
                 file : <a
                 className="display-file"
                 target='_blank'
-                href={`http://localhost:5000/uploads/projectfiles/${details.body.content}`}
+                href={`${process.env.REACT_APP_API_URL}/uploads/projectfiles/${details.body.content}`}
                 download
               >
                 <CiFileOn /> {details.body.content}

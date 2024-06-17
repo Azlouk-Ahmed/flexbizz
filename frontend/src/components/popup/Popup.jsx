@@ -18,7 +18,7 @@ function Popup({ selectedpropositions, setselectedPropositions }) {
     try{
         localStorage.setItem("payto",JSON.stringify(selectedpropositions));
         setLoading(true);
-        const response =await axios.post("http://localhost:5000/api/payer",{"amount":ammount});
+        const response =await axios.post(process.env.REACT_APP_API_URL+"/api/payer",{"amount":ammount});
         window.open(response.data.result.link, "_blank");
         setLoading(false);
     }

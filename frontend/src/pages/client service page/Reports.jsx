@@ -17,7 +17,7 @@ function Reports() {
   const {reports, dispatch} = useActContext();
   const [selectedReport, setSelectedReport] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data } = useFetchData("http://localhost:5000/report/");
+  const { data } = useFetchData(process.env.REACT_APP_API_URL+"/report/");
   const {auth} = useAuthContext();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Reports() {
   const handleModify =async (id) => {
     console.log("clicked");
     if(auth){try {
-      const response = await axios.put(`http://localhost:5000/report/${id}`, { status: "delivered" }, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/report/${id}`, { status: "delivered" }, {
         headers: {
           Authorization: `Bearer ${auth.token}` 
         }
@@ -48,7 +48,7 @@ function Reports() {
 
   const handleDelete = async (id) => {
     if(auth){try {
-      const response = await axios.put(`http://localhost:5000/report/${id}`, { status: "cancelled" }, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/report/${id}`, { status: "cancelled" }, {
         headers: {
           Authorization: `Bearer ${auth.token}` 
         }

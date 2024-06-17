@@ -35,7 +35,7 @@ function MessageModal() {
 
       try {
         createdChat = await axios.post(
-          `http://localhost:5000/chat/${sendMessageModal}`,
+          `${process.env.REACT_APP_API_URL}/chat/${sendMessageModal}`,
           {},
           {
             headers: {
@@ -55,7 +55,7 @@ function MessageModal() {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/message/${createdChat.data._id}`,
+          `${process.env.REACT_APP_API_URL}/message/${createdChat.data._id}`,
           {
             headers: {
               Authorization: `Bearer ${auth?.token}`,

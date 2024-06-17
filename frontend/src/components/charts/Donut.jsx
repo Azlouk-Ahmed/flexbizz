@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { PieChart, Pie, ResponsiveContainer, Sector, Tooltip } from 'recharts';
 
 const Donut = ({ data }) => {
-    console.log(data);
     const COLORS = ['#0088FE', '#FFBB28', '#FF8042'];
 
     // Create pieData from the props data

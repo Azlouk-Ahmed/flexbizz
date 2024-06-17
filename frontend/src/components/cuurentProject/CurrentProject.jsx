@@ -16,9 +16,9 @@ import { CiFileOn } from 'react-icons/ci';
 function CurrentProject({ project, setopen }) {
   const { dispatch } = useOffersContext();
   const { auth } = useAuthContext();
-  const { data: freelancer } = useFetchData("http://localhost:5000/user/" + project.freelancer);
-  const { data: client } = useFetchData("http://localhost:5000/user/" + project.client);
-  const { data: announcement } = useFetchData("http://localhost:5000/announcement/" + project.announcement);
+  const { data: freelancer } = useFetchData(process.env.REACT_APP_API_URL+"/user/" + project.freelancer);
+  const { data: client } = useFetchData(process.env.REACT_APP_API_URL+"/user/" + project.client);
+  const { data: announcement } = useFetchData(process.env.REACT_APP_API_URL+"/announcement/" + project.announcement);
   const [file, setFile] = useState(null);
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
@@ -58,7 +58,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file);
       console.log(formData);
   
-      const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -85,7 +85,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file);
       console.log(formData);
   
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/1`, formData, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/1`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -112,7 +112,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file1);
       console.log(formData);
   
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/2`, formData, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/2`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -141,7 +141,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file2);
       console.log(formData);
   
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/3`, formData, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/3`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -169,7 +169,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file1);
       console.log(formData);
   
-      const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -197,7 +197,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       formData.append('file', file2);
       console.log(formData);
   
-      const response = await axios.post(`http://localhost:5000/projects/${project._id}/work-version`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -221,7 +221,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
   const confirmVersion1 = async () => {
     setLoadingFileConfirm1(true);
     try {
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/1/confirm`, {}, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/1/confirm`, {}, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -242,7 +242,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
 
   const handleCurrentProjectStatusChange = async (projectId) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/projects/${projectId}/markAsDone`, {}, {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/projects/${projectId}/markAsDone`, {}, {
         headers: {
           Authorization: `Bearer ${auth?.token}`
         }
@@ -260,7 +260,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
     setLoadingFileConfirm2(true);
     try {
   
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/2/confirm`, {}, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/2/confirm`, {}, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -286,7 +286,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
     setLoadingFileConfirm3(true);
     try {
   
-      const response = await axios.put(`http://localhost:5000/projects/${project._id}/work-version/3/confirm`, {}, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/projects/${project._id}/work-version/3/confirm`, {}, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${auth.token}`
@@ -376,7 +376,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
       <a
                 className="display-file"
                 target='_blank'
-                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[0].content}`}
+                href={`${process.env.REACT_APP_API_URL}/uploads/projectfiles/${project.workVersions[0].content}`}
                 download
               >
                 <CiFileOn /> {project.workVersions[0].content}
@@ -433,7 +433,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
                   <a
                 className="display-file"
                 target='_blank'
-                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[1].content}`}
+                href={`${process.env.REACT_APP_API_URL}/uploads/projectfiles/${project.workVersions[1].content}`}
                 download
               >
                 <CiFileOn /> {project.workVersions[1].content}
@@ -491,7 +491,7 @@ const [loadingFileConfirm3, setLoadingFileConfirm3] = useState(false);
                   <a
                 className="display-file"
                 target='_blank'
-                href={`http://localhost:5000/uploads/projectfiles/${project.workVersions[2].content}`}
+                href={`${process.env.REACT_APP_API_URL}/uploads/projectfiles/${project.workVersions[2].content}`}
                 download
               >
                 <CiFileOn /> {project.workVersions[2].content}

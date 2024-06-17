@@ -8,7 +8,7 @@ function Banned() {
         console.log("logged out")
         localStorage.removeItem("auth");
         dispatch({type:"LOGOUT"})
-        window.open("http://localhost:5000/auth/logout", "_self");
+        window.open(process.env.REACT_APP_API_URL+"/auth/logout", "_self");
     }
   return (
     <div className='centergrid ban'>

@@ -12,7 +12,7 @@ import { useNotificationContext } from "../hooks/useNotificationContext";
 function Notifications({ setnotifOpened }) {
   const {dispatch} = useNotificationContext();
   const { data, error, loading } = useFetchData(
-    "http://localhost:5000/notification"
+    process.env.REACT_APP_API_URL+"/notification"
   );
   useEffect(() => {
     dispatch({

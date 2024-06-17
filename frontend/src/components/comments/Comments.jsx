@@ -22,7 +22,7 @@ function Comments() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/comment/announcement/${commentsOpened}`
+          `${process.env.REACT_APP_API_URL}/comment/announcement/${commentsOpened}`
         );
         dispatch({ type: "SET_COMMENTS", payload: response.data });
         setLoading(false);
@@ -44,7 +44,7 @@ function Comments() {
         }
       };
       const response = await axios.post(
-        `http://localhost:5000/comment/announcement/${commentsOpened}`,
+        `${process.env.REACT_APP_API_URL}/comment/announcement/${commentsOpened}`,
         { content: commentContent },
         config
       );
@@ -64,7 +64,7 @@ function Comments() {
         }
       };
       const response = await axios.delete(
-        `http://localhost:5000/comment/announcement/${commentsOpened}/${commentId}`,
+        `${process.env.REACT_APP_API_URL}/comment/announcement/${commentsOpened}/${commentId}`,
         config
         );
         console.log(response.data);

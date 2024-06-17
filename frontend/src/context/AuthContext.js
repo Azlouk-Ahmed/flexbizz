@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
             const auth = JSON.parse(localStorage.getItem('auth'));
             if (auth) {
                 try {
-                    const response = await axios.get(`http://localhost:5000/user/${auth.user._id}`);
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${auth.user._id}`);
                     console.log("response", response.data );
                     if (response.data) {
                         dispatch({ type: 'LOGIN', payload: { ...auth, user: response.data} });

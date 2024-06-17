@@ -72,7 +72,7 @@ function OfferForm() {
             console.log(key," : ", value);
         }
         
-        const {data, error} = await postRequest("http://localhost:5000/announcement",formData,auth?.token);
+        const {data, error} = await postRequest(process.env.REACT_APP_API_URL+"/announcement",formData,auth?.token);
         if(data) {
             toast.success('your announcement is sent to admins');
             setLoading(false);

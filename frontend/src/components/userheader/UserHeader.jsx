@@ -6,7 +6,7 @@ import { TbStarFilled } from "react-icons/tb";
 
 
 function UserHeader({user}) {
-    const {data} = useFetchData("http://localhost:5000/achievements/freelancer/rate/"+user._id);
+    const {data} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/freelancer/rate/"+user._id);
     const stars = Array.from({ length: 5 }, (_, index) =>
         index < data?.avgRating ? <TbStarFilled /> : <TbStar />
     );

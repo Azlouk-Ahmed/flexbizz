@@ -39,7 +39,7 @@ function SendMessageComponent({receiver }) {
             }
             try {
                 const response = await axios.post(
-                    `http://localhost:5000/message/`,
+                    `${process.env.REACT_APP_API_URL}/message/`,
                     formData,
                     {
                         headers: {

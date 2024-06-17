@@ -12,7 +12,7 @@ function PaymentRedirect() {
         if(auth) {
             
           try {
-              const response = await axios.delete(`http://localhost:5000/proposition/${id}`, {
+              const response = await axios.delete(`${process.env.REACT_APP_API_URL}/proposition/${id}`, {
                   headers: {
                       'Authorization': `Bearer ${auth.token}`
                   }
@@ -40,7 +40,7 @@ function PaymentRedirect() {
     
                     try {
                         const response = await axios.post(
-                            `http://localhost:5000/projects/${freelancer._id}`, 
+                            `${process.env.REACT_APP_API_URL}/projects/${freelancer._id}`, 
                             {
                                 announcement: announcementId._id
                             }, 

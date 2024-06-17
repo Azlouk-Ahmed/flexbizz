@@ -10,7 +10,7 @@ function Rating({ setOpen, project }) {
   const [rating, setRating] = useState(1); 
   const [feedback, setFeedback] = useState('');
   const { auth } = useAuthContext();
-  const { data: dataAnnouncement } = useFetchData(`http://localhost:5000/announcement/${project.announcement}`);
+  const { data: dataAnnouncement } = useFetchData(`${process.env.REACT_APP_API_URL}/announcement/${project.announcement}`);
   const navigate = useNavigate();
 
   const handleRatingChange = (event) => {
@@ -25,7 +25,7 @@ function Rating({ setOpen, project }) {
     event.preventDefault();
     if (dataAnnouncement && auth) {
       const token = auth.token;
-      const url = `http://localhost:5000/achievements/${project.freelancer}`;
+      const url = `${process.env.REACT_APP_API_URL}/achievements/${project.freelancer}`;
       const data = {
         announcementId: project.announcement,
         clientRating: rating,

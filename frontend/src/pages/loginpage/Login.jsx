@@ -19,7 +19,7 @@ function Login() {
             alert('Please fill in both email and password fields');
             return;
         }
-        axios.post("http://localhost:5000/user/login", { email, password })
+        axios.post(process.env.REACT_APP_API_URL+"/user/login", { email, password })
             .then((response) => {
                 dispatch({type: "LOGIN",payload: response.data})
           		localStorage.setItem("auth",JSON.stringify(response.data));

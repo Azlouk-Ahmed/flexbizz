@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 
 function Slide({data}) {
-    const {data : user} = useFetchData("http://localhost:5000/user/"+data.client);
+    const {data : user} = useFetchData(process.env.REACT_APP_API_URL+"/user/"+data.client);
     const stars = Array.from({ length: 5 }, (_, index) =>
         index < data.clientRating ? <TbStarFilled /> : <TbStar />
     );

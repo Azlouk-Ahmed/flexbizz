@@ -6,7 +6,7 @@ import InvoiceComponent from './InvoiceComponent';
 
 function Invoices() {
     const { auth } = useAuthContext();
-    const { data } = useFetchData("http://localhost:5000/transaction/user/" + auth?.user?._id);
+    const { data } = useFetchData(process.env.REACT_APP_API_URL+"/transaction/user/" + auth?.user?._id);
 
 
     const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);

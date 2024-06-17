@@ -3,7 +3,7 @@ import { useFetchData } from '../../hooks/useFetchData';
 import { Link } from 'react-router-dom';
 
 function UserAct({ user, index, isChecked, onCheckboxChange, count }) {
-  const { data: countact } = useFetchData(`http://localhost:5000/activities/activities/count/${user._id}`);
+  const { data: countact } = useFetchData(`${process.env.REACT_APP_API_URL}/activities/activities/count/${user._id}`);
 
   const handleChange = () => {
     onCheckboxChange(user._id);

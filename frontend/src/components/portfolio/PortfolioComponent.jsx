@@ -18,7 +18,7 @@ import LazyImage from '../lazyloadimg/LazyImage';
 function PortfolioComponent() {
   const [portfolioData, setPortfolioData] = useState(null);
   const { auth } = useAuthContext();
-  const {data, loading, error} = useFetchData("http://localhost:5000/portfolio/user")
+  const {data, loading, error} = useFetchData(process.env.REACT_APP_API_URL+"/portfolio/user")
 
   useEffect(() => {
     setPortfolioData(data);

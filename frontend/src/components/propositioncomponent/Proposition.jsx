@@ -11,7 +11,7 @@ function Proposition({proposition, setselectedPropositions}) {
   async function deleteElement(id) {
     if(auth) {
       try {
-          const response = await axios.delete(`http://localhost:5000/proposition/${id}`, {
+          const response = await axios.delete(`${process.env.REACT_APP_API_URL}/proposition/${id}`, {
               headers: {
                   'Authorization': `Bearer ${auth.token}`
               }

@@ -1,8 +1,10 @@
+require('dotenv').config();
 const io = require("socket.io")(8800, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: process.env.REACT_APP_CORS_ORIGIN,
     },
   });
+  console.log(process.env.REACT_APP_CORS_ORIGIN);
   
   let activeUsers = [];
   

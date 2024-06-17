@@ -26,9 +26,9 @@ import EditPortfolio from '../../components/userPortfolio/EditPortfolio';
 
 function UserPage() {
     const { auth } = useAuthContext();
-    const { loading, data, error } = useFetchData("http://localhost:5000/portfolio/user");
-    const { data: incodata } = useFetchData("http://localhost:5000/achievements/finances/"+auth?.user?._id);
-    console.log("inc",incodata);
+    const { loading, data, error } = useFetchData(process.env.REACT_APP_API_URL+"/portfolio/user");
+    const { data: incodata } = useFetchData(process.env.REACT_APP_API_URL+"/achievements/finances/"+auth?.user?._id);
+    console.log("icicicicicicicicicc");
     const pdfExportComponent = useRef(null);
     const { currentProjects,commentsOpened, dispatch, offers, reportModal } =
     useOffersContext();
@@ -37,7 +37,7 @@ function UserPage() {
     const [addportfolio, setaddportfolio] = useState(false);
     const [editportfolio, setEditPortfolio] = useState(false);
     const { data: offersData } = useFetchData(
-        "http://localhost:5000/announcement/createdby/" + auth?.user._id
+        process.env.REACT_APP_API_URL+"/announcement/createdby/" + auth?.user._id
       );
 
       useEffect(() => {
@@ -56,7 +56,7 @@ function UserPage() {
         }
     };
     const { data: currentProjectsData } = useFetchData(
-        "http://localhost:5000/projects/user/" + auth?.user._id
+        process.env.REACT_APP_API_URL+"/projects/user/" + auth?.user._id
       );
 
       useEffect(() => {

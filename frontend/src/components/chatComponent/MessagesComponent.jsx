@@ -17,7 +17,7 @@ function MessagesComponent({ onlineusers }) {
   const { messages, dispatch, isTyping,selectedChat : chat } = useChatsContext();
   const [istyping, setIsTyping] = useState(false);
   const {socket} = useSocketContext();
-  const {error,data,loading} = useFetchData(`http://localhost:5000/message/${chat._id}`);
+  const {error,data,loading} = useFetchData(`${process.env.REACT_APP_API_URL}/message/${chat._id}`);
 
   useEffect(() => {
         if (socket) {

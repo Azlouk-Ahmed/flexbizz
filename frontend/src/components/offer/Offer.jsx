@@ -33,7 +33,7 @@ function Offer({ offer, admin }) {
         },
       };
       const response = await axios.put(
-        `http://localhost:5000/announcement/like/${id}`,
+        `${process.env.REACT_APP_API_URL}/announcement/like/${id}`,
         {},
         config
       );
@@ -62,7 +62,7 @@ function Offer({ offer, admin }) {
   const apply = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/announcement/apply/${id}`,
+        `${process.env.REACT_APP_API_URL}/announcement/apply/${id}`,
         {},
         {
           headers: {
@@ -101,7 +101,7 @@ function Offer({ offer, admin }) {
     console.log(id);
     try {
       const response = await axios.put(
-        `http://localhost:5000/announcement/accept/${id}`,
+        `${process.env.REACT_APP_API_URL}/announcement/accept/${id}`,
         {},
         {
           headers: {
@@ -120,7 +120,7 @@ function Offer({ offer, admin }) {
   const handleDeleteClick = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/announcement/del/${id}`,
+        `${process.env.REACT_APP_API_URL}/announcement/del/${id}`,
         {
           headers: {
             Authorization: `Bearer ${auth?.token}`,
@@ -183,7 +183,7 @@ function Offer({ offer, admin }) {
             className="display-file"
             target="_blank"
             rel="noopener noreferrer"
-            href={`http://localhost:5000/uploads/announcement/${offer?.attachment}`}
+            href={`${process.env.REACT_APP_API_URL}/uploads/announcement/${offer?.attachment}`}
             download
           >
             {offer?.attachment}

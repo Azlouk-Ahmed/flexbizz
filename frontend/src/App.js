@@ -38,7 +38,7 @@ const Dashboard = lazy(() => import("./pages/admindashboard/Dashboard"));
 
 function App() {
   const { dispatch, auth } = useAuthContext();
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
   useEffect(() => {
     const getUser = () => {

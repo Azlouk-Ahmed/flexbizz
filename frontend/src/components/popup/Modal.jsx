@@ -34,7 +34,7 @@ const BackDrop = styled(motion.div)`
 function Modal({ isOpen, onClose, report }) {
     console.log("report from model :",report);
 
-    const {data} = useFetchData("http://localhost:5000/report/"+report)
+    const {data} = useFetchData(process.env.REACT_APP_API_URL+"/report/"+report)
   if (!isOpen) return null;
 
 

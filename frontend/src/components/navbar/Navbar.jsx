@@ -23,7 +23,7 @@ import { FaFileInvoice } from 'react-icons/fa6';
 require("./sidebar.css")
 
 function Navbar({user}) {
-    const {data} = useFetchData("http://localhost:5000/user/connections/pending");
+    const {data} = useFetchData(process.env.REACT_APP_API_URL+"/user/connections/pending");
     const {notifications, messages} = useNotificationContext();
     const [opened, setOpened] = useState(false);
     const [istoggled, setistoggled] = useState(false);
@@ -35,14 +35,14 @@ function Navbar({user}) {
         console.log("logged out")
         localStorage.removeItem("auth");
         dispatch({type:"LOGOUT"})
-        window.open("http://localhost:5000/auth/logout", "_self");
+        window.open(process.env.REACT_APP_API_URL+"/auth/logout", "_self");
     }
 
     const handletogglechange = () => {
       setistoggled(!istoggled);
     }
 
-    const {data: propos} = useFetchData("http://localhost:5000/proposition");
+    const {data: propos} = useFetchData(process.env.REACT_APP_API_URL+"/proposition");
 
     
     

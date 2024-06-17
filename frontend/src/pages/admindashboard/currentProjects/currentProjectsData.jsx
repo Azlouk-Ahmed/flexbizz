@@ -17,7 +17,7 @@ function CurrentProjectsData() {
         }
     };
     const [data, setData] = useState([]);
-    const { data: currentprojects } = useFetchData("http://localhost:5000/projects/");
+    const { data: currentprojects } = useFetchData(process.env.REACT_APP_API_URL+"/projects/");
 
     useEffect(() => {
         if (currentprojects && Array.isArray(currentprojects)) {
@@ -52,7 +52,7 @@ function CurrentProjectsData() {
     const handleConfirmPayment = async (row) => {
         try {
             const response = await axios.post(
-                `http://localhost:5000/transaction`,
+                `${process.env.REACT_APP_API_URL}/transaction`,
                 {
                     clientId: row.client,
                     freelancerId: row.freelancer,
@@ -72,10 +72,10 @@ function CurrentProjectsData() {
     
             if (response.data && response.data.projectBudget > 0) {
                 try {
-                    await axios.delete(`http://localhost:5000/projects/${row.id}`,config);
+                    await axios.delete(`${process.env.REACT_APP_API_URL}/projects/${row.id}`,config);
     
                     const responseData = await axios.post(
-                        "http://localhost:5000/api/payer",
+                        process.env.REACT_APP_API_URL+"/api/payer",
                         { "amount": response.data.projectBudget * 1000 }
                     );
     
@@ -95,7 +95,7 @@ function CurrentProjectsData() {
     const handleRefund =async (row) => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/announcement/${row.announcement}`,
+                `${process.env.REACT_APP_API_URL}/announcement/${row.announcement}`,
                 config
             );
             createNotification(
@@ -109,10 +109,10 @@ function CurrentProjectsData() {
     
             if (response.data && response.data.budgetMax > 0) {
                 try {
-                    await axios.delete(`http://localhost:5000/projects/${row.id}`,config);
+                    await axios.delete(`${process.env.REACT_APP_API_URL}/projects/${row.id}`,config);
     
                     const responseData = await axios.post(
-                        "http://localhost:5000/api/payer",
+                        process.env.REACT_APP_API_URL+"/api/payer",
                         { "amount": response.data.budgetMax * 1000 }
                     );
     
@@ -139,7 +139,7 @@ function CurrentProjectsData() {
             width: 200,
             renderCell: (params) => (
                 params.value !== "N/A" ? 
-                <a href={`http://localhost:5000/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="version-content">
+                <a href={`${process.env.REACT_APP_API_URL}/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="version-content">
                     {params.value}
                 </a> : "N/A"
             ),
@@ -160,7 +160,7 @@ function CurrentProjectsData() {
             width: 200,
             renderCell: (params) => (
                 params.value !== "N/A" ? 
-                <a href={`http://localhost:5000/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="link">
+                <a href={`${process.env.REACT_APP_API_URL}/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="link">
                     {params.value}
                 </a> : "N/A"
             ),
@@ -181,7 +181,7 @@ function CurrentProjectsData() {
             width: 200,
             renderCell: (params) => (
                 params.value !== "N/A" ? 
-                <a href={`http://localhost:5000/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="version-content">
+                <a href={`${process.env.REACT_APP_API_URL}/uploads/${params.value}`} target="_blank" rel="noopener noreferrer" className="version-content">
                     {params.value}
                 </a> : "N/A"
             ),

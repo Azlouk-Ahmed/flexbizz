@@ -12,7 +12,7 @@ import { IoPersonRemove } from "react-icons/io5";
 
 function Allusers() {
   const [users, setUsers] = useState([]);
-  const { error, data, loading } = useFetchData("http://localhost:5000/user/");
+  const { error, data, loading } = useFetchData(process.env.REACT_APP_API_URL+"/user/");
   const [searchQuery, setSearchQuery] = useState('');
   const { auth } = useAuthContext();
   const [requestsSent, setRequestsSent] = useState([]);
@@ -30,7 +30,7 @@ function Allusers() {
   const handleUserAdd = async (userId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/connection/${userId}`,
+        `${process.env.REACT_APP_API_URL}/user/connection/${userId}`,
         {},
         {
           headers: {
@@ -53,7 +53,7 @@ function Allusers() {
   const handleRemoveConnection = async (userId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/connections/remove/${userId}`,{},
+        `${process.env.REACT_APP_API_URL}/user/connections/remove/${userId}`,{},
         {
           headers: {
             'Authorization': `Bearer ${auth.token}`

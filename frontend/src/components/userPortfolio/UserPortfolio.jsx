@@ -8,7 +8,7 @@ import "./userporfolio.css";
 
 function UserPortfolio({ data, userId }) {
   const { data: userData } = useFetchData(
-    `http://localhost:5000/user/` + userId
+    `${process.env.REACT_APP_API_URL}/user/` + userId
   );
   console.log("from pro",data);
 

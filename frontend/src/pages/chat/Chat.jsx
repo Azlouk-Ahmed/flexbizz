@@ -76,7 +76,7 @@ function Chat() {
                 return;
             }
 
-                const response = await axios.post(`http://localhost:5000/chat/${userId}`, {}, {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat/${userId}`, {}, {
                     headers: {
                         'authorization': `Bearer ${auth.token}`
                     }

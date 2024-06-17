@@ -17,8 +17,8 @@ function ConnectionRequests({ setreqOpened, data }) {
   const handleAccept = async (connectionUserId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/connections/accept/${connectionUserId}`,
-        {},
+        `${process.env.REACT_APP_API_URL}/user/connection/${connectionUserId}`,
+        null,
         {
           headers: {
             Authorization: `Bearer ${auth?.token}`,
@@ -36,7 +36,7 @@ function ConnectionRequests({ setreqOpened, data }) {
   const handleDecline = async (connectionUserId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/connections/remove/${connectionUserId}`,
+        `${process.env.REACT_APP_API_URL}/user/connections/remove/${connectionUserId}`,
         {},
         {
           headers: {

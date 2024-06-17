@@ -12,7 +12,7 @@ import Empty from "../error/Empty";
 function Offers({admin}) {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const { dispatch, offers, commentsOpened, sendMessageModal,reportModal } = useOffersContext();
-  const {loading, data} = useFetchData("http://localhost:5000/announcement")
+  const {loading, data} = useFetchData(process.env.REACT_APP_API_URL+"/announcement")
   
 
  

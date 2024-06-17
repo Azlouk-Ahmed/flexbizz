@@ -7,12 +7,10 @@ import Offer from '../offer/Offer';
 import ReportModal from '../reportModal/ReportModal';
 import MessageModal from '../messageModal/MessageModal';
 import Comments from '../comments/Comments';
-import OfferForm from '../add offer component/OfferForm';
 
 function OfferInfinite() {
     
     const { auth } = useAuthContext();
-    const [isOpenForm, setIsOpenForm] = useState(false);
     const {  commentsOpened, sendMessageModal,reportModal, dispatch, offers } = useOffersContext();
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
@@ -25,7 +23,7 @@ function OfferInfinite() {
 
         try {
             const response = await axios.get(
-                `http://localhost:5000/announcement/infinite?page=${page}&limit=${limit}`
+                `${process.env.REACT_APP_API_URL}/announcement/infinite?page=${page}&limit=${limit}`
             );
 
             if (response.data.offers.length === 0 || page >= response.data.totalPages) {

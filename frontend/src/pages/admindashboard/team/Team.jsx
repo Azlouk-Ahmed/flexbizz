@@ -29,7 +29,7 @@ function Team() {
     };
 
     const handleChangeRole = (userId, newRole) => {
-        axios.put(`http://localhost:5000/user/role`, { userId, newRole }, {
+        axios.put(`${process.env.REACT_APP_API_URL}/user/role`, { userId, newRole }, {
             headers: {
               Authorization: `Bearer ${auth.token}`,
             },
@@ -50,7 +50,7 @@ function Team() {
     };
 
     const handleToggleBan = (userId) => {
-        axios.put(`http://localhost:5000/user/ban`, { userId }, {
+        axios.put(`${process.env.REACT_APP_API_URL}/user/ban`, { userId }, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },

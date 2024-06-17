@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function PropositionsPage() {
   const [selectedpropositions, setselectedPropositions] = useState(false);
   const { data, loading, error } = useFetchData(
-    "http://localhost:5000/proposition"
+    process.env.REACT_APP_API_URL+"/proposition"
   );
   const { sendMessageModal, dispatch, propositions } = useOffersContext();
   const navigate = useNavigate(); 

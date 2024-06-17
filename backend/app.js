@@ -30,7 +30,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.REACT_APP_CORS_ORIGIN,
     credentials: true 
 }));
 

@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 function ClientServicePage() {
   const { users, dispatch } = useActContext();
-  const { data: userData, error: userError } = useFetchData("http://localhost:5000/user/");
-  const { data: activities, loading: actLoading, error: actError } = useFetchData("http://localhost:5000/activities/activities");
+  const { data: userData, error: userError } = useFetchData(process.env.REACT_APP_API_URL+"/user/");
+  const { data: activities, loading: actLoading, error: actError } = useFetchData(process.env.REACT_APP_API_URL+"/activities/activities");
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState('');
@@ -30,7 +30,7 @@ function ClientServicePage() {
   const handleSearch = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/user/search", { name: searchQuery });
+      const response = await axios.post(process.env.REACT_APP_API_URL+"/user/search", { name: searchQuery });
       dispatch({ type: "SET_USERS", payload: response.data });
     } catch (error) {
       console.error("Error searching users:", error);
@@ -42,7 +42,7 @@ function ClientServicePage() {
   const getUserAct = async (id) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/activities/activities/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/activities/activities/${id}`);
       dispatch({ type: "SET_ACTIVITIES", payload: response.data });
     } catch (error) {
       console.error("Error fetching user activities:", error);

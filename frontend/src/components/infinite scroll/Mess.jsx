@@ -16,7 +16,7 @@ function Mess() {
     try {
       const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQyNjc1ZGMzZGZlYWY0MmQ4NDM0Y2IiLCJpYXQiOjE3MDg5NTI2NDUsImV4cCI6MTc0MDQ4ODY0NX0.uhdaM7rwc5uWpho--dNwyisKAoIMdtALAuDB8DsD0DA'; // Replace with your token
       const response = await axios.get(
-        `http://localhost:5000/message/infinite/65d27370745513700d75792f?page=${page}&limit=${limit}`,
+        `${process.env.REACT_APP_API_URL}/message/infinite/65d27370745513700d75792f?page=${page}&limit=${limit}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

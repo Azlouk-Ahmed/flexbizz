@@ -32,8 +32,8 @@ function Dashboard() {
     }
   }, [authLocal, navigate]);
 
-  const {data: finance} = useFetchData("http://localhost:5000/achievements/admin");
-  const {data: topactive} = useFetchData("http://localhost:5000/activities/activities/top");
+  const {data: finance} = useFetchData(process.env.REACT_APP_API_URL+"/achievements/admin");
+  const {data: topactive} = useFetchData(process.env.REACT_APP_API_URL+"/activities/activities/top");
   return (
     <>
     
