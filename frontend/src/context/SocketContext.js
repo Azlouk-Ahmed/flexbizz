@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('ws://localhost:8800');
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL);
     setSocket(newSocket);
     return () => newSocket.close();
   }, []);

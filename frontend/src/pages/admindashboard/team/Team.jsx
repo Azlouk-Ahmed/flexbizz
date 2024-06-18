@@ -11,7 +11,7 @@ function Team() {
     const { auth } = useAuthContext();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/user/')
+        axios.get(process.env.REACT_APP_API_URL+'/user/')
             .then(response => {
                 setUserData(response.data);
             })

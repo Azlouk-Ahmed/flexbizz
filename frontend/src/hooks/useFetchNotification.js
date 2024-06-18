@@ -76,7 +76,7 @@ export const useFetchNotification = () => {
                       payload: receivedMessage,
                   });
                   if(!sendMessageModal){
-                    const response = await axios.get(`http://localhost:5000/chat/find/${receivedMessage.senderId}`, {
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/find/${receivedMessage.senderId}`, {
                         headers: {
                             'Authorization': `Bearer ${auth?.token}`
                         }

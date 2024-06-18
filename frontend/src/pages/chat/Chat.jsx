@@ -29,7 +29,7 @@ function Chat() {
     const { auth } = useAuthContext();
     const { dispatch: dispatchNotification, messages } = useNotificationContext();
     const [commingMsg, setcommingMsg] = useState(null);
-    const { data: fetchedChats, loading: fetchingChats, error: fetchChatsError } = useFetchData('http://localhost:5000/chat/');
+    const { data: fetchedChats, loading: fetchingChats, error: fetchChatsError } = useFetchData(process.env.REACT_APP_API_URL+'/chat/');
 
     useEffect(() => {
         if (fetchedChats) {

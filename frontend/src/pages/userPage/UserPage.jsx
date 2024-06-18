@@ -28,7 +28,6 @@ function UserPage() {
     const { auth } = useAuthContext();
     const { loading, data, error } = useFetchData(process.env.REACT_APP_API_URL+"/portfolio/user");
     const { data: incodata } = useFetchData(process.env.REACT_APP_API_URL+"/achievements/finances/"+auth?.user?._id);
-    console.log("icicicicicicicicicc");
     const pdfExportComponent = useRef(null);
     const { currentProjects,commentsOpened, dispatch, offers, reportModal } =
     useOffersContext();
@@ -68,7 +67,7 @@ function UserPage() {
       const [open, setopen] = useState(false);
       const handleDelete = async () => {
         try {
-            await axios.delete('http://localhost:5000/portfolio', {
+            await axios.delete(process.env.REACT_APP_API_URL+'/portfolio', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },

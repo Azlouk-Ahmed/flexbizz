@@ -289,7 +289,7 @@ function EditPortfolio({setEditPortfolio, data}) {
         };
     
         try {
-          const response = await axios.put('http://localhost:5000/portfolio', portfolioData, {
+          const response = await axios.put(process.env.REACT_APP_API_URL+'/portfolio', portfolioData, {
             headers: {
               Authorization: `Bearer ${auth.token}`,
               'Content-Type': 'application/json'
